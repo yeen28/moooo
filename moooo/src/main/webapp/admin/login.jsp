@@ -1,6 +1,8 @@
 <%@page import="kr.co.sist.admin.dao.LoginDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    info="관리자 로그인"
+    %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>    
 <!DOCTYPE html>
@@ -42,12 +44,10 @@ $(function () {
 })//ready
 </script>
 </head>
-<body>
+<body style="background-color: #DFDFDF">
 <c:if test="${ empty sessionScope.admin_id and empty param.admin_id}">
 <div class="container">
-	<h2 style="margin-left: 20px; margin-top: 50px; margin-bottom :200px; font-weight: bold; ">이력서 관리 및 채용공고 관리자</h2>
-	
-	<form action="http://211.63.89.151/admin/admin_login.jsp" id="admin_frm" method="post">
+	<form action="<%= protocol %><%= domain %><%= contextRoot %>/admin/login.jsp" id="admin_frm" method="post">
 		<div>
 			<div style="padding-bottom: 30px;">
 				<h3 class="subtitle">관리자 로그인</h3>
@@ -59,7 +59,7 @@ $(function () {
 						<div class="input-group-addon" aria-label="center Align">
 							<span class="glyphicon glyphicon-user"  style="height: 28px; padding-top: 8px;"  aria-hidden="true"></span>
 						</div>
-						 <input type="text" class="form-control"  name="admin_id" style="height: 50px"  aria-label="Large"  id="admin_id" placeholder="아이디를 입력하세요">
+						 <input type="text" class="form-control"  name="admin_id" style="height: 50px"  aria-label="Large"  id="admin_id" placeholder="아이디">
 					</div>
 				</div>
 				<div class="margin1">
@@ -68,7 +68,7 @@ $(function () {
 						<div class="input-group-addon" aria-label="center Align">
 							<span class="glyphicon glyphicon-align-center"  style="height: 28px; padding-top: 8px;"  aria-hidden="true"></span>
 						</div>
-						 <input type="password" class="form-control"   style="height: 50px"  aria-label="Large"  id="admin_pass" name="admin_pass" placeholder="비밀번호를 입력하세요">
+						 <input type="password" class="form-control"   style="height: 50px"  aria-label="Large"  id="admin_pass" name="pass" placeholder="비밀번호">
 					</div>
 				</div>
 				<div class="margin1">
@@ -94,7 +94,7 @@ String password=request.getParameter("admin_pass");
 LoginDAO mDAO=new LoginDAO();
 session.setAttribute("sess_id", mDAO.selectLogin(aVO.getAdmin_id(), aVO.getPass()));
 %>
-<c:redirect url="<%= protocol %><%= domain %><%= contextRoot %>/admin/admin_main.jsp"/>
+<c:redirect url="dashboard.jsp"/>
 </c:catch>
 
 <c:if test="${ not empty e }">

@@ -1,13 +1,15 @@
 <%@page import="kr.co.sist.admin.dao.LoginDAO"%>
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    info="관리자 비밀번호 변경"
+    %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>    
 
-<c:if test="${ empty sess_id }">
-<c:redirect url="<%= protocol %><%= domain %><%= contextRoot %>/admin/admin_login.jsp"/>
-</c:if>
+<%-- <c:if test="${ empty sess_id }">
+<c:redirect url="login.jsp"/>
+</c:if> --%>
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +26,14 @@
 .title2{  margin-bottom: 20px; margin-top: 50px; font-weight: bold; font-size: 25px;}
 
 </style>
-<jsp:include page="/layout/header.jsp"/>
+
+<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- Bootstrap CDN -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 $(function () {
 	$("#cha_pass_ad").click(function() {
@@ -54,11 +63,11 @@ $(function () {
 </script>
 </head>
 <body>
+<jsp:include page="/layout/header.jsp"/>
 <c:if test="${ not empty sessionScope.sess_id and empty param.pass_ad or param.hid eq 'fail' }">
-      <form action="<%= protocol %><%= domain %><%= contextRoot %>/admin/admin_pass_change.jsp" method="post" id="frm_ad_pass">
+      <form action="change_pass.jsp" method="post" id="frm_ad_pass">
       <div>
          <div style="margin: 0px auto; width: 600px;text-align: left;">
-            <h3 class="title2">관리자 비밀번호 변경</h3>
          </div>
          <div class="wrap">
             <div class="margin1">
@@ -86,7 +95,7 @@ $(function () {
 request.setCharacterEncoding("UTF-8");
 %>
 <c:catch var="e">
-<form action="<%= protocol %><%= domain %><%= contextRoot %>/admin/admin_pass_change.jsp" id="procFrm">
+<form action="<%= protocol %><%= domain %><%= contextRoot %>/admin/change_pass.jsp" id="procFrm">
 <%
 /* 입력한 이전 비밀번호가 맞는지 확인 */
 String beforePwd=request.getParameter("pass_ad");
