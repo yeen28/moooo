@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+/* 회원가입 페이지 */
+#agree{padding-bottom: 5px;}
+#container{width: 350px; height: 700px; margin: 150px auto;}
+.sign-title{text-align: center; margin-bottom: 50px;}
+#user_id{width: 270px; float: left;}
+#nickname{width: 270px; float: left;}
+.check_btn{width: 70px;height:35px;font-size: 13px; float: right;}
+.control-label{clear:both;}
+.btn-color{ background-color: #333; color: #FFFFFF; font-weight: bold; margin-top: 10px; }
+.btn-color:hover, .btn-color:visited, .btn-color:active{color:#fff}
+.form-group{ margin-bottom: 10px; }
+
+
+/* 회원가입 완료 페이지 */
+#success_container {
+	width: 500px;
+	height: 400px;
+	margin: 80px auto;
+	text-align: center;
+}
+#success_container>#container_top>span {
+	font-size: 20px;
+}
+#success_container>#container_top>img {
+	width: 300px;
+	margin-bottom: 30px;
+}
+/* 회원탈퇴 */
+#container_mid{
+	border: 3px solid #F3F3F3;
+	margin-top: 30px;
+	padding:25px;
+	height: 80px;
+	background-color: #FBFBFB;
+	font-size: 17px;
+}
+#container_bottom {
+	margin-top: 50px;
+}
+#success_container>#container_bottom > a {
+	margin: 30px 5px 0px 5px;
+	border: 1px solid #FFFFFF;
+	background-color: #E0E0E0;
+	width: 130px;
+	height: 50px;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: none;
+	color: #333;
+	padding: 15px 50px 15px 50px;
+}
+#success_container>#container_bottom > #home {
+	color: #333;
+}
+#success_container>#container_bottom>#login {
+	color: #ffffff;
+	background-color: #3498DB;
+	text-decoration: none;
+}
+hr{
+	margin-top: 40px;
+	width: 300px;
+}

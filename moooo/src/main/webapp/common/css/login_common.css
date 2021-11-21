@@ -1,0 +1,119 @@
+@charset "UTF-8";
+.blind {
+	position: absolute;
+	clip: rect(0, 0, 0, 0);
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	overflow: hidden
+}
+
+.sc_login .ico_naver, .sub_area .link_join:before, .look_box:before {
+	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_57f073.png);
+	-webkit-background-size: 444px 439px;
+	background-size: 444px 439px;
+	background-repeat: no-repeat
+}
+
+.sc_login .ico_naver, .sub_area .link_join:before, .look_box:before {
+	background-image:
+		url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_1x_05f10b.png)
+}
+
+.sc_login {
+	padding: 16px 16px 12px 17px;
+	background-color: #f7f9fa;
+	border: 1px solid #dae1e6
+}
+
+.sc_login .login_msg {
+	padding-left: 3px;
+	color: grey
+}
+
+.link_login{
+	width: 290px;
+}
+
+.sc_login .link_login {
+	display: block;
+	padding: 15px 0;
+	margin-top: 11px;
+	margin-left: 10px;
+	background-color: #333;
+	border: 1px solid #333;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	font-size: 15px;
+	color: #fff;
+	font-weight: 700;
+	text-align: center;
+	text-decoration: none
+}
+
+.sc_login .ico_naver {
+	display: inline-block;
+	width: 60px;
+	height: 12px;
+	background-position: -238px -279px;
+	background-repeat: no-repeat;
+	vertical-align: top;
+	margin: 2px 5px 0 0
+}
+
+.sc_login .sub_area {
+	margin: 14px 8px 0 4px
+}
+
+.sc_login .sub_area:after {
+	content: "";
+	display: table;
+	table-layout: fixed;
+	clear: both
+}
+
+.sc_login .sub_area .look_box {
+	float: left
+}
+
+.sc_login .sub_area .look_box:before {
+	display: inline-block;
+	width: 10px;
+	height: 14px;
+	background-position: -408px -55px;
+	background-repeat: no-repeat;
+	content: '';
+	margin: -1px 1px 1px
+}
+
+.sc_login .sub_area .link_look {
+	color: #404040
+}
+
+.sc_login .sub_area .link_look+.link_look:before {
+	background-color: #d7dce0;
+	display: inline-block;
+	width: 3px;
+	height: 3px;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	vertical-align: top;
+	content: '';
+	margin: 0 5px 0 2px;
+	vertical-align: 3px
+}
+
+.sc_login .sub_area .link_join {
+	float: right;
+	color: #505050
+}
+
+.sc_login .sub_area .link_join:before {
+	display: inline-block;
+	width: 11px;
+	height: 11px;
+	background-position: -239px -337px;
+	background-repeat: no-repeat;
+	content: '';
+	margin: 2px 5px 0 0
+}
