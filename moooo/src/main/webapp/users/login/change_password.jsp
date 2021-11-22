@@ -6,6 +6,11 @@
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
+
+<%-- <c:if test="${ empty sessionScope.id }">
+<c:redirect url="login.jsp"/>
+</c:if> --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,9 +60,6 @@ $(function() {
 </head>
 
 <body>
-<c:if test="${ empty sessionScope.id }">
-<c:redirect url="login_page.jsp"/>
-</c:if>
 <div id="chang_password_wrap">
 <!-- header -->
 <jsp:include page="/layout/header.jsp"/>

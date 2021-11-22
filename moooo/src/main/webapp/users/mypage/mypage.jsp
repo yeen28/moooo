@@ -13,11 +13,20 @@
 <title><%= title %></title>
 
 <style type="text/css">
-div{
-	text-align: center;
+#container{	margin: 80px auto; }
+#nav{
+height: 50px;
 }
-#container{
-	margin: 80px auto;
+#nav_table{
+height: 50px;
+}
+.right_wrap {
+	position: absolute;
+	top: 0px;
+	width: 70%;
+	font-size: 14px;
+	list-style: disc;
+	margin-left: 10px;
 }
 #Logo{
 	width: 1400px;
@@ -27,21 +36,22 @@ div{
 }
 #profile{
 	border: 1px solid #000000; 
-	width: 800px; 
 	height: 1000px; 
 	margin: auto;
 	position: relative;
 /* 	background-color: #B7F0B1;	 */
 }
 #passCh{
-	top: 50px;
+float: right;
+	/* top: 50px;
 	left: 550px;
-	position: absolute;
+	position: absolute; */
 }
 #leave{
-	top: 50px;
+float: right;
+	/* top: 50px;
 	left: 680px;
-	position: absolute;
+	position: absolute; */
 }
 #img{
 	top: 80px;
@@ -51,15 +61,15 @@ div{
 }
 #profimg{
 	border: none;
-	width: 200px;
-	height: 200px;
+	width: 100px;
+	height: 100px;
 	top: 30px;
 	left: 5px;
 	position: absolute;
 /* 	background-color: #FFE08C; */
 }
 #upfile{
-	top: 230px;
+	top: 130px;
 	left: 5px;
 	position: absolute;
 }
@@ -165,21 +175,43 @@ if( confirm(id+"님의 회원정보를 변경하시겠습니까?") ){
 </script>
 </head>
 <body>
+<!-- header -->
 <jsp:include page="/layout/header.jsp"/>
+	
+	<!-- container -->
 	<div id="container">
 	
+	<!-- 왼쪽 바 -->
+	<jsp:include page="/layout/side_left.jsp"/>
+	
+	<div id="right">
+	<div class="right_wrap">
+	<div id="nav">
+	<table id="nav_table" class="table" border="1">
+	<tr>
+	<td>
+	 <a href="<%= protocol %><%= domain %><%= contextRoot %>/users/mypage/mypage.jsp?nav=info" style="padding: 10px;">정보변경</a>
+	</td>
+	<td>
+	 <a href="<%= protocol %><%= domain %><%= contextRoot %>/users/mypage/mypage.jsp?nav=writeList" style="padding: 10px;">내가 쓴 글</a>
+	</td>
+	<td>
+	<a href="<%= protocol %><%= domain %><%= contextRoot %>/users/mypage/mypage.jsp?nav=interest" style="padding: 10px;">관심글</a>
+	</td>
+	<td>
+	<a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/change_password.jsp" style="padding: 10px;">비밀번호 변경</a>
+	</td>
+	<td>
+	 <a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/leave.jsp" style="padding: 10px;">회원탈퇴</a>
+	</td>
+	</tr>
+	</table>
+	</div>
 	<form id="frm" name="frm" method="post" action="insert_proc.jsp">
 		
 	<div id="profile"><br/>
-			<div id="passCh">
-			  <a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/change_password.jsp">비밀번호 변경</a>
-			</div>
-			<div id="leave">
-			  <a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/leave.jsp">회원탈퇴</a>
-			</div>
 				<div id="img">
 					<div style="text-align: left;">*이미지</div>
-					
 					<img id="profimg"><br/>
 						<input type="file" name="img" id="upfile" onchange="readURL(this);"/><br/><br/>
 						<c:out value="${ pv.img }"/>
@@ -198,28 +230,28 @@ if( confirm(id+"님의 회원정보를 변경하시겠습니까?") ){
 				style="width: 300px; height: 40px; font-size: 15px;"/>		
 	</div>
 	
-	<div class="item_margin" id="item_margin">
+	<%-- <div class="item_margin" id="item_margin">
 	 <div class="main1" id="main_user">
-		<%-- <%
+		<%
 		request.setCharacterEncoding("UTF-8");
 		%>
 		<%
 		MainDAO mDAO = new MainDAO();
 		List<UserVO> ulist = mDAO.selectAllUser();
 		pageContext.setAttribute("userData", ulist);
-		%> --%>
+		%>
 		<h3>관심글 목록</h3>
 		<table id="tbl">
 			<tbody>
-				<%-- <c:forEach var="users" items="${ userData }"> --%>
+				<c:forEach var="users" items="${ userData }">
 					<tr>
 						<td style="font-size: 14px"><c:out value="${ users.id }"></c:out></td>
 					</tr>
-				<%-- </c:forEach> --%>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>
-</div>
+</div> --%>
 	
 	<div>
 		<p id="save">
@@ -230,15 +262,19 @@ if( confirm(id+"님의 회원정보를 변경하시겠습니까?") ){
 	
 	</div>
 	</form>
-	</div>
+	</div><!-- /<div class="notice_wrap"> -->
+	</div><!-- /<div id="right"> -->
+	</div><!-- /<div id="container"> -->
 	
-<jsp:include page="/layout/footer.jsp"/>
-
 <form name="hiddenFrm" id="hiddenFrm" method="post" action="update_proc.jsp">
 	<input type="hidden" name="user_id" value="${ id }"/> 
 	<input type="hidden" name="phone" id="update_phone"/> 
 	<input type="hidden" name="img" id="update_img"/> 
 </form>
+
+<div style="clear:both;">
+<jsp:include page="/layout/footer.jsp"/>
+</div>
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="kr.co.sist.user.vo.WantSellVO"%>
 <%@page import="kr.co.sist.user.dao.WantSellDAO"%>
 <%@page import="kr.co.sist.user.vo.CategoryVO"%>
 <%@page import="java.util.List"%>
@@ -104,6 +105,12 @@ $(function () {
 request.setCharacterEncoding("UTF-8");
 %>
 <c:if test="${ empty param.title }">
+	<c:catch var="e">
+<%
+WantSellDAO wd=new WantSellDAO();
+WantSellVO wv=wd.selEditSell(Integer.parseInt(request.getParameter("sell_id")));
+pageContext.setAttribute("wv", wv);
+%>
 <!-- 서머노트 -->
 <!-- header -->
 <jsp:include page="/layout/header.jsp"/>
@@ -117,42 +124,45 @@ request.setCharacterEncoding("UTF-8");
 	<div id="right">
 	<div class="right_wrap">
 	<div style="margin: 0px auto; width: 900px;text-align: left; padding-bottom: 50px">
-		<h3 class="title2">팔아요</h3>
+		<h3 class="title2">팔아요 수정</h3>
 	</div>
 
 <form name="frm" id="frm" method="post">
 <div class="notice_title">
 <table>
 <tr>
-	<td colspan="5"><input type="text" class="form-control" placeholder="제목" name="title" id="title"></td>
+	<td colspan="5">제목 : <input type="text" class="form-control" placeholder="제목" name="title" id="title" value="${ wv.title }"></td>
 </tr>
 <tr>
 	<td>가격 : </td>
-	<td><input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="0"></td>
+	<td><input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ wv.price }"></td>
 	<td>&nbsp;&nbsp;&nbsp;</td>
 	<td>카테고리 : </td>
 	<td>
-	<c:catch var="e">
 	<%
 	List<CategoryVO> list=new WantSellDAO().selCategory();
 	pageContext.setAttribute("list", list);
 	%>
 	<select name="category_id">
+	<% String selected=""; %>
 	<c:forEach var="list" items="${ list }">
-	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
+	<c:choose>
+	<c:when test="${ list.category_id eq wv.category_id }">
+	<% selected="selected='selected'"; %>
+	</c:when>
+	<c:otherwise>
+	<% selected=""; %>
+	</c:otherwise>>
+	</c:choose>
+	<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/></option>
 	</c:forEach>
 	</select>
-	</c:catch>
-	<c:if test="${ not empty e }">
-	 ${ e }
-	<!-- 문제발생 -->
-	</c:if>
 	</td>
 </tr>
 </table>
 </div>
 <div class="note">
-	<textarea name="comments" id="summernote"></textarea>
+	<textarea name="comments" id="summernote">${ wv.comments }</textarea>
 </div>
 <% 
 String ip_addr=request.getRemoteAddr();
@@ -167,6 +177,11 @@ String ip_addr=request.getRemoteAddr();
 	</div><!-- /<div class="right_wrap"> -->
 </div><!-- /<div id="right"> -->
 </div><!-- /<div id="container"> -->
+	</c:catch>
+	<c:if test="${ not empty e }">
+	 ${ e }
+	<!-- 문제발생 -->
+	</c:if>
 
 <div style="clear:both;">
 <jsp:include page="/layout/footer.jsp"/>
@@ -180,10 +195,10 @@ String ip_addr=request.getRemoteAddr();
 <c:catch var="e">
 <%
 WantSellDAO wd=new WantSellDAO();
-wd.insertSell(wv);
+wd.updateSell(wv);
 %>
 <script type="text/javascript">
-alert("팔아요 글을 추가했습니다.");
+alert("팔아요 글을 수정했습니다.");
 location.href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp";
 </script>
 </c:catch>
