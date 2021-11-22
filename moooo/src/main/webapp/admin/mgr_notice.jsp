@@ -1,7 +1,12 @@
+<%@page import="kr.co.sist.admin.vo.NotiInsertVO"%>
+<%@page import="kr.co.sist.admin.vo.NotiViewVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.co.sist.admin.dao.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info="관리자 공지사항 관리"
     %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -71,20 +76,20 @@ a{color: #333;}
 <th>등록일</th>
 </tr>
 </thead>
+<%
+NoticeDAO ud=new NoticeDAO();
+List<NotiInsertVO> list=ud.selectNotiTitle(0,10);
+pageContext.setAttribute("list", list);
+%>
+<c:forEach var="list" items="${ list }">
 <tr>
-<td>회원1</td>
-<td>회원1</td>
-<td>회원1</td>
-<td>회원1</td>
-<td>회원1</td>
+<td><c:out value="${ list.notice_id}"/></td>
+<td><c:out value="${ list.title }"/></td>
+<td><c:out value="${ list.admin_id }"/></td>
+<td><c:out value="${ list.view_cnt }"/></td>
+<td><c:out value="${ list.input_date }"/></td>
 </tr>
-<tr>
-<td>회원111111</td>
-<td>회원111111</td>
-<td>회원111111</td>
-<td>회원111111</td>
-<td>회원111111</td>
-</tr>
+</c:forEach>
 </table>
 </div>
 </body>

@@ -1,7 +1,11 @@
+<%@page import="kr.co.sist.user.vo.UserVO"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.co.sist.admin.dao.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info="관리자 회원관리"
     %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -61,24 +65,32 @@ a{color: #333;}
 </form>
 </div>
 <br/>
-<table class="table table-hover">
+<table class="table table-hover" style="text-align: center;">
 <thead>
 <tr>
+<th>이미지</th>
 <th>아이디</th>
-<th>최초가입일</th>
+<th>닉네임</th>
+<th>휴대폰번호</th>
 <th>신고누적수</th>
+<th>최초가입일</th>
 </tr>
 </thead>
+<%
+UserDAO ud=new UserDAO();
+List<UserVO> list=ud.selectAllUser();
+pageContext.setAttribute("list", list);
+%>
+<c:forEach var="list" items="${ list }">
 <tr>
-<td>회원1</td>
-<td>회원1</td>
-<td>회원1</td>
+<td><c:out value="${ list.img }"/></td>
+<td><c:out value="${ list.user_id }"/></td>
+<td><c:out value="${ list.nickname }"/></td>
+<td><c:out value="${ list.phone }"/></td>
+<td><c:out value="${ list.reported_cnt }"/></td>
+<td><c:out value="${ list.input_date }"/></td>
 </tr>
-<tr>
-<td>회원111111</td>
-<td>회원111111</td>
-<td>회원111111</td>
-</tr>
+</c:forEach>
 </table>
 </div>
 </body>

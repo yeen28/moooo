@@ -1,7 +1,8 @@
 package kr.co.sist.user.vo;
 
 public class UserVO {
-	private String user_id, pass, nickname, phone, reported_cnt, input_date;
+	private String user_id, pass, nickname, phone, img, input_date;
+	private int reported_cnt;
 
 	public String getUser_id() {
 		return user_id;
@@ -35,11 +36,11 @@ public class UserVO {
 		this.phone = phone;
 	}
 
-	public String getReported_cnt() {
+	public int getReported_cnt() {
 		return reported_cnt;
 	}
 
-	public void setReported_cnt(String reported_cnt) {
+	public void setReported_cnt(int reported_cnt) {
 		this.reported_cnt = reported_cnt;
 	}
 
@@ -51,5 +52,12 @@ public class UserVO {
 		this.input_date = input_date;
 	}
 
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 }
