@@ -17,15 +17,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>관리자 비밀번호 변경페이지</title>
-<style type="text/css">
-
-/* 비밀번호 변경란 여백 */
-.wrap { text-align: center; width: 250px; margin: 0 auto; margin-top: 100px}
-.margin1{width: 300px; text-align: center; margin: 15px;}
-.title2{  margin-bottom: 20px; margin-top: 50px; font-weight: bold; font-size: 25px;}
-
-</style>
+<title>MooOO 관리자</title>
 
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -33,6 +25,19 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+.right { text-align: center; width: 250px; margin: 0 auto; margin-top: 100px}
+.margin1{width: 300px; text-align: center; margin: 15px;}
+.title2{  margin-bottom: 20px; margin-top: 50px; font-weight: bold; font-size: 25px;}
+.btn{background-color: #333; color: #fff; font-size: 15px; font-weight: bold; width:300px;}
+.btn:hover{color:#333;}
+
+.left-nav{width: 300px; height: 700px; background-color: #CFCFCF;position: absolute;}
+.left-nav>ul{list-style: none;padding-top:30px;}
+a{color: #333;}
+.menu{border:1px solid #CFCFCF;}
+</style>
 
 <script type="text/javascript">
 $(function () {
@@ -62,12 +67,27 @@ $(function () {
 })//ready
 </script>
 </head>
-<body>
-<jsp:include page="/layout/header.jsp"/>
-<c:if test="${ not empty sessionScope.sess_id and empty param.pass_ad or param.hid eq 'fail' }">
+<body style="background-color: #DFDFDF;">
+<jsp:include page="layout/header.jsp"/>
+
+<!-- 왼쪽 메뉴바 -->
+<div class="left-nav">
+<ul class="nav nav-pills nav-stacked">
+  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/main.jsp"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
+  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_user.jsp"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
+  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_notice.jsp"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
+<!--   <li role="presentation"><a href="#">동네이야기 관리</a></li> -->
+  <li role="presentation" class="active"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/change_pass.jsp"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
+<li></li>
+</ul>
+</div>
+<!-- /왼쪽 메뉴바 -->
+
+<div class="right">
+<%-- <c:if test="${ not empty sessionScope.sess_id and empty param.pass_ad or param.hid eq 'fail' }"> --%>
       <form action="change_pass.jsp" method="post" id="frm_ad_pass">
       <div>
-         <div style="margin: 0px auto; width: 600px;text-align: left;">
+         <div style="margin: 200px auto; width: 600px;text-align: left;">
          </div>
          <div class="wrap">
             <div class="margin1">
@@ -88,8 +108,9 @@ $(function () {
          </div>
       </div>
    </form>
-</c:if>
-   
+<%-- </c:if> --%>
+</div>
+
 <c:if test="${ not empty param.pass_ad and param.hid ne 'fail' }">
 <%
 request.setCharacterEncoding("UTF-8");

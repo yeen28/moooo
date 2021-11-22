@@ -13,18 +13,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MooOO 관리자</title>
 
-<style type="text/css">
-.wrap { text-align: center; width: 250px; margin: 0 auto; height: 150px }
-.margin1 {margin-top: 30px; font-size: 15px;}
-.subtitle{font-weight: bold; text-align: center; vertical-align: middle; margin-top: 50px; font-size: 25px}
-</style>
-
 <!-- jQuery CDN-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+.wrap { text-align: center; width: 250px; margin: 0 auto; height: 150px }
+.margin1 {margin-top: 30px; font-size: 15px;}
+.subtitle{font-weight: bold; text-align: center; vertical-align: middle; margin-top: 50px; font-size: 25px}
+.loginBtn{background-color: #333; color: #fff; font-size: 15px; font-weight: bold; width:240px;}
+</style>
 
 <script type="text/javascript">
 $(function () {
@@ -44,13 +45,13 @@ $(function () {
 })//ready
 </script>
 </head>
-<body style="background-color: #DFDFDF">
+<body style="background-color: #DFDFDF; margin-top: 100px;">
 <c:if test="${ empty sessionScope.admin_id and empty param.admin_id}">
 <div class="container">
 	<form action="<%= protocol %><%= domain %><%= contextRoot %>/admin/login.jsp" id="admin_frm" method="post">
 		<div>
 			<div style="padding-bottom: 30px;">
-				<h3 class="subtitle">관리자 로그인</h3>
+				<h3 class="subtitle">Moo<span class="glyphicon glyphicon-cog"></span><span class="glyphicon glyphicon-cog"></span></h3>
 			</div>
 			<div class="wrap">
 				<div class="margin1">
@@ -65,14 +66,14 @@ $(function () {
 				<div class="margin1">
 					<label>비밀번호</label>
 					<div class="input-group">
-						<div class="input-group-addon" aria-label="center Align">
-							<span class="glyphicon glyphicon-align-center"  style="height: 28px; padding-top: 8px;"  aria-hidden="true"></span>
+						<div class="input-group-addon" aria-label="center Align" style="padding:5px;">
+						<img alt="pw" src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/icons/pass_icon.PNG" width="25px;"/>
 						</div>
 						 <input type="password" class="form-control"   style="height: 50px"  aria-label="Large"  id="admin_pass" name="pass" placeholder="비밀번호">
 					</div>
 				</div>
 				<div class="margin1">
-					<input type="button" class="btn btn-lg" value="로그인" id="login">
+					<input type="button" class="btn btn-lg loginBtn" value="로그인" id="login">
 				</div>
 			</div>
 	</div>
@@ -94,7 +95,7 @@ String password=request.getParameter("admin_pass");
 LoginDAO mDAO=new LoginDAO();
 session.setAttribute("sess_id", mDAO.selectLogin(aVO.getAdmin_id(), aVO.getPass()));
 %>
-<c:redirect url="dashboard.jsp"/>
+<c:redirect url="main.jsp"/>
 </c:catch>
 
 <c:if test="${ not empty e }">

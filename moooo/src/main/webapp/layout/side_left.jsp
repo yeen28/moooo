@@ -105,7 +105,7 @@ pageContext.setAttribute("list", list);
 </c:forEach>
 </ul>
 <hr>
-<h4><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/story/story.jsp">동네이야기</a></h4>
+<%-- <h4><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/story/story.jsp">동네이야기</a></h4> --%>
 </div>
 
 </div><!-- /<div id="left"> -->
@@ -113,4 +113,5 @@ pageContext.setAttribute("list", list);
 
 <c:if test="${ not empty e }">
 ${ e }
+문제발생했습니다. 잠시후 다시 시도해주세요.
 </c:if>

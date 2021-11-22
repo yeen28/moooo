@@ -13,7 +13,14 @@
 <title><%= title %></title>
 
 <style type="text/css">
-
+.right_wrap {
+	position: absolute;
+	top: 0px;
+	width: 70%;
+	font-size: 14px;
+	list-style: disc;
+	margin-left: 10px;
+}
 </style>
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -27,8 +34,26 @@
 </script>
 </head>
 <body>
-<jsp:include page="/layout/header.jsp"/>
-
+<!-- header -->
+	<jsp:include page="/layout/header.jsp"/>
+	
+	<!-- container -->
+	<div id="container">
+	
+	<!-- 왼쪽 바 -->
+	<jsp:include page="/layout/side_left.jsp"/>
+	
+	<div id="right">
+		<div class="right_wrap">
+		<h3>동네 이야기</h3>
+		<div style="border: 1px solid #333; height: 800px;">
+		
+		</div>
+		</div>
+	</div>
+	</div>
+<div style="clear:both;">
 <jsp:include page="/layout/footer.jsp"/>
+</div>
 </body>
 </html>
