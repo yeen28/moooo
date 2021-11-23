@@ -40,8 +40,8 @@
 	padding: 15px 0;
 	margin-top: 11px;
 	margin-left: 10px;
-	background-color: #333;
-	border: 1px solid #333;
+	background-color: #009044;
+	border: 1px solid #009044;
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 	font-size: 15px;
@@ -87,7 +87,7 @@
 }
 
 .sc_login .sub_area .link_look {
-	color: #404040
+	color:#333;
 }
 
 .sc_login .sub_area .link_look+.link_look:before {
@@ -105,7 +105,7 @@
 
 .sc_login .sub_area .link_join {
 	float: right;
-	color: #505050
+	color:#333;
 }
 
 .sc_login .sub_area .link_join:before {

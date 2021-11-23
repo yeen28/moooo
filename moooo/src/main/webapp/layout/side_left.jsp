@@ -29,6 +29,7 @@
 	float: left;
 	margin-left: 50px;
 }
+a{color:#333;}
 </style>
 
 <c:catch var="e">
@@ -39,7 +40,7 @@ MemberDAO md=new MemberDAO();
 <div id="login">
 <!-- login -->
     <c:choose>
-      <c:when test="${ empty sessionScope.id }">
+      <c:when test="${ empty sessionScope.sess_user_id }">
       <div id="left_login">
       <div id="account" class="sc_login">
       <a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/login.jsp" class="link_login">로그인</a>
@@ -55,7 +56,7 @@ MemberDAO md=new MemberDAO();
 </c:when>
 <c:otherwise>
 <%
-String id=(String)session.getAttribute("id");
+String id=(String)session.getAttribute("sess_user_id");
 
 String nickname=md.selNickname(id);
 String phone=md.selectPhone(id);
@@ -91,17 +92,17 @@ pageContext.setAttribute("list", list);
 <div id="side">
 <h4><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/notice/notice.jsp">공지사항</a></h4>
 <hr>
-<h4><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp">팔아요</a></h4>
-<ul>
-<c:forEach var="val" items="${ list }">
-  <li><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp?category=${ val.category_id }"><c:out value="${ val.name }"/></a></li>
-</c:forEach>
-</ul>
-<hr>
 <h4><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp">사고싶어요</a></h4>
 <ul>
 <c:forEach var="val" items="${ list }">
   <li><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp?category=${ val.category_id }"><c:out value="${ val.name }"/></a></li>
+</c:forEach>
+</ul>
+<hr>
+<h4><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp">팔아요</a></h4>
+<ul>
+<c:forEach var="val" items="${ list }">
+  <li><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp?category=${ val.category_id }"><c:out value="${ val.name }"/></a></li>
 </c:forEach>
 </ul>
 <hr>

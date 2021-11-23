@@ -1,5 +1,4 @@
 <%@page import="org.springframework.dao.DataAccessException"%>
-<%@page import="kr.co.sist.user.dao.WantSellDAO"%>
 <%@page import="kr.co.sist.user.vo.CategoryVO"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.co.sist.user.dao.WantBuyDAO"%>
@@ -18,11 +17,11 @@
 if(confirm("삭제하시겠습니까?")){
 <%
 try{
-WantSellDAO wd=new WantSellDAO();
-wd.delSell(Integer.parseInt(request.getParameter("sell_id")));
+WantBuyDAO wd=new WantBuyDAO();
+wd.delBuy(Integer.parseInt(request.getParameter("buy_id")));
 %>
 alert("삭제되었습니다.");
-location.href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp";
+location.href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp";
 <%
 } catch (DataAccessException dae){
 	dae.printStackTrace();

@@ -52,16 +52,10 @@ try{
 	String how_to=new HowToDAO().selHowTo();
 	pageContext.setAttribute("how", how_to);
 %>
-<div class="panel-body">
-  <c:out value="${ how }"/>
+<div class="panel-body how">
+  <c:out value="${ how }" escapeXml="false"/>
 </div>
-<%
-} catch(DataAccessException dae){
-%>
-죄송합니다. 내용을 불러오던 중 문제가 발생했습니다.
-<%
-}
-%>
+
 </div><!-- /<div id="notice"> -->
 
 <div class="blank"></div>
@@ -80,7 +74,6 @@ try{
 <div class="panel-body">
 	<ul id="ul-list">
 	<%
-	try{
 		WantBuyDAO wd=new WantBuyDAO();
 		List<WantBuyVO> listBuy=wd.selectBuyTitle(0, wd.selectBuyCnt());
 		pageContext.setAttribute("listBuy", listBuy);
@@ -88,14 +81,6 @@ try{
 		<c:forEach var="buy" items="${ listBuy }">
 			<li><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp"><c:out value="${ buy.title }"/></a></li>
 		</c:forEach>
-	<%
-	} catch(SQLException se){
-		se.printStackTrace();
-	%>
-	죄송합니다. 내용을 불러오던 중 문제가 발생했습니다.
-	<%
-	} //end catch
-	%>
 	</ul>
 </div>
 </div><!-- /<div id="want_buy"> -->
@@ -113,15 +98,14 @@ try{
 <div class="panel-body">
 	<ul id="ul-list">
 	<%
-	try{
-		WantSellDAO wd=new WantSellDAO();
-		List<WantSellVO> listSell=wd.selectSellTitle(0, wd.selectSellCnt());
+		WantSellDAO wsd=new WantSellDAO();
+		List<WantSellVO> listSell=wsd.selectSellTitle(0, wsd.selectSellCnt());
 		pageContext.setAttribute("listSell", listSell);
 	%>
 		<c:forEach var="sell" items="${ listSell }">
 			<li><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp"><c:out value="${ sell.title }"/></a></li>
 		</c:forEach>
-		<%
+	<%
 	} catch(SQLException se){
 		se.printStackTrace();
 	%>

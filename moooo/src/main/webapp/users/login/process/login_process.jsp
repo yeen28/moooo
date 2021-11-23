@@ -22,7 +22,7 @@ String pass=DataEncrypt.messageDigest( "SHA-1", request.getParameter("pass"));
 
 MemberDAO mDAO=new MemberDAO();
 	String user_id=mDAO.selectLogin(lVO.getUser_id(), pass);
-	session.setAttribute("id", user_id);
+	session.setAttribute("sess_user_id", user_id);
 
 /* List<String> listSub=mDAO.selectSub( mVO.getId() );
 List<String> listUrl=mDAO.selectUrl( mVO.getId() );

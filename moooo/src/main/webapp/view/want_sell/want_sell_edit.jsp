@@ -12,9 +12,9 @@
 
 <!-- 서머노트에서 콜백함수 사용해서 이미지 등록하기 -->
 
-<%-- <c:if test="${ empty sess_id }">
-<c:redirect url="<%= protocol %><%= domain %><%= contextRoot %>/users/login/login.jsp"/>
-</c:if> --%>
+<c:if test="${ empty sess_user_id }">
+<c:redirect url="/users/login/login.jsp"/>
+</c:if>
 
 <!DOCTYPE html>
 <html>

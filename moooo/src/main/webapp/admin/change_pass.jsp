@@ -7,9 +7,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>    
 
-<%-- <c:if test="${ empty sess_id }">
-<c:redirect url="login.jsp"/>
-</c:if> --%>
+<c:if test="${ empty sess_id }">
+<c:redirect url="/admin/login.jsp"/>
+</c:if>
 
 <!DOCTYPE html>
 <html>
@@ -27,13 +27,15 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+body{height:100%;}
+
 .right { text-align: center; width: 250px; margin: 0 auto; margin-top: 100px}
 .margin1{width: 300px; text-align: center; margin: 15px;}
 .title2{  margin-bottom: 20px; margin-top: 50px; font-weight: bold; font-size: 25px;}
 .btn{background-color: #333; color: #fff; font-size: 15px; font-weight: bold; width:300px;}
 .btn:hover{color:#333;}
 
-.left-nav{width: 300px; height: 700px; background-color: #CFCFCF;position: absolute;}
+.left-nav{width: 300px; height: 100%; background-color: #CFCFCF;position: absolute;}
 .left-nav>ul{list-style: none;padding-top:30px;}
 a{color: #333;}
 .menu{border:1px solid #CFCFCF;}
@@ -75,6 +77,7 @@ $(function () {
 <ul class="nav nav-pills nav-stacked">
   <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/main.jsp"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
   <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_user.jsp"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
+  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_how_to.jsp"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
   <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_notice.jsp"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
 <!--   <li role="presentation"><a href="#">동네이야기 관리</a></li> -->
   <li role="presentation" class="active"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/change_pass.jsp"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" 
     info="로그인페이지"%>
 <%@ include file="/common/jsp/common_code.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>

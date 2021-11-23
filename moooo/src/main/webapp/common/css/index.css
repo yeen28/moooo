@@ -7,26 +7,28 @@
 	position: absolute;
 	top: 0px;
 	width: 70%;
-	height: 500px;
+	height: 600px;
 	font-size: 14px;
 	list-style: disc;
 	margin-left: 10px;
 }
 #right-mid{
 	position: absolute;
-	top: 600px;
+	top: 700px;
 	width: 70%;
 	height: 300px;
 	font-size: 14px;
 	list-style: disc;
 	margin-left: 10px;
 }
-#want_buy {
+#want_buy, #want_sell{
 	width: 48%;
+	height: 300px;	
+}
+#want_buy {
 	float : left;
 }
 #want_sell {
-	width: 48%;
 	float : right;
 }
 #moreView {
@@ -37,13 +39,13 @@
 	padding: 20px 0 20px 0;
 }
 .panel-default>.notice_subtitle{
-	background-image: -webkit-linear-gradient(top,#fff 0,#fff 100%);
-    background-image: -o-linear-gradient(top,#fff 0,#fff 100%);
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#fff));
-    background-image: linear-gradient(to bottom,#fff 0,#fff 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#fff', GradientType=0);
+	background-image: -webkit-linear-gradient(top,#F7F9FA 0,#F7F9FA 100%);
+    background-image: -o-linear-gradient(top,#F7F9FA 0,#F7F9FA 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#F7F9FA),to(#F7F9FA));
+    background-image: linear-gradient(to bottom,#F7F9FA 0,#F7F9FA 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F7F9FA', endColorstr='#F7F9FA', GradientType=0);
     background-repeat: repeat-x;
-	background-color: #fff;
+	background-color: #F7F9FA;
 }
 .notice_subtitle_text {
 	font-size: 20px;
@@ -56,4 +58,9 @@
 .blank {
 	clear:both;
 	height: 70px;
+}
+.how{
+	overflow: auto; 
+	height: 500px;
+	padding: 35px; font-size: 17px; margin-top: 30px; background-color: #fff;
 }

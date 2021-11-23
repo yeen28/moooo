@@ -1,13 +1,11 @@
+<%@page import="kr.co.sist.admin.dao.HowToDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    info="관리자 메인화면"
+    info="관리자-이용방법 수정 페이지"
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>   
 
-<%
-session.setAttribute("sess_id", "admin");
-%>
 <c:if test="${ empty sess_id }">
 <c:redirect url="/admin/login.jsp"/>
 </c:if>
@@ -40,21 +38,25 @@ body{height:100%;}
 .left-nav>ul{list-style: none;padding-top:30px;}
 a{color: #333;}
 .menu{border:1px solid #CFCFCF;}
+
+.editWrap{ 
+	overflow: auto; 
+	width: 960px;
+	height: 550px;
+	border: 2px solid #F9F8F8;
+	padding: 35px; font-size: 17px; margin-top: 30px; background-color: #fff; }
 </style>
-
-<script type="text/javascript">
-
-</script>
 </head>
+
 <body style="background-color: #DFDFDF;">
 <jsp:include page="layout/header.jsp"/>
 
 <!-- 왼쪽 메뉴바 -->
 <div class="left-nav">
 <ul class="nav nav-pills nav-stacked">
-  <li role="presentation" class="active"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/main.jsp"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
+  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/main.jsp"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
   <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_user.jsp"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_how_to.jsp"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
+  <li role="presentation" class="active"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_how_to.jsp"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
   <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_notice.jsp"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
 <!--   <li role="presentation"><a href="#">동네이야기 관리</a></li> -->
   <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/change_pass.jsp"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
@@ -63,15 +65,20 @@ a{color: #333;}
 </div>
 <!-- /왼쪽 메뉴바 -->
 
-<div class="right">
-<h2>대시보드</h2>
+<%
+HowToDAO hd=new HowToDAO();
+String comments=hd.selHowTo();
+pageContext.setAttribute("comments", comments);
+%>
+<div class="right" style="width: 1000px;">
+
+<h2>이용방법</h2>
+<a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_how_to_edit.jsp">수정하기</a>
 <br/>
 <div>
-오늘 새로 가입한 회원 수
+<div class="editWrap">
+	<c:out value="${ comments }" escapeXml="false"/>
 </div>
-<br/>
-<div>
-등록한 공지사항
 </div>
 </div>
 </body>

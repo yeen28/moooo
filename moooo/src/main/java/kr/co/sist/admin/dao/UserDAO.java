@@ -23,7 +23,7 @@ public class UserDAO {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
-		String select="select * from users";
+		String select="select user_id,pass,nickname,phone,nvl(img,'---')img,reported_cnt,input_date from users";
 		
 		list=jt.query(select, new RowMapper<UserVO>() {
 			@Override
