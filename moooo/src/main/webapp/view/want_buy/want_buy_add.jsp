@@ -24,10 +24,9 @@
 
 
 <style type="text/css">
-.notice_title{margin: 0px auto; width: 1000px}
-.note {margin: 0px auto; width: 1000px; margin-top: 20px; }
-
-.title2{  margin-bottom: 20px; margin-top: 50px; font-weight: bold; font-size: 25px;}
+.note {margin: 20px auto; }
+.title{ font-weight: bold; font-size: 25px;}
+.inputBox{  margin-bottom: 20px; font-weight: bold; font-size: 17px;}
 .right_wrap {
 	position: absolute;
 	top: 0px;
@@ -39,9 +38,6 @@
 #price{width:150px;}
 </style>
 
-<!--   <!-- summernote
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-  
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- Bootstrap CDN -->
@@ -77,19 +73,30 @@ $(document).ready(function() {
 <script type="text/javascript">
 $(function () {
 	$("#add").click(function() {
-		
-		if( $("#title").val() == "" ){
+		if( $("#add_title").val() == "" ){
 			alert("제목을 입력해주세요.");
+			$("#add_title").focus();
 			return;
 		}
 		
-		if( $("#summernote").val() == "" ){
-			alert("내용을 입력해주세요.");
+		if( $("#add_title").val().length > 50 ){
+			alert("제목은 50자 이내로 작성해주세요.");
+			$("#add_title").focus();
 			return;
 		}
 		
 		if( $("#price").val() == "" ){
 			alert("가격을 입력해주세요.");
+			return;
+		}
+		
+		if($("#category_id option:selected").val() == "none"){
+			alert("카테고리를 선택해주세요.")
+			return;
+		}
+		
+		if( $("#summernote").val() == "" ){
+			alert("내용을 입력해주세요.");
 			return;
 		}
 		
@@ -120,15 +127,16 @@ request.setCharacterEncoding("UTF-8");
 	</div>
 
 <form name="frm" id="frm" method="post">
-<div class="notice_title">
-<table>
+<div>
+<table class="table" style="width: 1000px;">
 <tr>
-	<td colspan="5"><input type="text" class="form-control" placeholder="제목" name="title" id="title"></td>
+	<td>제목 : </td>
+	<td colspan="4"><input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title"></td>
 </tr>
 <tr>
 	<td>가격 : </td>
 	<td><input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="0"></td>
-	<td>&nbsp;&nbsp;&nbsp;</td>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td>카테고리 : </td>
 	<td>
 	<c:catch var="e">
@@ -136,7 +144,8 @@ request.setCharacterEncoding("UTF-8");
 	List<CategoryVO> list=new WantBuyDAO().selCategory();
 	pageContext.setAttribute("list", list);
 	%>
-	<select name="category_id">
+	<select name="category_id" class="form-control">
+	<option value="none"><c:out value="-------- 선택 --------"/></option>
 	<c:forEach var="list" items="${ list }">
 	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
 	</c:forEach>
@@ -157,11 +166,11 @@ request.setCharacterEncoding("UTF-8");
 String ip_addr=request.getRemoteAddr();
 %>
 <input type="hidden" name="ip_addr" value="<%= ip_addr %>"/>
-<input type="hidden" name="user_id" value="${ sessionScope.id }"/>
+<input type="hidden" name="user_id" value="${ sessionScope.sess_user_id }"/>
 </form>
 
 	<div style="text-align: center">
-		<input type="button" class="btn" value="작성 완료" id="add">
+		<input type="button" class="btn btn-default" value="작성 완료" id="add">
 	</div>
 	</div><!-- /<div class="right_wrap"> -->
 </div><!-- /<div id="right"> -->
@@ -182,7 +191,7 @@ WantBuyDAO nd=new WantBuyDAO();
 nd.insertBuy(wv);
 %>
 <script type="text/javascript">
-alert("사고싶어요 글을 추가했습니다.");
+alert("추가되었습니다.");
 location.href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp";
 </script>
 </c:catch>

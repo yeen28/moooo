@@ -84,41 +84,47 @@ pageContext.setAttribute("end", end);
 pageContext.setAttribute("nowPage", nowPage);
 pageContext.setAttribute("list", list);
 %>
-	<!-- header -->
-	<jsp:include page="/layout/header.jsp"/>
+<!-- header -->
+<jsp:include page="/layout/header.jsp"/>
 	
-	<!-- container -->
-	<div id="container">
+<!-- container -->
+<div id="container">
 	
-	<!-- 왼쪽 바 -->
-	<jsp:include page="/layout/side_left.jsp"/>
+<!-- 왼쪽 바 -->
+<jsp:include page="/layout/side_left.jsp"/>
 	
-	<div id="right">
-		<div class="notice_wrap">
-			<div class="notice_head">
-				<h2 style="font-weight: bold;">사고싶어요</h2>
-				
-			<div>
-			<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy_add.jsp">+추가</a>
-			</div>
+<div id="right">
+	<div class="notice_wrap">
+		<div class="notice_head">
+		<h2 style="font-weight: bold;">사고싶어요</h2>
+		
+		<div>
+		<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy_add.jsp">+추가</a>
+		<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp">전체 글 보기</a>
+		</div>
 			
-			</div>
+		</div>
 			
-			<div>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">번호</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">제목</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">가격</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성자</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성일</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">조회</td>
-						</tr>
-					</thead>
-  <tbody>
-     <c:forEach var="buy" items="${ list }"> 
-       <tr>
+		<div>
+		<table class="table table-hover">
+		<thead>
+		<tr>
+			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">번호</td>
+			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">제목</td>
+			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">가격</td>
+			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성자</td>
+			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성일</td>
+			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">조회</td>
+		</tr>
+		</thead>
+		<tbody>
+		<c:if test="${ empty list }">
+		<tr>
+		  <td colspan="6">작성된 글이 없습니다.</td>
+		</tr>
+		</c:if>
+		<c:forEach var="buy" items="${ list }"> 
+		<tr>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.buy_id }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">
               <a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy_detail.jsp?buy_id=${ buy.buy_id }">${ buy.title }</a>

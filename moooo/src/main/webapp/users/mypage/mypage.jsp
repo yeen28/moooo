@@ -169,26 +169,26 @@ $(function() {
 		if( confirm("회원정보를 변경하시겠습니까?") ){
 
 			let upload=$("#img").val();
-			if(upload != ""){
-			//업로드가능 확장자의 유효성검증.
-			//서버에서 실행되는 언어와 같은 소스코드는 업로드하지 못하도록 막아야 함.
-			//이미지파일(jpg, png, gif, bmp)만 업로드할 수 있도록 검증.
-			
-			let fileExt = ["jpg","png","gif","bmp"];
-			let fileFlag = false;
-			
-			let ext = (upload.substring(upload.lastIndexOf(".")+1)).toLowerCase();
-			for( var i=0; i<fileExt.length; i++ ){
-				if( ext == fileExt[i] ){
-					fileFlag = true;
-					break;
+			if(upload != "") {
+				//업로드가능 확장자의 유효성검증.
+				//서버에서 실행되는 언어와 같은 소스코드는 업로드하지 못하도록 막아야 함.
+				//이미지파일(jpg, png, gif, bmp)만 업로드할 수 있도록 검증.
+				
+				let fileExt = ["jpg","png","gif","bmp"];
+				let fileFlag = false;
+				
+				let ext = (upload.substring(upload.lastIndexOf(".")+1)).toLowerCase();
+				for( var i=0; i<fileExt.length; i++ ){
+					if( ext == fileExt[i] ){
+						fileFlag = true;
+						break;
+					}//end if
+				}//end for
+				
+				if( !fileFlag ){
+					alert("업로드 가능 확장자가 아닙니다.");
+					return;
 				}//end if
-			}//end for
-			
-			if( !fileFlag ){
-				alert("업로드 가능 확장자가 아닙니다.");
-				return;
-			}//end if
 			}
 			
 			//hidden form 에 존재하는 Control에 값 설정
@@ -211,13 +211,13 @@ function readURL(input) {
 	}//end if
 }//readURL
 
-/* $(function(){
-  var pageBtn = $("ul > li");    //  ul > li 이를 pageBtn 으로 칭한다. (클릭이벤트는 li에 적용 된다.)
-   pageBtn .find("a").click(function(){   // pageBtn 에 속해 있는  a 찾아 클릭.
-     pageBtn .removeClass("active");     // pageBtn 속에 (active) 클래스를 삭제.
-     $(this).parent().addClass("active"); // 클릭한 a에 (active)클래스를 넣는다.
-   })
-});//ready */
+$(function(){
+	var naviBtn = $("ul > li");    //  ul > li 이를 pageBtn 으로 칭한다. (클릭이벤트는 li에 적용 된다.)
+	naviBtn .find("a").click(function(){   // pageBtn 에 속해 있는  a 찾아 클릭.
+		naviBtn .removeClass("active");     // pageBtn 속에 (active) 클래스를 삭제.
+		$(this).parent().addClass("active"); // 클릭한 a에 (active)클래스를 넣는다.
+	})
+});//ready
 </script>
 </head>
 

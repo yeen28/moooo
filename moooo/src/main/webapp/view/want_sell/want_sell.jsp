@@ -116,6 +116,11 @@ pageContext.setAttribute("list", list);
 						</tr>
 					</thead>
   <tbody>
+  <c:if test="${ empty list }">
+		<tr>
+		  <td colspan="6">작성된 글이 없습니다.</td>
+		</tr>
+		</c:if>
      <c:forEach var="sell" items="${ list }"> 
        <tr>
           <td style="font-size: 16px; text-align: center; color: #333;">${ sell.sell_id }</td>

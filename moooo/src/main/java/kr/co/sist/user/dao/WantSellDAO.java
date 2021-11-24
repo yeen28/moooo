@@ -209,12 +209,12 @@ public class WantSellDAO {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
-		String select="select title,price,input_date,view_cnt,interest_cnt from want_sell where user_id=?";
+		String select="select sell_id,title,price,input_date,view_cnt,interest_cnt from want_sell where user_id=?";
 		
 		unv=jt.query(select, new Object[] { user_id }, new RowMapper<WantSellVO>() {
 			public WantSellVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				WantSellVO unv=new WantSellVO();
-				/* unv.setSell_id(rs.getInt("sell_id")); */
+				unv.setSell_id(rs.getInt("sell_id"));
 				unv.setTitle(rs.getString("title"));
 				unv.setPrice(rs.getInt("price"));
 				unv.setView_cnt(rs.getInt("view_cnt"));
