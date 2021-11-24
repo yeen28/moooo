@@ -107,8 +107,10 @@ request.setCharacterEncoding("UTF-8");
 <c:if test="${ empty param.title }">
 	<c:catch var="e">
 <%
+String sess_user_id=(String)session.getAttribute("sess_user_id");
+
 WantSellDAO wd=new WantSellDAO();
-WantSellVO wv=wd.selEditSell(Integer.parseInt(request.getParameter("sell_id")));
+WantSellVO wv=wd.selEditSell(Integer.parseInt(request.getParameter("sell_id")),sess_user_id);
 pageContext.setAttribute("wv", wv);
 %>
 <!-- 서머노트 -->

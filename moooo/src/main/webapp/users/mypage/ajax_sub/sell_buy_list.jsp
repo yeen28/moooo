@@ -1,3 +1,4 @@
+<%@page import="kr.co.sist.user.vo.WantBuyVO"%>
 <%@page import="org.springframework.dao.DataAccessException"%>
 <%@page import="kr.co.sist.user.vo.WantSellVO"%>
 <%@page import="java.util.List"%>
@@ -27,8 +28,11 @@ try{
 	WantBuyDAO wbd=new WantBuyDAO();
 	WantSellDAO wsd=new WantSellDAO();
 	
-	List<WantSellVO> list=wsd.selectMypageSell(sess_id);
-	pageContext.setAttribute("list", list);
+	List<WantBuyVO> buyList=wbd.selectMypageBuy(sess_id);
+	pageContext.setAttribute("buyList", buyList);
+	
+	List<WantSellVO> sellList=wsd.selectMypageSell(sess_id);
+	pageContext.setAttribute("sellList", sellList);
 %>
 
 <div class="right_wrap">

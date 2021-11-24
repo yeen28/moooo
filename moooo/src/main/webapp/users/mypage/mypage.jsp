@@ -211,16 +211,13 @@ function readURL(input) {
 	}//end if
 }//readURL
 
-/* function update(id) {
-if( confirm(id+"님의 회원정보를 변경하시겠습니까?") ){
-	//hidden form 에 존재하는 Control에 값 설정
-	$("#update_nickname").val($("#nickname").val());
-	$("#update_phone").val($("#phone").val());
-	$("#update_img").val($("#img").val());
-	
-	$("#hiddenFrm").submit();
-}//end if
-}//update */
+/* $(function(){
+  var pageBtn = $("ul > li");    //  ul > li 이를 pageBtn 으로 칭한다. (클릭이벤트는 li에 적용 된다.)
+   pageBtn .find("a").click(function(){   // pageBtn 에 속해 있는  a 찾아 클릭.
+     pageBtn .removeClass("active");     // pageBtn 속에 (active) 클래스를 삭제.
+     $(this).parent().addClass("active"); // 클릭한 a에 (active)클래스를 넣는다.
+   })
+});//ready */
 </script>
 </head>
 
@@ -242,8 +239,8 @@ if( confirm(id+"님의 회원정보를 변경하시겠습니까?") ){
   <li role="presentation" class="active"><a href="" id="myInfo" style="cursor: pointer;">정보변경</a></li>
   <li role="presentation"><a id="sell_buy" style="cursor: pointer;">내가 쓴 글</a></li>
   <li role="presentation"><a id="interest" style="cursor: pointer;">관심글</a></li>
-  <li role="presentation"><a id="dash" style="cursor: pointer;">비밀번호 변경</a></li>
-  <li role="presentation"><a id="dash" style="cursor: pointer;">회원탈퇴</a></li>
+  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/change_password.jsp">비밀번호 변경</a></li>
+  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/leave.jsp">회원탈퇴</a></li>
 </ul>
 </div>
 

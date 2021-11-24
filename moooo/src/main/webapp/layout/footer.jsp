@@ -9,18 +9,15 @@
 	color: #ffffff;
 	padding: 40px 0;
 }
-
 .OurBlog {
 	margin-bottom: 32px;
 	text-align: center;
 }
-
 .footer-top-layout h4 {
 	color: #ffffff;
 	font-size: 18px;
 	margin-bottom: 21px;
 }
-
 .OurBlog>p {
 	color: #888888;
 }

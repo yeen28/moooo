@@ -29,7 +29,7 @@
 	float: left;
 	margin-left: 50px;
 }
-a{color:#333;}
+a{ color:#333; }
 </style>
 
 <c:catch var="e">

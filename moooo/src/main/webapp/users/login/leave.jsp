@@ -44,7 +44,7 @@ function deleteMember() {
 
 <body>
 <%
-String id=(String)session.getAttribute("id");
+String id=(String)session.getAttribute("sess_user_id");
 %>
 <div id="wrap">
 <!-- header -->

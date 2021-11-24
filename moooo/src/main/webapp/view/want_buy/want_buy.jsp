@@ -45,10 +45,19 @@
 
 <body>
 <%
+//category가 있는 경우, 해당 카테고리의 글만 얻기
+int category=0;
+try{
+	category=Integer.parseInt(request.getParameter("category"));
+} catch (NumberFormatException nfe){
+	category=0;
+}//end catch
+
+//페이지네이션 처리
 WantBuyDAO wd = new WantBuyDAO();
 
-int numPerPage=10;
-int totData=wd.selectBuyCnt();
+int numPerPage=10; //한 페이지 당 보여줄 게시물의 수
+int totData=wd.selectBuyCnt(category);
 int LastPage=totData/numPerPage;
 if(totData % numPerPage > 0){
 	++LastPage;
@@ -68,7 +77,7 @@ if( end > LastPage ){
 
 int rowBegin=(nowPage-1)*numPerPage+1;
 int rowEnd=nowPage*numPerPage;
-List<WantBuyVO> list=wd.selectBuyTitle(rowBegin, rowEnd);
+List<WantBuyVO> list=wd.selectBuyTitle(category, rowBegin, rowEnd);
 
 pageContext.setAttribute("start", start);
 pageContext.setAttribute("end", end);

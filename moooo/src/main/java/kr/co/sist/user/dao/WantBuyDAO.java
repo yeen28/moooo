@@ -15,19 +15,25 @@ import kr.co.sist.user.vo.WantBuyVO;
 public class WantBuyDAO {
 
 	/**
-	 * 전체 글 개수 얻기
+	 * 글 개수 얻기
+	 * @param category 카테고리 번호
 	 * @return 글 개수
 	 * @throws SQLException
 	 */
-	public int selectBuyCnt() throws SQLException {
+	public int selectBuyCnt(int category) throws SQLException {
 		int cnt=0;
 		
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
-		String select="select count(*) from want_buy";
-		
-		cnt=jt.queryForObject(select, Integer.class);
+		String select="";
+		if(category == 0) {
+			select="select count(*) from want_buy";
+			cnt=jt.queryForObject(select, Integer.class);
+		} else {
+			select="select count(*) from want_buy where category_id=?";
+			cnt=jt.queryForObject(select, new Object[] { category }, Integer.class);
+		} //end else
 		
 		gjt.closeAc();
 		
@@ -35,46 +41,65 @@ public class WantBuyDAO {
 	} //selectBuyCnt
 	
 	/**
-	 * 사고싶어요 Title 얻기
+	 * 글의 Title 얻기
+	 * @param category
 	 * @param begin
 	 * @param end
-	 * @return 사고싶어요 Title
+	 * @return 글 번호, 제목, 가격, 작성일, 작성자, 조회수 
 	 * @throws SQLException
 	 */
-	public List<WantBuyVO> selectBuyTitle(int begin, int end) throws SQLException {
+	public List<WantBuyVO> selectBuyTitle(int category, int begin, int end) throws SQLException {
 		List<WantBuyVO> list = null;
 
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 
-		StringBuilder selectNotice=new StringBuilder();
-		selectNotice
-		.append("	select buy_id, title, price, input_date, user_id, view_cnt	" )
-		.append("	from (select rownum r_num, buy_id, title, price, input_date, user_id, view_cnt	")
-		.append("	from (select buy_id, title, price, to_char(input_date,'yyyy-MM-dd') input_date, user_id, view_cnt	")
-		.append("	from want_buy	")
-		.append("	order by buy_id desc))	")
-		.append("	where r_num between ? and ?	");
+		StringBuilder select=new StringBuilder();
 		
-		list=jt.query(selectNotice.toString(), new Object[] { begin, end }, new RowMapper<WantBuyVO>() {
-			@Override
-			public WantBuyVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
-				WantBuyVO wVO = new WantBuyVO();
-				wVO.setBuy_id(rs.getInt("buy_id"));
-				wVO.setTitle(rs.getString("title"));
-				wVO.setPrice(rs.getInt("price"));
-				wVO.setInput_date(rs.getString("input_date"));
-				wVO.setUser_id(rs.getString("user_id"));
-				wVO.setView_cnt(rs.getInt("view_cnt"));
-
-				return wVO;
-			}
-		});
-
+		if(category == 0) {
+			select
+			.append("	select buy_id, title, price, input_date, user_id, view_cnt	" )
+			.append("	from (select rownum r_num, buy_id, title, price, input_date, user_id, view_cnt	")
+			.append("	from (select buy_id, title, price, to_char(input_date,'yyyy-MM-dd') input_date, user_id, view_cnt	")
+			.append("	from want_buy	")
+			.append("	order by buy_id desc))	")
+			.append("	where r_num between ? and ?	");
+			
+			list=jt.query(select.toString(), new Object[] { begin, end }, new SelectBuy());
+			
+		} else {
+			select
+			.append("	select buy_id, title, price, input_date, user_id, view_cnt	" )
+			.append("	from (select rownum r_num, buy_id, title, price, input_date, user_id, view_cnt	")
+			.append("	from (select buy_id, title, price, to_char(input_date,'yyyy-MM-dd') input_date, user_id, view_cnt	")
+			.append("	from want_buy	")
+			.append("	where category_id=?	")
+			.append("	order by buy_id desc))	")
+			.append("	where r_num between ? and ?	");
+			
+			list=jt.query(select.toString(), new Object[] { category, begin, end }, new SelectBuy());
+		}
+		
 		gjt.closeAc();
 
 		return list;
 	} //selectBuyTitle
+	
+	/////////////// inner class : 정보를 저장할 목적의 클래스 시작 /////////////////
+	public class SelectBuy implements RowMapper<WantBuyVO>{
+		public WantBuyVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
+			WantBuyVO wVO = new WantBuyVO();
+			wVO.setBuy_id(rs.getInt("buy_id"));
+			wVO.setTitle(rs.getString("title"));
+			wVO.setPrice(rs.getInt("price"));
+			wVO.setInput_date(rs.getString("input_date"));
+			wVO.setUser_id(rs.getString("user_id"));
+			wVO.setView_cnt(rs.getInt("view_cnt"));
+	
+			return wVO;
+		}//mapRow
+	}
+	/////////////// inner class : 정보를 저장할 목적의 클래스 끝 /////////////////
 	
 	/**
 	 * 사고싶어요 조회수 세기
@@ -223,4 +248,36 @@ public class WantBuyDAO {
 		
 		return list;
 	}//selCategory
+	
+	/**
+	 * 마이페이지에서 보여줄 내가 쓴 글
+	 * @param user_id
+	 * @return WantBuyVO List
+	 * @throws SQLException
+	 */
+	public List<WantBuyVO> selectMypageBuy(String user_id) throws SQLException {
+		List<WantBuyVO> unv=null;
+		
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		String select="select title,price,input_date,view_cnt from want_buy where user_id=?";
+		
+		unv=jt.query(select, new Object[] { user_id }, new RowMapper<WantBuyVO>() {
+			public WantBuyVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				WantBuyVO unv=new WantBuyVO();
+				/* unv.setBuy_id(rs.getInt("buy_id")); */
+				unv.setTitle(rs.getString("title"));
+				unv.setPrice(rs.getInt("price"));
+				unv.setView_cnt(rs.getInt("view_cnt"));
+				unv.setInput_date(rs.getString("input_date"));
+				unv.setUser_id(user_id);
+				return unv;
+			}//mapRow
+		});
+		
+		gjt.closeAc();
+		
+		return unv;
+	}//selectMypageBuy
 }

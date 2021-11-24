@@ -41,17 +41,17 @@
 <!-- 왼쪽 바 -->
 <jsp:include page="layout/side_left.jsp"/>
 
+<%
+try{
+	String how_to=new HowToDAO().selHowTo();
+	pageContext.setAttribute("how", how_to);
+%>
 <div id="right">
 <!-- 이용방법 -->
 <div id="notice" class="panel panel-default">
 	<div class="panel-heading notice_subtitle">
 		<span class="notice_subtitle_text">이용방법</span>
 	</div>
-<%
-try{
-	String how_to=new HowToDAO().selHowTo();
-	pageContext.setAttribute("how", how_to);
-%>
 <div class="panel-body how">
   <c:out value="${ how }" escapeXml="false"/>
 </div>
@@ -75,7 +75,7 @@ try{
 	<ul id="ul-list">
 	<%
 		WantBuyDAO wd=new WantBuyDAO();
-		List<WantBuyVO> listBuy=wd.selectBuyTitle(0, wd.selectBuyCnt());
+		List<WantBuyVO> listBuy=wd.selectBuyTitle(0, 0, wd.selectBuyCnt(0));
 		pageContext.setAttribute("listBuy", listBuy);
 	%>
 		<c:forEach var="buy" items="${ listBuy }">
@@ -99,12 +99,17 @@ try{
 	<ul id="ul-list">
 	<%
 		WantSellDAO wsd=new WantSellDAO();
-		List<WantSellVO> listSell=wsd.selectSellTitle(0, wsd.selectSellCnt());
+		List<WantSellVO> listSell=wsd.selectSellTitle(0, 0, wsd.selectSellCnt(0));
 		pageContext.setAttribute("listSell", listSell);
 	%>
 		<c:forEach var="sell" items="${ listSell }">
 			<li><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp"><c:out value="${ sell.title }"/></a></li>
 		</c:forEach>
+	</ul>
+</div>
+</div><!-- /<div id="want_sell"> -->
+</div><!-- /<div id="right-mid"> -->
+</div><!-- /<div id="right"> -->
 	<%
 	} catch(SQLException se){
 		se.printStackTrace();
@@ -113,11 +118,6 @@ try{
 	<%
 	} //end catch
 	%>
-	</ul>
-</div>
-</div><!-- /<div id="want_sell"> -->
-</div><!-- /<div id="right-mid"> -->
-</div><!-- /<div id="right"> -->
 
 </div><!-- /<div id="container"> -->
 
