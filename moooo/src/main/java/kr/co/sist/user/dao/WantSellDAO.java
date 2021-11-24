@@ -81,7 +81,8 @@ public class WantSellDAO {
 	 * @param sell_id
 	 * @return
 	 */
-	public WantSellVO selectSell(int sell_id) throws DataAccessException {
+	//selectViewCnt로 이름바꾸기
+	public WantSellVO selectSell(int sell_id) throws DataAccessException { //sql로 바꾸기
 		WantSellVO nVO = new WantSellVO();
 
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
@@ -113,7 +114,7 @@ public class WantSellDAO {
 		gjt.closeAc();
 
 		return nVO;
-	} //selectSell
+	} //selectViewCnt
 	
 	/**
 	 * 글 추가
@@ -140,15 +141,15 @@ public class WantSellDAO {
 	 * @return WantSellVO
 	 * @throws SQLException
 	 */
-	public WantSellVO selEditSell(int sell_id) throws SQLException {
+	public WantSellVO selEditSell(int sell_id, String user_id) throws SQLException {
 		WantSellVO unv=new WantSellVO();
 		
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
-		String select="select * from want_sell where sell_id=?";
+		String select="select * from want_sell where sell_id=? and user_id=?";
 		
-		unv=jt.queryForObject(select, new Object[] { sell_id }, new RowMapper<WantSellVO>() {
+		unv=jt.queryForObject(select, new Object[] { sell_id, user_id }, new RowMapper<WantSellVO>() {
 			public WantSellVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				WantSellVO unv=new WantSellVO();
 				unv.setSell_id(rs.getInt("sell_id"));
@@ -169,6 +170,42 @@ public class WantSellDAO {
 		
 		return unv;
 	}//selEditBuy
+	
+	/**
+	 * 마이페이지에 보여줄 리스트
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<WantSellVO> selectMypageSell(String user_id) throws SQLException {
+		List<WantSellVO> unv=null;
+		
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		String select="select title,input_date,view_cnt,interest_cnt from want_sell where user_id=?";
+		
+		unv=jt.query(select, new Object[] { user_id }, new RowMapper<WantSellVO>() {
+			public WantSellVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				WantSellVO unv=new WantSellVO();
+				unv.setSell_id(rs.getInt("sell_id"));
+				unv.setTitle(rs.getString("title"));
+				unv.setComments(rs.getString("comments"));
+				unv.setPrice(rs.getInt("price"));
+				unv.setView_cnt(rs.getInt("view_cnt"));
+				unv.setInterest_cnt(rs.getInt("interest_cnt"));
+				unv.setInput_date(rs.getString("input_date"));
+				unv.setIp_addr(rs.getString("ip_addr"));
+				unv.setUser_id(rs.getString("user_id"));
+				unv.setCategory_id(rs.getInt("category_id"));
+				return unv;
+			}//mapRow
+		});
+		
+		gjt.closeAc();
+		
+		return unv;
+	}//selectMypageSell
 	
 	/**
 	 * 글 수정

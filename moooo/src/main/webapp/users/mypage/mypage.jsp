@@ -9,7 +9,7 @@
 <%@ include file="/common/jsp/common_code.jsp" %>
 
 <c:if test="${ empty sess_user_id }">
-<c:redirect url="../login/login.jsp"/>
+<c:redirect url="/users/login/login.jsp"/>
 </c:if>
 
 <% 
@@ -27,12 +27,6 @@ pageContext.setAttribute("sess_user_id", sess_id);
 
 <style type="text/css">
 #container{	margin: 80px auto; }
-#nav{
-height: 50px;
-}
-#nav_table{
-height: 50px;
-}
 .right_wrap {
 	position: absolute;
 	top: 0px;
@@ -47,8 +41,8 @@ height: 50px;
 	text-align:left;
 /* 	background-color: #FFE08C; */
 }
-#profile{
-	border: 1px solid #000000; 
+#view{
+	/* border: 1px solid #000000;  */
 	height: 1000px; 
 	margin: auto;
 	position: relative;
@@ -101,18 +95,15 @@ float: right;
 	left: 600px;
 	position: absolute;
 }
-#item_margin {
-	margin: 0px auto;
-}
-#main_user {
-	position: absolute;
-	top: 700px;
-	width : 780px;
-	height: 200px;
-	margin: 0px auto;
+.list {
+	/* position: absolute;
+	top: 30px;  */
+	width : 135%;
+	height: 600px;
+	margin: 30px auto;
 	padding: 20px;
-	border: 1px solid #333;
-	border-radius: 15px;
+	/* border: 1px solid #dfdfdf;
+	border-radius: 15px; */
 	overflow: scroll;
 }
 </style>
@@ -124,6 +115,50 @@ float: right;
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+$(function() {
+	$("#myInfo").click(function() {
+		/* $.ajax({
+			url: "ajax_sub/myInfo.jsp",
+			type: "post",
+			dataType: "html",
+			error: function( xhr ) {
+				console.log( xhr.status + " / " + xhr.statusText );
+			},
+			success: function( htmlData ) {
+				$("#view").html( htmlData );
+			}
+		}); //ajax */
+	});
+	
+	$("#sell_buy").click(function() {
+		$.ajax({
+			url: "ajax_sub/sell_buy_list.jsp",
+			type: "post",
+			dataType: "html",
+			error: function( xhr ) {
+				console.log( xhr.status + " / " + xhr.statusText );
+			},
+			success: function( htmlData ) {
+				$("#view").html( htmlData );
+			}
+		}); //ajax
+	}); //click
+	
+	$("#interest").click(function() {
+		$.ajax({
+			url: "ajax_sub/interest_list.jsp",
+			type: "post",
+			dataType: "html",
+			error: function( xhr ) {
+				console.log( xhr.status + " / " + xhr.statusText );
+			},
+			success: function( htmlData ) {
+				$("#view").html( htmlData );
+			}
+		}); //ajax
+	}); //click
+});//ready
+
 $(function() {
 	$("#chk_nickname_dup").click(function() {
 		window.open("dup_nickname.jsp", "dup", "width=500,height=400");
@@ -165,26 +200,26 @@ $(function() {
 	}); //click
 }); //ready
 
-// 이미지 업로드한 거 보이기
+//이미지 업로드한 거 보이기
 function readURL(input) {
-if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        $('#viewImg').attr('src', e.target.result);
-    }
-    reader.readAsDataURL(input.files[0]);
-}
-}
+	if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	        $('#viewImg').attr('src', e.target.result);
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	}//end if
+}//readURL
 
 /* function update(id) {
-	if( confirm(id+"님의 회원정보를 변경하시겠습니까?") ){
-		//hidden form 에 존재하는 Control에 값 설정
-		$("#update_nickname").val($("#nickname").val());
-		$("#update_phone").val($("#phone").val());
-		$("#update_img").val($("#img").val());
-		
-		$("#hiddenFrm").submit();
-	}//end if
+if( confirm(id+"님의 회원정보를 변경하시겠습니까?") ){
+	//hidden form 에 존재하는 Control에 값 설정
+	$("#update_nickname").val($("#nickname").val());
+	$("#update_phone").val($("#phone").val());
+	$("#update_img").val($("#img").val());
+	
+	$("#hiddenFrm").submit();
+}//end if
 }//update */
 </script>
 </head>
@@ -202,27 +237,16 @@ if (input.files && input.files[0]) {
 	<div id="right">
 	<div class="right_wrap">
 	<div id="nav">
-	<table id="nav_table" class="table" border="1">
-	<tr>
-	<td>
-	 <a href="<%= protocol %><%= domain %><%= contextRoot %>/users/mypage/mypage.jsp?nav=info" style="padding: 10px;">정보변경</a>
-	</td>
-	<td>
-	 <a href="<%= protocol %><%= domain %><%= contextRoot %>/users/mypage/mypage.jsp?nav=writeList" style="padding: 10px;">내가 쓴 글</a>
-	</td>
-	<td>
-	<a href="<%= protocol %><%= domain %><%= contextRoot %>/users/mypage/mypage.jsp?nav=interest" style="padding: 10px;">관심글</a>
-	</td>
-	<td>
-	<a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/change_password.jsp" style="padding: 10px;">비밀번호 변경</a>
-	</td>
-	<td>
-	 <a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/leave.jsp" style="padding: 10px;">회원탈퇴</a>
-	</td>
-	</tr>
-	</table>
-	</div>
-	
+	<ul class="nav nav-tabs">
+  <!-- <li role="presentation" class="active"><input type="button" id="myInfo" value="정보변경"/></li> -->
+  <li role="presentation" class="active"><a href="" id="myInfo" style="cursor: pointer;">정보변경</a></li>
+  <li role="presentation"><a id="sell_buy" style="cursor: pointer;">내가 쓴 글</a></li>
+  <li role="presentation"><a id="interest" style="cursor: pointer;">관심글</a></li>
+  <li role="presentation"><a id="dash" style="cursor: pointer;">비밀번호 변경</a></li>
+  <li role="presentation"><a id="dash" style="cursor: pointer;">회원탈퇴</a></li>
+</ul>
+</div>
+
 	<%
 	MypageDAO md=new MypageDAO();
 	UserVO uv=md.selMypage(sess_id);
@@ -235,7 +259,7 @@ if (input.files && input.files[0]) {
 	%>
 	
 	<form action="../mypage/proc/update_proc.jsp" id="frm" method="post" enctype="multipart/form-data">
-	<div id="profile"><br/>
+	<div id="view"><br/>
 		<div id="myImg">
 			<div style="text-align: left;">이미지</div>
 			<% if( uv.getImg() == null ) { %>
@@ -262,29 +286,6 @@ if (input.files && input.files[0]) {
 				style="width: 300px; height: 40px; font-size: 15px;"/>		
 	</div>
 	
-	<%-- <div class="item_margin" id="item_margin">
-	 <div class="main1" id="main_user">
-		<%
-		request.setCharacterEncoding("UTF-8");
-		%>
-		<%
-		MainDAO mDAO = new MainDAO();
-		List<UserVO> ulist = mDAO.selectAllUser();
-		pageContext.setAttribute("userData", ulist);
-		%>
-		<h3>관심글 목록</h3>
-		<table id="tbl">
-			<tbody>
-				<c:forEach var="users" items="${ userData }">
-					<tr>
-						<td style="font-size: 14px"><c:out value="${ users.id }"></c:out></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-</div> --%>
-	
 	<div>
 		<p id="save">
 			<button type="button" class="btn btn-primary btn-lg" id="addSave" style="width: 150px;">수정</button>
@@ -293,20 +294,20 @@ if (input.files && input.files[0]) {
 	
 	</div>
 	</form>
-	</div><!-- /<div class="notice_wrap"> -->
+</div><!-- /<div class="right_wrap"> -->
+	
 	</div><!-- /<div id="right"> -->
 	</div><!-- /<div id="container"> -->
-	
+<div style="clear:both;">
+<jsp:include page="/layout/footer.jsp"/>
+</div>
+
 <%-- <form name="hiddenFrm" id="hiddenFrm" method="post" action="proc/update_proc.jsp">
 	<input type="hidden" name="user_id" value="${ sess_user_id }"/> 
 	<input type="hidden" name="nickname" id="update_nickname"/> 
 	<input type="hidden" name="phone" id="update_phone"/> 
 	<input type="hidden" name="img" id="update_img"/> 
 </form> --%>
-
-<div style="clear:both;">
-<jsp:include page="/layout/footer.jsp"/>
-</div>
 
 </body>
 </html>
