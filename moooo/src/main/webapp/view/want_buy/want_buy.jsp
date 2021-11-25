@@ -99,7 +99,7 @@ pageContext.setAttribute("list", list);
 		<h2 style="font-weight: bold;">사고싶어요</h2>
 		
 		<div>
-		<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy_add.jsp">+추가</a>
+		<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/wb_write.jsp">+추가</a>
 		<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp">전체 글 보기</a>
 		</div>
 			
@@ -127,7 +127,7 @@ pageContext.setAttribute("list", list);
 		<tr>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.buy_id }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">
-              <a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy_detail.jsp?buy_id=${ buy.buy_id }">${ buy.title }</a>
+              <a href="<%= commonUrl %>/view/want_buy/want_buy_detail.jsp?buy_id=${ buy.buy_id }">${ buy.title }</a>
           </td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.price }원</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.user_id }</td>
@@ -143,17 +143,17 @@ pageContext.setAttribute("list", list);
 			<ul class="pagination">
 	<li>
 		<c:if test="${ nowPage ne 1 and param.page ne null }">
-			<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp?page=${ nowPage-1 }" aria-label="Previous">
+			<a href="<%= commonUrl %>/view/want_buy/want_buy.jsp?page=${ nowPage-1 }" aria-label="Previous">
 			<span aria-hidden="true">&laquo;</span>
 			</a>
 		</c:if>
 	</li>
 	<c:forEach var="i" begin="${ start }" end="${ end }">
-		<li><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp?page=${ i }"><c:out value="${ i }"/></a></li>
+		<li><a href="<%= commonUrl %>/view/want_buy/want_buy.jsp?page=${ i }"><c:out value="${ i }"/></a></li>
 	</c:forEach>
 	<li>
 	<% if(LastPage != 0 && nowPage != LastPage){ %>
-		<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp?page=${ nowPage+1 }" aria-label="Next">
+		<a href="<%= commonUrl %>/view/want_buy/want_buy.jsp?page=${ nowPage+1 }" aria-label="Next">
 			<span aria-hidden="true">&raquo;</span>
 		</a>
 	<% } %>

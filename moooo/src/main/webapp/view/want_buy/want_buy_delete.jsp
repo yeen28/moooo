@@ -21,7 +21,7 @@ WantBuyDAO wd=new WantBuyDAO();
 wd.delBuy(Integer.parseInt(request.getParameter("buy_id")));
 %>
 alert("삭제되었습니다.");
-location.href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp";
+location.href="<%= commonUrl %>/view/want_buy/want_buy.jsp";
 <%
 } catch (DataAccessException dae){
 	dae.printStackTrace();

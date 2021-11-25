@@ -142,7 +142,7 @@ public class WantBuyDAO {
 	} //selectBuy
 	
 	/**
-	 * 사고싶어요 글 추가
+	 * 글 추가
 	 * @param WantBuyVO
 	 * @throws DataAccessException
 	 */
@@ -161,32 +161,39 @@ public class WantBuyDAO {
 	}//insertBuy
 	
 	/**
-	 * 사고싶어요 글 수정을 위한 select
+	 * 글 수정을 위한 select
 	 * @param 글 번호
-	 * @return 제목, 내용
+	 * @return WantBuyVO
 	 * @throws SQLException
 	 */
-//	public WantBuyVO selEditBuy(int buy_id) throws SQLException {
-//		WantBuyVO unv=new WantBuyVO();
-//		
-//		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
-//		JdbcTemplate jt = gjt.getJdbcTemplate();
-//		
-//		String select="select title,comments from want_buy where buy_id=?";
-//		
-//		unv=jt.queryForObject(select, new Object[] { buy_id }, new RowMapper<WantBuyVO>() {
-//			public WantBuyVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-//				WantBuyVO unv=new WantBuyVO();
-//				unv.setTitle(rs.getString("title"));
-//				unv.setComments(rs.getString("comments"));
-//				return unv;
-//			}//mapRow
-//		});
-//		
-//		gjt.closeAc();
-//		
-//		return unv;
-//	}//selEditBuy
+	public WantBuyVO selEditBuy(int buy_id, String user_id) throws SQLException {
+		WantBuyVO unv=new WantBuyVO();
+		
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		String select="select * from want_buy where buy_id=? and user_id=?";
+		
+		unv=jt.queryForObject(select, new Object[] { buy_id,user_id }, new RowMapper<WantBuyVO>() {
+			public WantBuyVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				WantBuyVO unv=new WantBuyVO();
+				unv.setBuy_id(rs.getInt("buy_id"));
+				unv.setTitle(rs.getString("title"));
+				unv.setComments(rs.getString("comments"));
+				unv.setPrice(rs.getInt("price"));
+				unv.setView_cnt(rs.getInt("view_cnt"));
+				unv.setInput_date(rs.getString("input_date"));
+				unv.setIp_addr(rs.getString("ip_addr"));
+				unv.setUser_id(rs.getString("user_id"));
+				unv.setCategory_id(rs.getInt("category_id"));
+				return unv;
+			}//mapRow
+		});
+		
+		gjt.closeAc();
+		
+		return unv;
+	}//selEditBuy
 	
 	/**
 	 * 사고싶어요 수정

@@ -44,5 +44,5 @@ location.href="${ url }";
 
 <c:if test="${ not empty e }">
 <%-- ${ e } --%>
-<c:redirect url="../../../common/error/error.jsp"/>
+<c:redirect url="${ commonUrl }/common/error/error.jsp"/>
 </c:if>

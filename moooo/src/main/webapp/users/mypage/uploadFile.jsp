@@ -78,7 +78,7 @@ function sendImg( imgName ){
 </script>
 </head>
 <body>
-<form action="<%= protocol %><%= domain %><%= contextRoot %>/users/mypage/proc/update_proc.jsp" method="post" id="frm" enctype="multipart/form-data">
+<form action="<%= commonUrl %>/users/mypage/proc/update_proc.jsp" method="post" id="frm" enctype="multipart/form-data">
 <h2>파일 업로드</h2>
 <input type="file" name="img" id="img"/><!--  onchange="readURL(this);"/> -->
 <input type="text" style="display: none;"/>

@@ -17,4 +17,8 @@ String common_css="/common/css";
 String common_js="/common/js";
 String common_jsp="/common/jsp";
 String common_images="/common/images";
+
+String commonUrl=protocol+domain+contextRoot;
+
+pageContext.setAttribute("commonUrl", commonUrl);
 %>

@@ -11,10 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta nickname="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title><%= title %></title>
 
-<link rel="stylesheet" href="<%= protocol %><%= domain %><%= contextRoot %><%= common_css %>/find.css"/>
+<link rel="stylesheet" href="<%= commonUrl %><%= common_css %>/find.css"/>
 
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -64,7 +64,7 @@ uVO.setNew_pass( DataEncrypt.messageDigest( "SHA-1", uVO.getNew_pass() ));
 mDAO.updatePw(uVO);
 %>
 <div class="find_img">
-<img alt="find" src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/find.png">
+<img alt="find" src="<%= commonUrl %>/common/images/find.png">
 </div>
 
 <div class="container-mid result-mid">
@@ -73,7 +73,7 @@ mDAO.updatePw(uVO);
 </div>
 
 <div id="result-bottom">
-<a class="btn" href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/login.jsp">로그인</a>
+<a class="btn" href="<%= commonUrl %>/users/login/login.jsp">로그인</a>
 </div>
 
 </c:catch>

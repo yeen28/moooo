@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><%= title %></title>
-<link rel="stylesheet" href="<%= protocol %><%= domain %><%= contextRoot %>/common/css/sign_up.css"/>
+<link rel="stylesheet" href="<%= commonUrl %>/common/css/sign_up.css"/>
 
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -45,7 +45,7 @@ pageContext.setAttribute("flag", flag);
 
 <div id="success_container">
 <div id="container_top">
-<img alt="success" src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/registration.PNG"><br/>
+<img alt="success" src="<%= commonUrl %>/common/images/registration.PNG"><br/>
 <span>회원탈퇴가 <strong>완료되었습니다.</strong></span>
 </div>
 
@@ -54,7 +54,7 @@ pageContext.setAttribute("flag", flag);
 </div>
 
 <div id="container_bottom">
-<a href="<%= protocol %><%= domain %><%= contextRoot %>/index.jsp" id="home">첫화면</a>
+<a href="<%= commonUrl %>/index.jsp" id="home">첫화면</a>
 </div>
 </div>
 

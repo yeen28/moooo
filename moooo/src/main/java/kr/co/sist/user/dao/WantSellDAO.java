@@ -108,7 +108,7 @@ public class WantSellDAO {
 	 * @return
 	 */
 	//selectViewCnt로 이름바꾸기
-	public WantSellVO selectSell(int sell_id) throws DataAccessException { //sql로 바꾸기
+	public WantSellVO selectSell(int sell_id) throws SQLException { //sql로 바꾸기
 		WantSellVO nVO = new WantSellVO();
 
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
@@ -117,9 +117,12 @@ public class WantSellDAO {
 		String updateCnt = "update want_sell set view_cnt = (view_cnt + 1) where sell_id = ?";
 		jt.update(updateCnt, sell_id);
 
-		String selectQuery = "select * from want_sell where sell_id = ?";
-
-		nVO = jt.queryForObject(selectQuery, new Object[] { Long.valueOf(sell_id) }, new RowMapper<WantSellVO>() {
+		StringBuilder select = new StringBuilder();
+		select
+		.append("	select sell_id, title, comments, price, input_date, view_cnt, interest_cnt, user_id ")
+		.append("	from want_sell	")
+		.append("	where sell_id = ?	");
+		nVO = jt.queryForObject(select.toString(), new Object[] { Long.valueOf(sell_id) }, new RowMapper<WantSellVO>() {
 
 			@Override
 			public WantSellVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
@@ -128,8 +131,10 @@ public class WantSellDAO {
 				nVO.setSell_id(rs.getInt("sell_id"));
 				nVO.setTitle(rs.getString("title"));
 				nVO.setComments(rs.getString("comments"));
+				nVO.setPrice(rs.getInt("price"));
 				nVO.setInput_date(rs.getString("input_date"));
 				nVO.setView_cnt(rs.getInt("view_cnt"));
+				nVO.setInterest_cnt(rs.getInt("interest_cnt"));
 				nVO.setUser_id(rs.getString("user_id"));
 
 				return nVO;
@@ -250,16 +255,20 @@ public class WantSellDAO {
 	
 	/**
 	 * 글 삭제
-	 * @param sell_id
+	 * @param sell_id, user_id
 	 * @throws DataAccessException
 	 */
-	public void delSell(int sell_id) throws DataAccessException {
+	public void delSell(int sell_id, String user_id) throws SQLException {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
-		String delete="delete from want_sell where sell_id=?";
+		//delete는 조건에 맞는 것이 없다면 에러가 아니라 아무 일도 일어나지 않는다.
+		//그래서 select을 했다.
+		String select="select title from want_sell where sell_id=? and user_id=?";
+		jt.queryForObject(select, new Object[] {sell_id, user_id}, String.class);
 		
-		jt.update(delete, sell_id);
+		String delete="delete from want_sell where sell_id=? and user_id=?";
+		jt.update(delete, sell_id, user_id);
 		
 		gjt.closeAc();
 	}//delSell

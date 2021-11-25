@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="<%= protocol %><%= domain %><%= contextRoot %>/common/css/leave.css" type="text/css"/>
+<link rel="stylesheet" href="<%= commonUrl %>/common/css/leave.css" type="text/css"/>
 <script type="text/javascript">
 function deleteMember() {
 	if( $("#exampleInputPassword1").val() == "" ){
@@ -81,7 +81,7 @@ String nickname=mDAO.selNickname(id);
   탈퇴 후에는 게시글을 임의로 삭제해드릴 수 없습니다.</p> -->
 </div>
 
-<form action="<%= protocol %><%= domain %><%= contextRoot %>/users/login/process/leave_process.jsp" method="post" id="leaveFrm" name="leaveFrm">
+<form action="<%= commonUrl %>/users/login/process/leave_process.jsp" method="post" id="leaveFrm" name="leaveFrm">
 <div id=bottom>
 <table class="table">
 <tr>

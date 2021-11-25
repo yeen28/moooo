@@ -219,7 +219,7 @@ $(function(){
 	})
 });//ready
 
-function clickcr(g, H, u, D, E, A, P) {
+/* function clickcr(g, H, u, D, E, A, P) {
 	if (arguments.length == 1) {
 		if (typeof nclk.generateCC != "undefined") {
 			nclk.generateCC(arguments[0])
@@ -429,7 +429,7 @@ function clickcr(g, H, u, D, E, A, P) {
 		}
 	}
 	return true
-};
+}; */
 </script>
 </head>
 
@@ -450,8 +450,8 @@ function clickcr(g, H, u, D, E, A, P) {
   <li role="presentation" class="active"><a href="" id="myInfo" style="cursor: pointer;">정보변경</a></li>
   <li role="presentation"><a id="sell_buy" style="cursor: pointer;">내가 쓴 글</a></li>
   <li role="presentation"><a id="interest" style="cursor: pointer;">관심글</a></li>
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/change_password.jsp">비밀번호 변경</a></li>
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/leave.jsp">회원탈퇴</a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/users/login/change_password.jsp">비밀번호 변경</a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/users/login/leave.jsp">회원탈퇴</a></li>
 </ul>
 </div>
 
@@ -466,25 +466,27 @@ function clickcr(g, H, u, D, E, A, P) {
 	pageContext.setAttribute( "imgFile", ufs.searchFile() );
 	%>
 	
-	<form action="../mypage/proc/update_proc.jsp" id="frm" method="post" enctype="multipart/form-data">
 	<div id="view"><br/>
+	<form action="../mypage/proc/updateImg_proc.jsp" id="frmImg" method="post" enctype="multipart/form-data">
 		<div id="myImg">
 			<div style="text-align: left;">이미지</div>
 			<% if( uv.getImg() == null ) { %>
-			<img id="viewImg" src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/defaultImg.png" alt="image" width="100" height="100"><br/>
+			<img id="viewImg" src="<%= commonUrl %>/common/images/defaultImg.png" alt="image" width="100" height="100"><br/>
 			<% } else { %>
-			<img id="viewImg" src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/upload/${uv.img}" alt="image"><br/>
+			<img id="viewImg" src="<%= commonUrl %>/common/images/upload/${uv.img}" alt="image"><br/>
 			<% } %>
 			<!-- <img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="100" height="100"> -->
-			<br/><br/><br/><br/><br/><br/>
-			 <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진등록</b></label>
+			<!-- <br/><br/><br/><br/><br/><br/>
+			 <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진등록</b></label> -->
 			<input type="file" id="img" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);"/><br/><br/>
 			<!-- <input type="file" name="img" accept="image/*" id="img" onchange="readURL(this);"/> -->
 			<%-- <c:if test="">
 			<input type="hidden" name="img" value="${ uv.img }"/>
 			</c:if> --%>
 		</div>
+		</form>
 
+	<form action="../mypage/proc/update_proc.jsp" id="frm" method="post">
 	<div id="id1">
 		<div style="text-align: left;">*닉네임</div>
 		<input type="text" value="${ uv.nickname }" name="nickname" id="nickname" class="form-control" style="width: 150px; height: 40px; font-size: 15px;"/>		
@@ -504,8 +506,8 @@ function clickcr(g, H, u, D, E, A, P) {
 		</p>
 	</div>
 	
-	</div>
 	</form>
+	</div>
 </div><!-- /<div class="right_wrap"> -->
 	
 	</div><!-- /<div id="right"> -->

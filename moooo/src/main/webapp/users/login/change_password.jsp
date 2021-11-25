@@ -67,7 +67,7 @@ $(function() {
 <div id="chang_container">
 <h1>비밀번호 변경</h1>
 
-<form id="frm" name="change_frm" action="<%= protocol %><%= domain %><%= contextRoot %>/users/login/process/change_pw_process.jsp" method="post">
+<form id="frm" name="change_frm" action="<%= commonUrl %>/users/login/process/change_pw_process.jsp" method="post">
 <div id="container-mid">
 <label>이전 비밀번호</label><br/>
 <input type="password" id="before_pass" name="before_pass" class="form-control" required autofocus/><br/>

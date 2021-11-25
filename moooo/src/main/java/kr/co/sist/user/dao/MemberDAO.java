@@ -245,7 +245,6 @@ public class MemberDAO {
 	public void deleteMember(String id) throws SQLException{
 		
 		GetJdbcTemplate gjt=GetJdbcTemplate.getInstance();
-	
 		JdbcTemplate jt=gjt.getJdbcTemplate();
 	
 		String deleteMember="delete from users where user_id=?";

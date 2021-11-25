@@ -19,18 +19,20 @@ if(confirm("삭제하시겠습니까?")){
 <%
 try{
 WantSellDAO wd=new WantSellDAO();
-wd.delSell(Integer.parseInt(request.getParameter("sell_id")));
+wd.delSell(Integer.parseInt(request.getParameter("sell_id")), (String)session.getAttribute("sess_user_id"));
 %>
 alert("삭제되었습니다.");
-location.href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp";
+location.href="<%= commonUrl %>/view/want_sell/want_sell.jsp";
 <%
 } catch (DataAccessException dae){
 	dae.printStackTrace();
 %>
-문제발생
+alert("접근 권한이 없습니다.");
+location.href="javascript:history.back()";
 <%
 }//end catch
 %>
+
 }else{
 	location.href="javascript:history.back()";
 }

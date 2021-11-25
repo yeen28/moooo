@@ -58,7 +58,7 @@
 
 <script type="text/javascript">
 function notice(){
-	location.href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp";
+	location.href="<%= commonUrl %>/view/want_buy/want_buy.jsp";
 }//notice
 </script>
 </head>
@@ -104,9 +104,9 @@ WantBuyVO wv = wd.selectBuy(buy_id);
 						</tbody>
 					</table>
 				</div>
-				<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp">목록</a>
-				<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy_edit.jsp?buy_id=<%= wv.getBuy_id() %>">수정</a>
-				<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy_delete.jsp?buy_id=<%= wv.getBuy_id() %>">삭제</a>
+				<a href="<%= commonUrl %>/view/want_buy/want_buy.jsp">목록</a>
+				<a href="<%= commonUrl %>/view/want_buy/wb_write.jsp?buy_id=<%= wv.getBuy_id() %>">수정</a>
+				<a href="<%= commonUrl %>/view/want_buy/want_buy_delete.jsp?buy_id=<%= wv.getBuy_id() %>">삭제</a>
 			</div>
 		</div>
 	</div>

@@ -19,6 +19,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+<style type="text/css">
+#user_id{width: 200px;}
+</style>
+
 <script type="text/javascript">
 $(function() {
 	$("#btn").click(function() {
@@ -55,9 +59,9 @@ function sendId( user_id ){
 <form action="id_dup.jsp" method="get" id="frm">
 <h2>아이디 중복확인</h2>
 <label>아이디</label>
-<input type="text" name="user_id" id="user_id"/>
+<input type="text" name="user_id" id="user_id" class="form-control"/>
 <input type="text" style="display: none;"/>
-<input type="button" value="중복확인" id="btn"/>
+<input type="button" value="중복확인" id="btn" class="btn"/>
 <c:if test="${not empty param.user_id }">
 <div>
 <%

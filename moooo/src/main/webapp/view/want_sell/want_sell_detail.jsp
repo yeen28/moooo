@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="kr.co.sist.user.vo.WantSellVO"%>
 <%@page import="kr.co.sist.user.dao.WantSellDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -58,15 +59,16 @@
 
 <script type="text/javascript">
 function notice(){
-	location.href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp";
+	location.href="<%= commonUrl %>/view/want_sell/want_sell.jsp";
 }//notice
 </script>
 </head>
 
 <body>
+<c:catch var="e">
 <%
-String param1 = request.getParameter("sell_id");
-int sell_id = Integer.parseInt(param1);
+int sell_id = Integer.parseInt(request.getParameter("sell_id"));
+
 WantSellDAO wd = new WantSellDAO();
 WantSellVO wv = wd.selectSell(sell_id);
 %>
@@ -99,24 +101,28 @@ WantSellVO wv = wd.selectSell(sell_id);
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
 								<td colspan="5" style="font-size: 16px; color: #333;"><%= wv.getTitle() %></td>
-							</tr>
-							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성자</td>
 								<td style="font-size: 16px; color: #333;"><%= wv.getUser_id() %></td>
-								<td style="font-weight: bold; font-size: 16px; color: #333;">작성일</td>
-								<td style="font-size: 16px; color: #333;"><%= wv.getInput_date() %></td>
-								<td style="font-weight: bold; font-size: 16px; color: #333;">조회수</td>
-								<td style="font-size: 16px; color: #333;"><%= wv.getView_cnt() %></td>
 							</tr>
 							<tr>
-								<td colspan="6" style="font-size: 16px; color: #333;"><%= wv.getComments() %></td>
+								<td style="font-weight: bold; font-size: 16px; color: #333;">작성일</td>
+								<td style="font-size: 16px; color: #333;"><%= wv.getInput_date() %></td>
+								<td style="font-weight: bold; font-size: 16px; color: #333;">가격</td>
+								<td style="font-size: 16px; color: #333;"><%= wv.getPrice() %>원</td>
+								<td style="font-weight: bold; font-size: 16px; color: #333;">조회수</td>
+								<td style="font-size: 16px; color: #333;"><%= wv.getView_cnt() %></td>
+								<td style="font-weight: bold; font-size: 16px; color: #333;">관심수</td>
+								<td style="font-size: 16px; color: #333;"><%= wv.getInterest_cnt() %></td>
+							</tr>
+							<tr>
+								<td colspan="8" style="font-size: 16px; color: #333;"><%= wv.getComments() %></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp">목록</a>
-				<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell_edit.jsp?sell_id=<%= wv.getSell_id() %>">수정</a>
-				<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell_delete.jsp?sell_id=<%= wv.getSell_id() %>">삭제</a>
+				<a href="<%= commonUrl %>/view/want_sell/want_sell.jsp">목록</a>
+				<a href="<%= commonUrl %>/view/want_sell/ws_write.jsp?sell_id=<%= wv.getSell_id() %>">수정</a>
+				<a href="<%= commonUrl %>/view/want_sell/want_sell_delete.jsp?sell_id=<%= wv.getSell_id() %>">삭제</a>
 			</div>
 		</div>
 	</div>
@@ -125,6 +131,9 @@ WantSellVO wv = wd.selectSell(sell_id);
 	<div style="clear:both;">
 <jsp:include page="/layout/footer.jsp"/>
 </div>
-
+</c:catch>
+<c:if test="${ not empty e }">
+<c:redirect url="${ commonUrl }/common/error/error.jsp"/>
+</c:if>
 </body>
 </html>

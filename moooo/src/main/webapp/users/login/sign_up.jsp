@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="<%= protocol %><%= domain %><%= contextRoot %>/common/css/sign_up.css"/>
+<link rel="stylesheet" href="<%= commonUrl %>/common/css/sign_up.css"/>
 
 <script type="text/javascript">
 $(function() {
@@ -104,8 +104,8 @@ $(function() {
 <jsp:include page="/layout/header.jsp"/>
 
 <div id="container">
-      <h2 class="sign-title"><img src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/icons/sign_up.PNG" width="50px"/>&nbsp;<strong>회원가입</strong></h2>
-        <form action="<%= protocol %><%= domain %><%= contextRoot %>/users/login/process/sign_up_process.jsp" role="form" class="new_user" id="new_user" name="new_user" accept-charset="UTF-8" method="post">
+      <h2 class="sign-title"><img src="<%= commonUrl %>/common/images/icons/sign_up.PNG" width="50px"/>&nbsp;<strong>회원가입</strong></h2>
+        <form action="<%= commonUrl %>/users/login/process/sign_up_process.jsp" role="form" class="new_user" id="new_user" name="new_user" accept-charset="UTF-8" method="post">
         <div>
         </div>
         
@@ -136,7 +136,7 @@ $(function() {
       <div id="agree">
           <h6>
             <input type="checkbox" id="tos_agreed" name="tos_agreed" value="tos_agreed">
-            <a target="_blank" rel="noopener" href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/tos.jsp">이용약관</a>에 동의합니다. (필수)
+            <a target="_blank" rel="noopener" href="<%= commonUrl %>/users/login/tos.jsp">이용약관</a>에 동의합니다. (필수)
           </h6>
       </div>
       

@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title><%= title %></title>
-<link rel="stylesheet" href="<%= protocol %><%= domain %><%= contextRoot %>/common/css/find.css"/>
+<link rel="stylesheet" href="<%= commonUrl %>/common/css/find.css"/>
 
  <!--jQuery CDN-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -45,7 +45,7 @@ pageContext.setAttribute("nickname", nickname);
 <div class="find_container">
 
 <div class="find_img">
-<img alt="find" src="<%= protocol %><%= domain %><%= contextRoot %><%= common_images %>/find.png">
+<img alt="find" src="<%= commonUrl %><%= common_images %>/find.png">
 </div>
 
 <div class="container-mid result-mid">
@@ -54,7 +54,7 @@ pageContext.setAttribute("nickname", nickname);
 </div>
 
 <div id="result-bottom">
-<a class="btn" href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/login.jsp">로그인</a>
+<a class="btn" href="<%= commonUrl %>/users/login/login.jsp">로그인</a>
 </div>
 </div>
 
@@ -71,7 +71,7 @@ pageContext.setAttribute("nickname", nickname);
 
 <div class="find_container">
 <div class="find_img">
-<img alt="find" src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/find.png">
+<img alt="find" src="<%= commonUrl %>/common/images/find.png">
 </div>
 
 <div class="container-mid result-mid">
@@ -79,7 +79,7 @@ pageContext.setAttribute("nickname", nickname);
 </div>
 
 <div id="result-bottom">
-<a class="btn" href="<%= protocol %><%= domain %><%= contextRoot %>/users/login/find.jsp">확인</a>
+<a class="btn" href="<%= commonUrl %>/users/login/find.jsp">확인</a>
 </div>
 </div>
 

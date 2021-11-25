@@ -38,7 +38,7 @@ pageContext.setAttribute("list", wvList);
 	</c:if>
 		<c:forEach var="list" items="${ list }">
 			<tr>
-				<td style="font-size: 14px"><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell_detail.jsp?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
+				<td style="font-size: 14px"><a href="<%= commonUrl %>/view/want_sell_detail.jsp?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
 				<td style="font-size: 14px"><c:out value="${ list.input_date }"/></td>
 			</tr>
 		</c:forEach>
@@ -48,7 +48,7 @@ pageContext.setAttribute("list", wvList);
 </div><!-- /<div class="right_wrap"> -->
 <%
 } catch(SQLException se){
-	se.printStackTrace();
+	/* se.printStackTrace(); */
 	out.println("문제발생");
 }//end catch
 %>

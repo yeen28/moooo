@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="<%= protocol %><%= domain %><%= contextRoot %>/common/css/find.css"/>
+<link rel="stylesheet" href="<%= commonUrl %>/common/css/find.css"/>
 </head>
 
 <body>
@@ -27,11 +27,11 @@
 
 <div class="find_container">
 <div class="find_img">
-<img alt="findLogin_sist" src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/find.png">
+<img alt="findLogin_sist" src="<%= commonUrl %>/common/images/find.png">
 </div>
 
 <div class="container-mid">
-<form class="form-signin" action="<%= protocol %><%= domain %><%= contextRoot %>/users/login/process/find_id_process.jsp" method="post">
+<form class="form-signin" action="<%= commonUrl %>/users/login/process/find_id_process.jsp" method="post">
 <div id="left">
 <table>
 	<tr><td><span><strong>아이디 찾기</strong><br/>회원님의 닉네임과 휴대폰번호를 입력해주세요.</span></td></tr>
@@ -53,7 +53,7 @@
 </div>
 </form>
 
-<form action="<%= protocol %><%= domain %><%= contextRoot %>/users/login/process/find_pass_process.jsp" method="post">
+<form action="<%= commonUrl %>/users/login/process/find_pass_process.jsp" method="post">
 <div id="right">
 <table>
 	<tr><td><span><strong>비밀번호 찾기</strong><br/>회원님의 닉네임과 아이디, 휴대폰번호를 입력해주세요.</span></td></tr>
@@ -65,7 +65,7 @@
 	</td></tr>
 	<tr><td>
 	<div class="input-group input-group">
-  <span class="input-group-addon" id="sizing-addon1"><img src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/icons/pass_icon.PNG" width="15px"/></span>
+  <span class="input-group-addon" id="sizing-addon1"><img src="<%= commonUrl %>/common/images/icons/pass_icon.PNG" width="15px"/></span>
   <input type="text" class="form-control"  id="id" name="user_id" placeholder="아이디" aria-describedby="sizing-addon1" required>
 </div>
 	</td></tr>

@@ -29,8 +29,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="<%= protocol %><%= domain %><%= contextRoot %>/common/css/login_common.css">
-<link rel="stylesheet" href="<%= protocol %><%= domain %><%= contextRoot %>/common/css/index.css">
+<link rel="stylesheet" href="<%= commonUrl %>/common/css/login_common.css">
+<link rel="stylesheet" href="<%= commonUrl %>/common/css/index.css">
 </head>
 
 <body>
@@ -66,8 +66,8 @@ try{
 	<div class="panel-heading notice_subtitle">
 		<span class="notice_subtitle_text">사고싶어요</span>
 			<div id="moreView">
-				<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp">
-					<span id="moreView"><img src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/icons/moreView.PNG" width="25px"/></span>
+				<a href="<%= commonUrl %>/view/want_buy/want_buy.jsp">
+					<span id="moreView"><img src="<%= commonUrl %>/common/images/icons/moreView.PNG" width="25px"/></span>
 				</a>
 			</div>
 	</div>
@@ -79,7 +79,7 @@ try{
 		pageContext.setAttribute("listBuy", listBuy);
 	%>
 		<c:forEach var="buy" items="${ listBuy }">
-			<li><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp"><c:out value="${ buy.title }"/></a></li>
+			<li><a href="<%= commonUrl %>/view/want_buy/want_buy.jsp"><c:out value="${ buy.title }"/></a></li>
 		</c:forEach>
 	</ul>
 </div>
@@ -90,8 +90,8 @@ try{
 	<div class="panel-heading notice_subtitle">
 		<span class="notice_subtitle_text">팔아요</span>
 			<div id="moreView">
-				<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp">
-					<span id="moreView"><img src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/icons/moreView.PNG" width="25px"/></span>
+				<a href="<%= commonUrl %>/view/want_sell/want_sell.jsp">
+					<span id="moreView"><img src="<%= commonUrl %>/common/images/icons/moreView.PNG" width="25px"/></span>
 				</a>
 			</div>
 	</div>
@@ -103,7 +103,7 @@ try{
 		pageContext.setAttribute("listSell", listSell);
 	%>
 		<c:forEach var="sell" items="${ listSell }">
-			<li><a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp"><c:out value="${ sell.title }"/></a></li>
+			<li><a href="<%= commonUrl %>/view/want_sell/want_sell.jsp"><c:out value="${ sell.title }"/></a></li>
 		</c:forEach>
 	</ul>
 </div>

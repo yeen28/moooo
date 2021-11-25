@@ -29,7 +29,7 @@ List<String> listUrl=mDAO.selectUrl( mVO.getId() );
 session.setAttribute("listSub", listSub);
 session.setAttribute("listUrl", listUrl); */
 %>
-<c:redirect url="../../../index.jsp"/>
+<c:redirect url="${ commonUrl }/index.jsp"/>
 </c:catch>
 <c:if test="${ not empty e }">
 <script type="text/javascript">

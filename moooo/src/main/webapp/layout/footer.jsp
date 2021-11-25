@@ -181,9 +181,14 @@ body {
 .footer-bottom-layout {
 	text-align: center;
 }
+
+.backColor{
+background: rgb(114,20,94);
+background: linear-gradient(90deg, rgba(114,20,94,1) 0%, rgba(172,24,136,1) 100%);
+}
 </style>
 
-<footer id="footer-Section">
+<footer id="footer-Section" class="backColor">
 	<div class="footer-top-layout">
 		<div class="container">
 			<div class="row">
