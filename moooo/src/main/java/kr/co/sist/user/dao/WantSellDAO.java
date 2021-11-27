@@ -119,7 +119,7 @@ public class WantSellDAO {
 
 		StringBuilder select = new StringBuilder();
 		select
-		.append("	select sell_id, title, comments, price, input_date, view_cnt, interest_cnt, user_id ")
+		.append("	select sell_id, title, comments, price, to_char(input_date,'yyyy-MM-dd')input_date, view_cnt, interest_cnt, user_id ")
 		.append("	from want_sell	")
 		.append("	where sell_id = ?	");
 		nVO = jt.queryForObject(select.toString(), new Object[] { Long.valueOf(sell_id) }, new RowMapper<WantSellVO>() {
@@ -214,9 +214,13 @@ public class WantSellDAO {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
-		String select="select sell_id,title,price,input_date,view_cnt,interest_cnt from want_sell where user_id=?";
+		StringBuilder select=new StringBuilder();
+		select
+		.append("	select sell_id,title,price,to_char(input_date,'yyyy-MM-dd')input_date,view_cnt,interest_cnt	")
+		.append("	from want_sell	")
+		.append("	where user_id=?	");
 		
-		unv=jt.query(select, new Object[] { user_id }, new RowMapper<WantSellVO>() {
+		unv=jt.query(select.toString(), new Object[] { user_id }, new RowMapper<WantSellVO>() {
 			public WantSellVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				WantSellVO unv=new WantSellVO();
 				unv.setSell_id(rs.getInt("sell_id"));

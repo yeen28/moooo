@@ -101,6 +101,7 @@ pageContext.setAttribute("list", list);
 			<div>
 			<%-- <a href="<%= commonUrl %>/view/want_sell/want_sell_add.jsp">+추가</a> --%>
 			<a href="<%= commonUrl %>/view/want_sell/ws_write.jsp">+추가</a>
+		<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_sell/want_sell.jsp">전체 글 보기</a>
 			</div>
 				
 			</div>

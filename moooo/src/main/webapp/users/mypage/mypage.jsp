@@ -219,15 +219,16 @@ $(function(){
 	})
 });//ready
 
-/* function clickcr(g, H, u, D, E, A, P) {
+             //clickcr(this,'prf.upimg','', '', event)
+/* function clickcr(g,    H,           u, D, E,      A, P) {
 	if (arguments.length == 1) {
 		if (typeof nclk.generateCC != "undefined") {
 			nclk.generateCC(arguments[0])
 		}
 		return
 	}
-	var F = navigator.userAgent.toLowerCase();
-	var k = (F.indexOf("safari") != -1 ? true : false);
+	var F = navigator.userAgent.toLowerCase(); //소문자로
+	var k = (F.indexOf("safari") != -1 ? true : false); //true-safari, false-safari아님
 	var C = /msie/.test(F) && !/opera/.test(F);
 	var l = (window.location.protocol == "https:") ? "https:" : "http:";
 	var a = ccsrv.substring(ccsrv.indexOf(".") + 1);
@@ -330,14 +331,14 @@ $(function(){
 		}
 	} catch (Q) {
 	}
-	if (H == "" || typeof H == "undefined") {
-		return
+	if (H == "" || typeof H == "undefined") { //H : 'prf.upimg' 파일클릭시 파라메터로 넘어옴
+		return  //이미지가 없는 경우 그냥 리턴하는 것 같음
 	}
 	if (A.indexOf("1") != -1) {
 		r = 0
 	} else {
 		if (g.href) {
-			z = g.nodeName.toLowerCase();
+			z = g.nodeName.toLowerCase(); //g : this(파일클릭시 파라메터로 넘어옴) //소문자로
 			B = g.href.toLowerCase();
 			if ((g.target && g.target != "_self" && g.target != "_top" && g.target != "_parent")
 					|| (B.indexOf("javascript:") != -1)
@@ -430,6 +431,12 @@ $(function(){
 	}
 	return true
 }; */
+
+function upload() {
+	alert("adsf")
+	//let output="<input type='file' id='img' name='img' accept='image/gif, image/jpeg, image/png, image/jpg' onchange='readURL(this);'/>"
+	//$("#view").html(output);
+} //upload
 </script>
 </head>
 
@@ -474,11 +481,13 @@ $(function(){
 			<img id="viewImg" src="<%= commonUrl %>/common/images/defaultImg.png" alt="image" width="100" height="100"><br/>
 			<% } else { %>
 			<img id="viewImg" src="<%= commonUrl %>/common/images/upload/${uv.img}" alt="image"><br/>
+			<!-- 사진변경 버튼 / 클릭시 팝업? -->
 			<% } %>
 			<!-- <img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="100" height="100"> -->
 			<!-- <br/><br/><br/><br/><br/><br/>
 			 <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진등록</b></label> -->
-			<input type="file" id="img" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);"/><br/><br/>
+			 <label onclick="upload()">사진등록</label>
+			<input type="file" id="img" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);" onclick="upload()"/><br/><br/>
 			<!-- <input type="file" name="img" accept="image/*" id="img" onchange="readURL(this);"/> -->
 			<%-- <c:if test="">
 			<input type="hidden" name="img" value="${ uv.img }"/>

@@ -1,5 +1,9 @@
 package kr.co.sist.admin.dao;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -74,7 +78,7 @@ public class NoticeDAO {
 	} //selectNotiTitle
 	
 	/**
-	 * 공지 조회수
+	 * 공지 조회수, 공지 내용
 	 * @param idx
 	 * @return
 	 */
@@ -87,7 +91,7 @@ public class NoticeDAO {
 		String updateCnt = "update notice set view_cnt = (view_cnt + 1) where notice_id = ?";
 		jt.update(updateCnt, notice_id);
 
-		String selectQuery = "select * from notice where notice_id = ?";
+		String selectQuery = "select notice_id, title, to_char(input_date,'yyyy-MM-dd')input_date,view_cnt,admin_id,comments from notice where notice_id = ?";
 
 		nVO = jt.queryForObject(selectQuery, new Object[] { Long.valueOf(notice_id) }, new RowMapper<NotiInsertVO>() {
 
@@ -97,11 +101,44 @@ public class NoticeDAO {
 
 				nVO.setNotice_id(rs.getInt("notice_id"));
 				nVO.setTitle(rs.getString("title"));
-				nVO.setComments(rs.getString("comments"));
+				//nVO.setComments(rs.getString("comments"));
 				nVO.setInput_date(rs.getString("input_date"));
 				nVO.setView_cnt(rs.getInt("view_cnt"));
 				nVO.setAdmin_id(rs.getString("admin_id"));
 
+				//CLOB 데이터형 읽기
+				//방법1
+				//1. ResultSet으로부터 CLOB을 얻는다.
+				//Clob clobComments=rs.getClob("comments");
+				//2. clobComments에서 CharacterStream을 얻는다.
+				//Reader reader=clobComments.getCharacterStream();
+				//3. BufferedReader를 연결 (컬럼의 내용을 줄 단위로 읽어들이기 위해서)
+				//BufferedReader br=new BufferedReader(reader);
+				
+				//방법2
+				//CLOB 조회결과를 저장
+				StringBuilder comments=new StringBuilder();
+				String temp="";
+				BufferedReader br=null;
+				try {
+					br=new BufferedReader(rs.getClob("comments").getCharacterStream());
+					while( (temp=br.readLine()) != null ) {
+						//readLine()은 \n전까지 읽어들인다. temp에는 \n이 포함되지 않는다.
+						comments.append( temp ).append("\n");
+					} //end while
+					
+				} catch(IOException ie) {
+					//ie.printStackTrace();
+				} finally {
+					if( br != null ) { 
+						try {
+							br.close();
+						} catch (IOException e) {}
+					} //end if
+				} //end finally
+				
+				nVO.setComments( comments.toString() );
+				
 				return nVO;
 			}
 

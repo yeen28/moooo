@@ -116,9 +116,13 @@ public class WantBuyDAO {
 		String updateCnt = "update want_buy set view_cnt = (view_cnt + 1) where buy_id = ?";
 		jt.update(updateCnt, buy_id);
 
-		String selectQuery = "select * from want_buy where buy_id = ?";
+		StringBuilder select=new StringBuilder();
+		select
+		.append("	select buy_id,title,comments,price,to_char(input_date,'yyyy-MM-dd')input_date,view_cnt,user_id	")
+		.append("	from want_buy	")
+		.append("	where buy_id = ?	");
 
-		nVO = jt.queryForObject(selectQuery, new Object[] { Long.valueOf(buy_id) }, new RowMapper<WantBuyVO>() {
+		nVO = jt.queryForObject(select.toString(), new Object[] { Long.valueOf(buy_id) }, new RowMapper<WantBuyVO>() {
 
 			@Override
 			public WantBuyVO mapRow(ResultSet rs, int rowCnt) throws SQLException {
@@ -127,6 +131,7 @@ public class WantBuyDAO {
 				nVO.setBuy_id(rs.getInt("buy_id"));
 				nVO.setTitle(rs.getString("title"));
 				nVO.setComments(rs.getString("comments"));
+				nVO.setPrice(rs.getInt("price"));
 				nVO.setInput_date(rs.getString("input_date"));
 				nVO.setView_cnt(rs.getInt("view_cnt"));
 				nVO.setUser_id(rs.getString("user_id"));
@@ -268,7 +273,7 @@ public class WantBuyDAO {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
-		String select="select buy_id,title,price,input_date,view_cnt from want_buy where user_id=?";
+		String select="select buy_id,title,price,to_char(input_date,'yyyy-MM-dd')input_date,view_cnt from want_buy where user_id=?";
 		
 		unv=jt.query(select, new Object[] { user_id }, new RowMapper<WantBuyVO>() {
 			public WantBuyVO mapRow(ResultSet rs, int rowNum) throws SQLException {

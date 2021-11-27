@@ -90,11 +90,15 @@ WantBuyVO wv = wd.selectBuy(buy_id);
 						<tbody>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
-								<td colspan="5" style="font-size: 16px; color: #333;"><%= wv.getTitle() %></td>
+								<td colspan="3" style="font-size: 16px; color: #333;"><%= wv.getTitle() %></td>
+								<td style="font-weight: bold; font-size: 16px; color: #333;">작성자</td>
+								<td style="font-size: 16px; color: #333;"><%= wv.getUser_id() %></td>
 							</tr>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성일</td>
 								<td style="font-size: 16px; color: #333;"><%= wv.getInput_date() %></td>
+								<td style="font-weight: bold; font-size: 16px; color: #333;">가격</td>
+								<td style="font-size: 16px; color: #333;"><%= wv.getPrice() %>원</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">조회수</td>
 								<td style="font-size: 16px; color: #333;"><%= wv.getView_cnt() %></td>
 							</tr>

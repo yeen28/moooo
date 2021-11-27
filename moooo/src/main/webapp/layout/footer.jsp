@@ -5,8 +5,8 @@
     
 <style type="text/css">
 .footer-top-layout {
-	background: #1c1c1c none repeat scroll 0 0;
-	color: #ffffff;
+	/* background: #1c1c1c none repeat scroll 0 0; */
+	color: #333;/* #ffffff; */
 	padding: 40px 0;
 }
 .OurBlog {
@@ -14,7 +14,7 @@
 	text-align: center;
 }
 .footer-top-layout h4 {
-	color: #ffffff;
+	color: #333;/* #ffffff; */
 	font-size: 18px;
 	margin-bottom: 21px;
 }
@@ -23,7 +23,7 @@
 }
 
 .post-blog-date::after {
-	background: #ffffff none repeat scroll 0 0;
+	background: #333;/* #ffffff none repeat scroll 0 0; */
 	bottom: 0;
 	content: "";
 	height: 4px;
@@ -55,7 +55,7 @@ body {
 }
 
 .footer-top-layout {
-	color: #ffffff;
+	color: #333;/* #ffffff; */
 }
 
 .footer-col-item {
@@ -71,7 +71,7 @@ address {
 }
 
 .footer-top-layout {
-	color: #ffffff;
+	color: #333;/* #ffffff; */
 }
 
 body {
@@ -80,7 +80,7 @@ body {
 }
 
 .footer-top-layout h4 {
-	color: #ffffff;
+	color: #333;/* #ffffff; */
 	font-size: 18px;
 	margin-bottom: 21px;
 }
@@ -107,7 +107,7 @@ body {
 }
 
 .footer-col-item .item-contact a .link-id {
-	color: #ffffff;
+	color: #333;/* #ffffff; */
 	margin-left: 0;
 	margin-right: 6px;
 }
@@ -121,7 +121,7 @@ body {
 }
 
 .footer-top-layout h4 {
-	color: #ffffff;
+	color: #333;/* #ffffff; */
 	font-size: 18px;
 	margin-bottom: 21px;
 }
@@ -134,7 +134,7 @@ body {
 	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
 	border: 1px solid #666666;
 	border-radius: 0;
-	color: #ffffff;
+	color: #333;/* #ffffff; */
 	height: 52px;
 }
 
@@ -144,7 +144,7 @@ body {
 	border-style: solid;
 	border-width: 0 0 0 1px;
 	bottom: 0;
-	color: #ffffff;
+	color: #333;/* #ffffff; */
 	font-size: 16px;
 	position: absolute;
 	right: 0;
@@ -183,13 +183,14 @@ body {
 }
 
 .backColor{
-background: rgb(114,20,94);
-background: linear-gradient(90deg, rgba(114,20,94,1) 0%, rgba(172,24,136,1) 100%);
+/* background: rgb(114,20,94);
+background: linear-gradient(90deg, rgba(114,20,94,1) 0%, rgba(172,24,136,1) 100%); */
 }
 </style>
 
 <footer id="footer-Section" class="backColor">
 	<div class="footer-top-layout">
+<hr/>
 		<div class="container">
 			<div class="row">
 				<div class="OurBlog">
