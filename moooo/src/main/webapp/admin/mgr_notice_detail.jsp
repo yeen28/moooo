@@ -1,16 +1,16 @@
 <%@page import="kr.co.sist.admin.vo.NotiInsertVO"%>
-<%@page import="kr.co.sist.admin.vo.NotiViewVO"%>
-<%@page import="java.util.List"%>
 <%@page import="kr.co.sist.admin.dao.NoticeDAO"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="kr.co.sist.user.vo.WantSellVO"%>
+<%@page import="kr.co.sist.user.dao.WantSellDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    info="관리자 공지사항 관리"
-    %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    info="공지사항 상세페이지"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
 <c:if test="${ empty sess_id }">
-<c:redirect url="/admin/login.jsp"/>
+<c:redirect url="${ commonUrl }/admin/login.jsp"/>
 </c:if>
 
 <!DOCTYPE html>
@@ -19,9 +19,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MooOO 관리자</title>
+<title>팔아요</title>
 
-<!-- jQuery CDN -->
+<!--jQuery CDN-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -37,12 +37,30 @@ body{height:100%;}
 .left-nav>ul{list-style: none;padding-top:30px;}
 a{color: #333;}
 .menu{border:1px solid #CFCFCF;}
+
+.notice_wrap {
+	font-size: 14px;
+	margin-left: 160px 10px 40px 10px;
+}
+.noticeBtn {
+	font-size: 17px; 
+	background-color: #494949; 
+	color: #FFFFFF;
+	border: 1px solid #494949; 
+	border-radius: 3px; 
+	width: 90px;
+	margin-top: 40px;
+	padding: 8px;
+}
 </style>
 
 <script type="text/javascript">
-
+function notice(){
+	location.href="<%= commonUrl %>/view/want_sell/want_sell.jsp";
+}//notice
 </script>
 </head>
+
 <body style="background-color: #DFDFDF;">
 <jsp:include page="layout/header.jsp"/>
 
@@ -60,44 +78,46 @@ a{color: #333;}
 </div>
 <!-- /왼쪽 메뉴바 -->
 
+<c:catch var="e">
+<%
+int notice_id = Integer.parseInt(request.getParameter("notice_id"));
+
+NoticeDAO wd = new NoticeDAO();
+NotiInsertVO wv = wd.selectNotice(notice_id);
+%>
 <div class="right">
 <h2>공지사항 관리</h2>
 <br/>
-<div class="search">
-<form class="navbar-form navbar-left" role="search">
-  <div class="form-group">
-    <label>제목 : </label>
-    <input type="text" class="form-control" placeholder="Search" style="height: 28px;">
-  </div>
-  <button type="submit" class="btn btn-default" style="height: 28px;font-size:13px;"><span class="glyphicon glyphicon-search"></span></button>
-</form>
-</div>
-<br/>
-<table class="table table-hover">
-<thead>
-<tr>
-<th>번호</th>
-<th>제목</th>
-<th>작성자</th>
-<th>조회수</th>
-<th>등록일</th>
-</tr>
-</thead>
-<%
-NoticeDAO ud=new NoticeDAO();
-List<NotiInsertVO> list=ud.selectNotiTitle(0,10);
-pageContext.setAttribute("list", list);
-%>
-<c:forEach var="list" items="${ list }">
-<tr>
-<td><c:out value="${ list.notice_id}"/></td>
-<td><a href="${ commonUrl }/admin/mgr_notice_detail.jsp?notice_id=${ list.notice_id }"><c:out value="${ list.title }"/></a></td>
-<td><c:out value="${ list.admin_id }"/></td>
-<td><c:out value="${ list.view_cnt }"/></td>
-<td><c:out value="${ list.input_date }"/></td>
-</tr>
-</c:forEach>
-</table>
-</div>
+	<div class="notice_wrap">
+			<div class="notice_content">
+				<table class="table table-bordered">
+				<tbody>
+				<tr>
+					<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
+					<td colspan="5" style="font-size: 16px; color: #333;"><%= wv.getTitle() %></td>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; font-size: 16px; color: #333;">작성자</td>
+					<td style="font-size: 16px; color: #333;"><%= wv.getAdmin_id() %></td>
+					<td style="font-weight: bold; font-size: 16px; color: #333;">작성일</td>
+					<td style="font-size: 16px; color: #333;"><%= wv.getInput_date() %></td>
+					<td style="font-weight: bold; font-size: 16px; color: #333;">조회수</td>
+					<td style="font-size: 16px; color: #333;"><%= wv.getView_cnt() %></td>
+				</tr>
+				<tr>
+					<td colspan="8" style="font-size: 16px; color: #333;"><%= wv.getComments() %></td>
+				</tr>
+				</tbody>
+				</table>
+			</div>
+				<a href="<%= commonUrl %>/admin/mgr_notice.jsp" class="noticeBtn">목록</a>
+				<a href="<%= commonUrl %>/admin/mgr_notice_write.jsp?notice_id=<%= wv.getNotice_id() %>" class="noticeBtn">수정</a>
+				<a href="<%= commonUrl %>/admin/mgr_notice_delete.jsp?notice_id=<%= wv.getNotice_id() %>" class="noticeBtn">삭제</a>
+			</div>
+		</div>
+</c:catch>
+<c:if test="${ not empty e }">
+<c:redirect url="${ commonUrl }/common/error/error.jsp"/>
+</c:if>
 </body>
 </html>

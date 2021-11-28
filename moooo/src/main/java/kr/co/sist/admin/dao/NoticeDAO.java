@@ -8,11 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import kr.co.sist.admin.vo.NotiInsertVO;
 import kr.co.sist.dao.GetJdbcTemplate;
+import kr.co.sist.user.vo.WantSellVO;
 
 public class NoticeDAO {
 
@@ -78,8 +80,8 @@ public class NoticeDAO {
 	} //selectNotiTitle
 	
 	/**
-	 * 공지 조회수, 공지 내용
-	 * @param idx
+	 * 공지 내용
+	 * @param notice_id
 	 * @return
 	 */
 	public NotiInsertVO selectNotice(int notice_id) {
@@ -88,9 +90,6 @@ public class NoticeDAO {
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
-		String updateCnt = "update notice set view_cnt = (view_cnt + 1) where notice_id = ?";
-		jt.update(updateCnt, notice_id);
-
 		String selectQuery = "select notice_id, title, to_char(input_date,'yyyy-MM-dd')input_date,view_cnt,admin_id,comments from notice where notice_id = ?";
 
 		nVO = jt.queryForObject(selectQuery, new Object[] { Long.valueOf(notice_id) }, new RowMapper<NotiInsertVO>() {
@@ -147,6 +146,94 @@ public class NoticeDAO {
 		gjt.closeAc();
 
 		return nVO;
-	}
+	}//selectNotice
+	
+	/**
+	 * 글 수정을 위한 select
+	 * @param 글 번호
+	 * @return NotiInsertVO
+	 * @throws SQLException
+	 */
+	public NotiInsertVO selEditNotice(int notice_id, String admin_id) throws SQLException {
+		NotiInsertVO unv=new NotiInsertVO();
+		
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		String select="select * from notice where notice_id=? and admin_id=?";
+		
+		unv=jt.queryForObject(select, new Object[] { notice_id, admin_id }, new RowMapper<NotiInsertVO>() {
+			public NotiInsertVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				NotiInsertVO unv=new NotiInsertVO();
+				unv.setNotice_id(rs.getInt("notice_id"));
+				unv.setTitle(rs.getString("title"));
+				unv.setComments(rs.getString("comments"));
+				unv.setView_cnt(rs.getInt("view_cnt"));
+				unv.setInput_date(rs.getString("input_date"));
+				unv.setAdmin_id(rs.getString("admin_id"));
+				return unv;
+			}//mapRow
+		});
+		
+		gjt.closeAc();
+		
+		return unv;
+	}//selEditNotice
 
+	/**
+	 * 글 추가
+	 * @param NotiInsertVO
+	 * @throws DataAccessException
+	 */
+	public void insertNoti(NotiInsertVO wv) throws DataAccessException {
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		StringBuilder insert=new StringBuilder();
+		insert
+		.append("	insert into notice(notice_id,title,comments,view_cnt,input_date,admin_id)	")
+		.append("	values(seq_notice.nextval,?,?,0,sysdate,?)");
+		
+		jt.update(insert.toString(), new Object[] { wv.getTitle(), wv.getComments(), wv.getAdmin_id() });
+		
+		gjt.closeAc();
+	}//insertNoti
+	
+	/**
+	 * 글 수정
+	 * @param NotiInsertVO
+	 * @throws DataAccessException
+	 */
+	public void updateNoti(NotiInsertVO wv) throws DataAccessException {
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		String update="update notice set title=?,comments=? where notice_id=?";
+		
+		jt.update(update, wv.getTitle(), wv.getComments(), wv.getNotice_id() );
+		
+		gjt.closeAc();
+	}//updateSell
+	
+	/**
+	 * 글 삭제
+	 * @param notice_id, admin_id
+	 * @throws DataAccessException
+	 */
+	public void delNoti(int notice_id, String admin_id) throws SQLException {
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		//delete는 조건에 맞는 것이 없다면 에러가 아니라 아무 일도 일어나지 않는다.
+		//그래서 select을 했다.
+		String select="select title from notice where notice_id=? and admin_id=?";
+		jt.queryForObject(select, new Object[] {notice_id, admin_id}, String.class);
+		
+		String delete="delete from notice where notice_id=? and admin_id=?";
+		jt.update(delete, notice_id, admin_id);
+		
+		gjt.closeAc();
+	}//delNoti
+	
 }

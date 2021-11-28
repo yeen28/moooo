@@ -60,7 +60,7 @@ $(function () {
 						<div class="input-group-addon" aria-label="center Align">
 							<span class="glyphicon glyphicon-user"  style="height: 28px; padding-top: 8px;"  aria-hidden="true"></span>
 						</div>
-						 <input type="text" class="form-control"  name="admin_id" style="height: 50px"  aria-label="Large"  id="admin_id" placeholder="아이디">
+						 <input value="admin" type="text" class="form-control"  name="admin_id" style="height: 50px"  aria-label="Large"  id="admin_id" placeholder="아이디">
 					</div>
 				</div>
 				<div class="margin1">
@@ -69,7 +69,7 @@ $(function () {
 						<div class="input-group-addon" aria-label="center Align" style="padding:5px;">
 						<img alt="pw" src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/icons/pass_icon.PNG" width="25px;"/>
 						</div>
-						 <input type="password" class="form-control"   style="height: 50px"  aria-label="Large"  id="admin_pass" name="pass" placeholder="비밀번호">
+						 <input value="admin" type="password" class="form-control"   style="height: 50px"  aria-label="Large"  id="admin_pass" name="pass" placeholder="비밀번호">
 					</div>
 				</div>
 				<div class="margin1">
