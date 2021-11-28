@@ -67,6 +67,10 @@ $(document).ready(function() {
         	  fontSizes: ['9', '10', '12', '14', '16', '18', '20', '22', '24', '26', '28', '30', '35', '45', '60'],
         	  callbacks: { //이미지를 첨부하는 부분
         		  onImageUpload: function( files, editor, welEditable ) {
+        			  //console.log('image upload: ', files);
+        			  //console.log('this: ', this);
+        			  //console.log('editor: ', editor);
+        			  //console.log('wel: ', welEditable);
         			  sendFile(files[0], this);
         			  //uploadSummernoteImageFile(files[0], this);
         		  } //onImageUpload
@@ -76,7 +80,7 @@ $(document).ready(function() {
 
 function sendFile( file, editor ) {
 	data=new FormData();
-	data.append("uploadFile", file);
+	data.append("file", file);
 	$.ajax({ //ajax를 통해 파일 업로드 처리
 		data: data,
 		type: "POST",
@@ -87,8 +91,18 @@ function sendFile( file, editor ) {
 		processData: false,
 		success: function( data ) { //처리가 성공할 경우
 			//에디터에 이미지 출력
-			$(editor).summernote('editor.insertImage', data.url);
-		} 
+			//$(editor).summernote('editor.insertImage', data.url, filename);
+			//console.log("filename : "+'filename');
+			//data.url = "http://localhost/moooo/common/images"+data.url;
+			console.log("data : "+data.url);
+			$(editor).summernote('editor.insertImage', data.url, 'filename'); //server에 올리면 될거라고 생각하는데 과연...?
+			//$(editor).summernote('editor.insertImage', 'http://localhost/moooo/common/images'+data.url, 'filename');
+			//$("#summernote").summernote('editor', '<img src=http://localhost/moooo/common/images"'+data.url+'"/>');
+			//$(editor).summernote('editor.insertImage', "http://localhost/moooo/common/images/upload/img1.png");
+		},
+		error: function( xhr ) {
+			alert("error");
+		}
 	}); //ajax
 }; //sendFile
 
