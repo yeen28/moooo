@@ -1,3 +1,4 @@
+<%@page import="java.io.IOException"%>
 <%@page import="kr.co.sist.user.vo.UserVO"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
@@ -9,15 +10,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<%-- <%
-request.setCharacterEncoding("UTF-8");
-%> --%>
-<%-- <jsp:useBean id="uv" class="kr.co.sist.user.vo.UserVO" scope="page"/>
-<jsp:setProperty property="*" name="uv"/> --%>
-
 <%
+UserVO uv=new UserVO();
+
 //1. 파일업로드 컴포넌트 생성. ( 파일이 업로드 된다. )
 File uploadPath=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload");
+//File uploadPath=new File("E:/moooo/common/images/upload"); //서버에서 경로
 if( !uploadPath.exists() ){ //업로드 폴더가 존재하지 않으면 (반드시 있을 거라고 생각하면 안 써도 된다.)
 	uploadPath.mkdirs();
 }//end if
@@ -33,7 +31,6 @@ String phone=mr.getParameter("phone");
 String originName=mr.getOriginalFileName("img"); //원본 파일명
 String fileSystemName=mr.getFilesystemName("img"); //변경된 파일명
 
-UserVO uv=new UserVO();
 uv.setUser_id(user_id);
 uv.setNickname(nickname);
 uv.setPhone(phone);
@@ -47,6 +44,7 @@ try{
 	//이전 파일은 삭제하기
 	String beforeFileName=md.selMypage(uv.getUser_id()).getImg();
 	File deleteImg=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload/"+beforeFileName);
+	//File deleteImg=new File("E:/moooo/common/images/upload/"+beforeFileName);
 	if(deleteImg.exists() && deleteImg.isFile()){ //이전 이미지가 존재한다면
 		if(deleteImg.delete()){ //사진 삭제
 		//System.out.println("삭제 : "+beforeFileName);
@@ -57,8 +55,8 @@ try{
 alert("회원정보가 수정되었습니다");
 location.href="javascript:history.back()";
 <%} catch (DataAccessException dae){ 
-	/* dae.printStackTrace(); */
+	//dae.printStackTrace();
 %>
-location.href="<%= protocol %><%= domain %><%= contextRoot %>/common/error/error.jsp";
+location.href="<%= commonUrl %>/common/error/error.jsp";
 <%}%>
 </script>	

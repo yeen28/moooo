@@ -11,7 +11,9 @@ String title="MooOO";
 
 String protocol="http://";
 String domain="localhost";
+//String domain="211.63.89.151";
 String contextRoot="/moooo";
+//String contextRoot="";
 
 String common_css="/common/css";
 String common_js="/common/js";

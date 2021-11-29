@@ -189,7 +189,7 @@ $(function() {
 					alert("업로드 가능 확장자가 아닙니다.");
 					return;
 				}//end if
-			}
+			}//end if
 			
 			//hidden form 에 존재하는 Control에 값 설정
 			//$("#img").val(upload);
@@ -219,221 +219,8 @@ $(function(){
 	})
 });//ready
 
-             //clickcr(this,'prf.upimg','', '', event)
-/* function clickcr(g,    H,           u, D, E,      A, P) {
-	if (arguments.length == 1) {
-		if (typeof nclk.generateCC != "undefined") {
-			nclk.generateCC(arguments[0])
-		}
-		return
-	}
-	var F = navigator.userAgent.toLowerCase(); //소문자로
-	var k = (F.indexOf("safari") != -1 ? true : false); //true-safari, false-safari아님
-	var C = /msie/.test(F) && !/opera/.test(F);
-	var l = (window.location.protocol == "https:") ? "https:" : "http:";
-	var a = ccsrv.substring(ccsrv.indexOf(".") + 1);
-	var t = window.event ? window.event : E;
-	var s = -1;
-	var q = -1;
-	var p = -1;
-	var n = -1;
-	var S, f, i;
-	var r, j, m;
-	var M, J, I, L, z, B, w;
-	var O;
-	var G = 0;
-	if (!A) {
-		A = "0"
-	} else {
-		A = String(A)
-	}
-	if (!P) {
-		P = ""
-	}
-	if (A.indexOf("n") == 0) {
-		G = 0
-	} else {
-		if (window.g_ssc != undefined && window.g_query != undefined) {
-			G = 1
-		} else {
-			G = 0
-		}
-	}
-	try {
-		L = nclk.windowSize(window);
-		i = nclk.checkIframe(g);
-		if (i) {
-			var v = nclk.findPos(document.getElementById(i));
-			if (t.clientX && t.clientX != undefined) {
-				S = document.body;
-				if (S.clientLeft && S.clientTop) {
-					ifrSx = t.clientX - S.clientLeft;
-					ifrSy = t.clientY - S.clientTop
-				} else {
-					ifrSx = t.clientX;
-					ifrSy = t.clientY
-				}
-			}
-			p = v[0] + ifrSx;
-			n = v[1] + ifrSy;
-			if (document.body
-					&& (document.body.scrollTop || document.body.scrollLeft)) {
-				S = document.body;
-				s = p - S.scrollLeft;
-				q = n - S.scrollTop
-			} else {
-				if (document.documentElement
-						&& (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
-					f = document.documentElement;
-					s = p - f.scrollLeft;
-					q = n - f.scrollTop
-				} else {
-					s = p;
-					q = n
-				}
-			}
-		} else {
-			if (t.clientX && t.clientX != undefined) {
-				S = document.body;
-				if (S.clientLeft && S.clientTop) {
-					s = t.clientX - S.clientLeft;
-					q = t.clientY - S.clientTop
-				} else {
-					s = t.clientX;
-					q = t.clientY
-				}
-			}
-			if (document.body
-					&& (document.body.scrollTop || document.body.scrollLeft)) {
-				p = document.body.scrollLeft + (s < 0 ? 0 : s);
-				n = document.body.scrollTop + (q < 0 ? 0 : q)
-			} else {
-				if (document.documentElement
-						&& (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
-					f = document.documentElement;
-					if (f.scrollLeft != undefined) {
-						p = f.scrollLeft + (s < 0 ? 0 : s)
-					}
-					if (f.scrollTop != undefined) {
-						n = f.scrollTop + (q < 0 ? 0 : q)
-					}
-				} else {
-					p = (s < 0 ? 0 : s);
-					n = (q < 0 ? 0 : q)
-				}
-			}
-			if (t.pageX) {
-				p = t.pageX
-			}
-			if (t.pageY) {
-				n = t.pageY
-			}
-		}
-	} catch (Q) {
-	}
-	if (H == "" || typeof H == "undefined") { //H : 'prf.upimg' 파일클릭시 파라메터로 넘어옴
-		return  //이미지가 없는 경우 그냥 리턴하는 것 같음
-	}
-	if (A.indexOf("1") != -1) {
-		r = 0
-	} else {
-		if (g.href) {
-			z = g.nodeName.toLowerCase(); //g : this(파일클릭시 파라메터로 넘어옴) //소문자로
-			B = g.href.toLowerCase();
-			if ((g.target && g.target != "_self" && g.target != "_top" && g.target != "_parent")
-					|| (B.indexOf("javascript:") != -1)
-					|| (g.getAttribute("href", 2) && g.getAttribute("href", 2)
-							.charAt(0) == "#")
-					|| (B.indexOf("#") != -1 && (B.substr(0, B.indexOf("#")) == document.URL))
-					|| z.toLowerCase() == "img"
-					|| C
-					&& window.location.host.indexOf(a) == -1) {
-				r = 0
-			} else {
-				r = 1
-			}
-		} else {
-			r = 0
-		}
-	}
-	if (g.href && g.href.indexOf(l + "//" + ccsrv) == 0) {
-		j = g.href
-	} else {
-		j = l + "//" + ccsrv + "/" + nclkModule + "?a=" + H + "&r=" + D + "&i="
-				+ u;
-		j += "&bw=" + L + "&px=" + p + "&py=" + n + "&sx=" + s + "&sy=" + q
-				+ "&m=" + r;
-		if (G == 0) {
-			j += "&nsc=" + nsc
-		} else {
-			if (G == 1) {
-				j += "&ssc=" + g_ssc + "&q=" + encodeURIComponent(g_query)
-						+ "&s=" + g_sid + "&p=" + g_pid
-			}
-		}
-		if (P) {
-			j += "&g=" + encodeURIComponent(P)
-		}
-		if (B && B.indexOf(l + "//" + ccsrv) != 0 && z.toLowerCase() != "img") {
-			var N = g.href;
-			if (g.outerHTML && !window.XMLHttpRequest) {
-				N = (/\shref=\"([^\"]+)\"/i.test(g.outerHTML) && RegExp.$1)
-						.replace(/\\/g, "\\\\").replace(/%([A-Z0-9]{2})/ig,
-								"\\$1");
-				(d = document.createElement("div")).innerHTML = N;
-				N = d.innerText.replace(/\\([A-Z0-9]{2})/gi, "%$1").replace(
-						/\\\\/g, "\\")
-			}
-			B = N.toLowerCase();
-			if (B.indexOf("http:") == 0 || B.indexOf("https:") == 0
-					|| B.indexOf("javascript:") == 0) {
-				j += "&u=" + encodeURIComponent(N)
-			} else {
-				w = nclk.absPath(N);
-				j += "&u=" + encodeURIComponent(w)
-			}
-		} else {
-			if (g.href) {
-				if (g.href.length > 0) {
-					j += "&u=" + encodeURIComponent(g.href)
-				} else {
-					j += "&u=about%3Ablank"
-				}
-			} else {
-				j += "&u=about%3Ablank"
-			}
-		}
-	}
-	if (r == 1) {
-		O = g.innerHTML;
-		g.href = j;
-		if (g.innerHTML != O) {
-			g.innerHTML = O
-		}
-	} else {
-		if (document.images) {
-			var K = new Date().getTime();
-			j += "&time=" + K;
-			if (k && !g.href) {
-				var R = c = new Date();
-				while ((R.getTime() - c.getTime()) < 100) {
-					R = new Date()
-				}
-				var M = new Image();
-				nclkImg.push(M);
-				M.src = j
-			} else {
-				var M = new Image();
-				nclkImg.push(M);
-				M.src = j
-			}
-		}
-	}
-	return true
-}; */
-
 function upload() {
-	alert("adsf")
+	//alert("adsf")
 	//let output="<input type='file' id='img' name='img' accept='image/gif, image/jpeg, image/png, image/jpg' onchange='readURL(this);'/>"
 	//$("#view").html(output);
 } //upload
@@ -474,7 +261,7 @@ function upload() {
 	%>
 	
 	<div id="view"><br/>
-	<form action="../mypage/proc/updateImg_proc.jsp" id="frmImg" method="post" enctype="multipart/form-data">
+	<form action="${ commonUrl }/users/mypage/proc/update_proc.jsp" id="frm" method="post" enctype="multipart/form-data">
 		<div id="myImg">
 			<div style="text-align: left;">이미지</div>
 			<% if( uv.getImg() == null ) { %>
@@ -486,16 +273,14 @@ function upload() {
 			<!-- <img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="100" height="100"> -->
 			<!-- <br/><br/><br/><br/><br/><br/>
 			 <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진등록</b></label> -->
-			 <label onclick="upload()">사진등록</label>
-			<input type="file" id="img" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);" onclick="upload()"/><br/><br/>
+			 <!-- <label onclick="upload()">사진등록</label> -->
+			<input type="file" id="img" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);"/><br/><br/>
 			<!-- <input type="file" name="img" accept="image/*" id="img" onchange="readURL(this);"/> -->
 			<%-- <c:if test="">
 			<input type="hidden" name="img" value="${ uv.img }"/>
 			</c:if> --%>
 		</div>
-		</form>
 
-	<form action="../mypage/proc/update_proc.jsp" id="frm" method="post">
 	<div id="id1">
 		<div style="text-align: left;">*닉네임</div>
 		<input type="text" value="${ uv.nickname }" name="nickname" id="nickname" class="form-control" style="width: 150px; height: 40px; font-size: 15px;"/>		
