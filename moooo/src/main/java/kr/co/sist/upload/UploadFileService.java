@@ -15,6 +15,7 @@ public class UploadFileService {
 		
 		//1. 파일리스트를 가져올 파일을 생성한다.
 		File temp=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload");
+		//File temp=new File("E:/moooo/common/images/upload"); //서버에서 경로
 		//2. 해당 폴더의 모든 파일, 디렉토리를 얻는다.
 		//File[] listFiles=temp.listFiles();
 		

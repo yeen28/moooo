@@ -25,7 +25,7 @@ alert("삭제되었습니다.");
 location.href="<%= commonUrl %>/view/want_sell/want_sell.jsp";
 <%
 } catch (DataAccessException dae){
-	dae.printStackTrace();
+	//dae.printStackTrace();
 %>
 alert("접근 권한이 없습니다.");
 location.href="javascript:history.back()";

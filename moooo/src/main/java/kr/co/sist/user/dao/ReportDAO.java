@@ -1,7 +1,12 @@
 package kr.co.sist.user.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import kr.co.sist.dao.GetJdbcTemplate;
 import kr.co.sist.user.vo.ReportVO;
@@ -22,6 +27,31 @@ public class ReportDAO {
 		jt.update(insert, rv.getReported_user_id(), rv.getReason_id(), rv.getUser_id());
 		
 		gjt.closeAc();
+	} //insertReport
+	
+	/**
+	 * 화면에 보여줄 신고이유
+	 * @return 신고이유 List
+	 * @throws DataAccessException
+	 */
+	public List<String> selectReport() throws DataAccessException {
+		List<String> result=null;
+		
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		String select="select reason from report_reason";
+		
+		result=jt.query(select, new RowMapper<String>() {
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getString("reason");
+			}
+		});
+		
+		gjt.closeAc();
+		
+		return result;
 	} //selectBuyCnt
 	
 }

@@ -87,12 +87,12 @@ WantSellVO wv = wd.selectSell(sell_id);
 				<h2 style="font-weight: bold;">팔아요</h2>
 			</div>
 			
-			<%-- <div style="float: right;">
-			<c:if test="${ not empty param.user_id }">
-      	<c:import url="../../users/report/report.jsp"/>
-      	</c:if>
-			<a href="want_sell_detail.jsp?user_id=<%= wv.getUser_id() %>">신고하기</a>
-			</div> --%>
+		<div style="float: right;">
+			<c:if test="${ not empty param.report_id }">
+      			<c:import url="${ commonUrl }/users/report/report.jsp"/>
+      		</c:if>
+			<a href="want_sell_detail.jsp?sell_id=<%= sell_id %>&report_id=<%= wv.getUser_id() %>">신고하기</a>
+		</div>
 			
 			<div class="notice_border">
 				<div class="notice_content">
@@ -133,6 +133,7 @@ WantSellVO wv = wd.selectSell(sell_id);
 </div>
 </c:catch>
 <c:if test="${ not empty e }">
+<%-- ${ e } --%>
 <c:redirect url="${ commonUrl }/common/error/error.jsp"/>
 </c:if>
 </body>
