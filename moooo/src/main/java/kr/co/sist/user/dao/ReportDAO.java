@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import kr.co.sist.dao.GetJdbcTemplate;
+import kr.co.sist.user.vo.ReportReasonVO;
 import kr.co.sist.user.vo.ReportVO;
 
 public class ReportDAO {
@@ -31,22 +32,24 @@ public class ReportDAO {
 	
 	/**
 	 * 화면에 보여줄 신고이유
-	 * @return 신고이유 List
+	 * @return 신고코드번호,이유 List
 	 * @throws DataAccessException
 	 */
-	public List<String> selectReport() throws DataAccessException {
-		List<String> result=null;
+	public List<ReportReasonVO> selectReport() throws SQLException {
+		List<ReportReasonVO> result=null;
 		
 		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
 		JdbcTemplate jt = gjt.getJdbcTemplate();
 		
-		String select="select reason from report_reason";
+		String select="select * from report_reason";
 		
-		result=jt.query(select, new RowMapper<String>() {
-			@Override
-			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return rs.getString("reason");
-			}
+		result=jt.query(select, new RowMapper<ReportReasonVO>() {
+			public ReportReasonVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				ReportReasonVO rv=new ReportReasonVO();
+				rv.setReason_id(rs.getInt("reason_id"));
+				rv.setReason(rs.getString("reason"));
+				return rv;
+			} //mapRow
 		});
 		
 		gjt.closeAc();

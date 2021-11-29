@@ -55,12 +55,52 @@
 	width: 90px;
 	margin-top: 40px;
 }
+#writeFrm{border:1px solid #333; background-color: #FFFFFF; padding:50px; width:400px;height: 300px;}
+#formArea{position: absolute;top:100px;left:250px;}
 </style>
 
 <script type="text/javascript">
-function notice(){
+<%-- function notice(){
 	location.href="<%= commonUrl %>/view/want_sell/want_sell.jsp";
-}//notice
+}//notice --%>
+
+$(function() {
+	$("#reportBtn").click(function() {
+		let radioNode=document.frm.reason;
+		let reasonChk="";
+		for(var i=0; i<radioNode.length; i++){
+			if(radioNode[i].checked){
+				reasonChk=radioNode[i].value;
+			}//end if
+		}//end for
+		
+		if(reasonChk == ""){
+			alert("신고이유를 선택해주세요.");
+			return;
+		}//end if
+		
+		if( confirm("신고 후 취소할 수 없습니다.\n신고하시겠습니까?") ){
+			//신고는 한 유저에 대해 한 번만 가능하도록 하기
+			//alert(reasonChk);
+			alert("신고되었습니다.");
+			$("#frm").submit();
+			<%-- location.href="<%= commonUrl %>/view/want_sell/want_sell_detail.jsp?sell_id="+${ param.sell_id }; --%>
+		} //end if
+	}); //click
+	
+	$("#closeBtn").click(function() {
+		location.href="<%= commonUrl %>/view/want_sell/want_sell_detail.jsp?sell_id="+${ param.sell_id };
+	}); //click
+}); //ready
+
+function chkMe( sell_id, write_user_id ) {
+	if( write_user_id == "${sess_user_id}" ){
+		alert("본인은 신고할 수 없습니다.");
+		return;
+	} else {
+		location.href="want_sell_detail.jsp?sell_id="+sell_id+"&report_id="+write_user_id;
+	} //end else
+}
 </script>
 </head>
 
@@ -88,10 +128,16 @@ WantSellVO wv = wd.selectSell(sell_id);
 			</div>
 			
 		<div style="float: right;">
+			<div id="formArea">
 			<c:if test="${ not empty param.report_id }">
+			<div id="writeFrm">
+			<form id="frm" name="frm" action="want_sell_detail.jsp?sell_id=<%= sell_id %>" method="post">
       			<c:import url="${ commonUrl }/users/report/report.jsp"/>
+      		</form>
+      		</div>
       		</c:if>
-			<a href="want_sell_detail.jsp?sell_id=<%= sell_id %>&report_id=<%= wv.getUser_id() %>">신고하기</a>
+			</div>
+			<a href="#" onclick="chkMe('<%= sell_id %>', '<%=wv.getUser_id()%>')">신고하기</a>
 		</div>
 			
 			<div class="notice_border">
@@ -133,8 +179,8 @@ WantSellVO wv = wd.selectSell(sell_id);
 </div>
 </c:catch>
 <c:if test="${ not empty e }">
-<%-- ${ e } --%>
-<c:redirect url="${ commonUrl }/common/error/error.jsp"/>
+${ e }
+<%-- <c:redirect url="${ commonUrl }/common/error/error.jsp"/> --%>
 </c:if>
 </body>
 </html>
