@@ -11,7 +11,8 @@
 
 <%
 //1. 파일업로드 컴포넌트 생성. ( 파일이 업로드 된다. )
-File uploadPath=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload");
+//File uploadPath=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload");
+File uploadPath=new File("E:/moooo/common/images/upload");
 if( !uploadPath.exists() ){ //업로드 폴더가 존재하지 않으면 (반드시 있을 거라고 생각하면 안 써도 된다.)
 	uploadPath.mkdirs();
 }//end if
@@ -35,7 +36,8 @@ MypageDAO md = new MypageDAO();
 try{
 	//이전 파일은 삭제하기
 	String beforeFileName=md.selMypage(user_id).getImg();
-	File deleteImg=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload/"+beforeFileName);
+	//File deleteImg=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload/"+beforeFileName);
+	File deleteImg=new File("E:/moooo/common/images/upload/"+beforeFileName);
 	if(deleteImg.exists() && deleteImg.isFile()){ //이전 이미지가 존재한다면
 		if(deleteImg.delete()){ //사진 삭제
 		//System.out.println("삭제 : "+beforeFileName);

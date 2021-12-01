@@ -5,7 +5,8 @@
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%
     // 이미지 업로드할 경로
-	String uploadPath = "C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload";  //저장될 외부파일 경로
+	//String uploadPath = "C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload";  //저장될 외부파일 경로
+	String uploadPath = "E:/moooo/common/images/upload"; //서버에서 경로
     int size = 10 * 1024 * 1024;  // 업로드 사이즈 제한 10M 이하
 	
 	String fileName = ""; // 파일명

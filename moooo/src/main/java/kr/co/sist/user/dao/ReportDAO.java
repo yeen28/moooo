@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -13,6 +14,30 @@ import kr.co.sist.user.vo.ReportReasonVO;
 import kr.co.sist.user.vo.ReportVO;
 
 public class ReportDAO {
+	
+	/**
+	 * 신고하는 사용자가 신고할 사용자를 이전에 신고한 적이 있는지 확인
+	 * @param ReportVO
+	 * @return 이전에 신고한 적이 있는지
+	 * @throws SQLException
+	 */
+	public String beforeReport(ReportVO rv) throws SQLException {
+		String result="";
+		
+		GetJdbcTemplate gjt = GetJdbcTemplate.getInstance();
+		JdbcTemplate jt = gjt.getJdbcTemplate();
+		
+		String beforeReport="select reason_id from report where reported_user_id=? and user_id=?";
+		try {
+			result=jt.queryForObject(beforeReport, new Object[] { rv.getReported_user_id(), rv.getUser_id() }, String.class);
+		} catch (EmptyResultDataAccessException erdae) {
+			result="";
+		} //end catch
+		
+		gjt.closeAc();
+		
+		return result;
+	} //beforeReport
 	
 	/**
 	 * 신고 추가
