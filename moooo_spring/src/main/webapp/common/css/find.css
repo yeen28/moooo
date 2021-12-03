@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+.container-mid>table {
+	width: 1100;
+	height: 200px;
+}
+
+.find_container {
+	margin: 150px 0 50px 0;
+	height: 800px;
+}
+
+.find_img {
+	width: 1140px;
+	height: 250px;
+	margin: 0px auto;
+}
+
+.container-mid {
+	width: 960px;
+	margin: 50px auto;
+}
+
+.result-mid {
+	text-align: center;
+}
+
+.result-mid>span {
+	font-size: 20px;
+}
+#result-bottom {
+	margin: 100px auto;
+	text-align: center;
+	padding-top: 12px;
+}
+#result-bottom > .btn {
+	width: 150px;
+	height: 38px;
+	background-color: #5E5E5E;
+	margin: 100px auto;
+	text-align: center;
+	padding: 15px 50px 15px 50px;
+}
+#result-bottom>a {
+	width: 150px;
+	height: 38px;
+	font-weight: bold;
+	font-size: 14px;
+	color: #FFFFFF;
+	font-family: 'Malgun Gothic', '맑은 고딕', dotum, '돋움', sans-serif;
+	text-decoration: none;
+}
+td>span {
+	font-size: 16px;
+}
+span {
+	line-height: 30px;
+}
+
+td{
+	height: 50px;
+}
+
+td > .btn {
+	font-weight: bold;
+	font-size: 15px;
+	background-color: #04264C;
+	color: #FFFFFF;
+	height: 60px;
+	width: 435px;
+	line-height: normal;
+	font-family: 'Malgun Gothic', '맑은 고딕', dotum, '돋움', sans-serif;
+	border-radius: 0px;
+	vertical-align: middle;
+	padding: 15px;
+	margin-top: 10px;
+	cursor: pointer;
+}
+/* td > .btn:hover{
+	color: #FFF;
+} */
+form > #left, form > #right{width: 480px;}
+form > #left{float: left;}
+form> #right{float: right;}
+#left >table, #right > table{margin: 0px auto;}

@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+#moreView{
+	float: right;
+}
+#notice {
+	position: absolute;
+	top: 0px;
+	width: 70%;
+	height: 600px;
+	font-size: 14px;
+	list-style: disc;
+	margin-left: 10px;
+}
+#right-mid{
+	position: absolute;
+	top: 700px;
+	width: 70%;
+	height: 300px;
+	font-size: 14px;
+	list-style: disc;
+	margin-left: 10px;
+}
+#want_buy, #want_sell{
+	width: 48%;
+	height: 300px;	
+}
+#want_buy {
+	float : left;
+}
+#want_sell {
+	float : right;
+}
+#moreView {
+	font-size: 13px;
+	color: #0000FF
+}
+.subtitle {
+	padding: 20px 0 20px 0;
+}
+.panel-default>.notice_subtitle{
+	background-image: -webkit-linear-gradient(top,#F7F9FA 0,#F7F9FA 100%);
+    background-image: -o-linear-gradient(top,#F7F9FA 0,#F7F9FA 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#F7F9FA),to(#F7F9FA));
+    background-image: linear-gradient(to bottom,#F7F9FA 0,#F7F9FA 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F7F9FA', endColorstr='#F7F9FA', GradientType=0);
+    background-repeat: repeat-x;
+	background-color: #F7F9FA;
+}
+.notice_subtitle_text {
+	font-size: 20px;
+	font-weight: bold;
+}
+.subtitle_text {
+	font-size: 20px;
+	font-weight: bold;
+}
+.blank {
+	clear:both;
+	height: 70px;
+}
+.how{
+	overflow: auto; 
+	height: 500px;
+	padding: 35px; font-size: 17px; margin-top: 30px; background-color: #fff;
+}
