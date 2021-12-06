@@ -25,7 +25,7 @@ public class MypageDAO {
 	 * @param MemberVO
 	 * @throws DataAccessException
 	 */
-	public int updateMypage(MemberVO uv) throws DataAccessException {
+	public int updateMypage(MemberVO mVO) throws DataAccessException {
 		int cnt=0;
 		
 //		if(uv.getIdx() == 0) {
@@ -34,7 +34,7 @@ public class MypageDAO {
 //					uv.getTech_idx(), uv.getId());
 //		} else {
 			String update= "update users set nickname=?,phone=?,img=? where user_id=?";
-			jt.update(update, uv.getNickname(), uv.getPhone(), uv.getImg(), uv.getUser_id());
+			jt.update(update, mVO.getNickname(), mVO.getPhone(), mVO.getImg(), mVO.getUser_id());
 //		}
 		
 		return cnt;

@@ -1,12 +1,5 @@
-<%@page import="kr.co.sist.user.vo.WantBuyVO"%>
 <%@page import="org.springframework.dao.DataAccessException"%>
-<%@page import="kr.co.sist.user.vo.WantSellVO"%>
 <%@page import="java.util.List"%>
-<%@page import="kr.co.sist.user.dao.WantSellDAO"%>
-<%@page import="kr.co.sist.user.dao.WantBuyDAO"%>
-<%@page import="kr.co.sist.upload.UploadFileService"%>
-<%@page import="kr.co.sist.user.vo.UserVO"%>
-<%@page import="kr.co.sist.user.dao.MypageDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info="마이페이지-내가 쓴 글 리스트"
@@ -23,7 +16,7 @@ pageContext.setAttribute("sess_user_id", sess_id);
 .list{margin-top:30px;}
 </style>
 
-<% 
+<%-- <% 
 try{
 	WantBuyDAO wbd=new WantBuyDAO();
 	WantSellDAO wsd=new WantSellDAO();
@@ -33,7 +26,7 @@ try{
 	
 	List<WantSellVO> sellList=wsd.selectMypageSell(sess_id);
 	pageContext.setAttribute("sellList", sellList);
-%>
+%> --%>
 
 <div class="right_wrap">
 	 <div class="list">
@@ -92,9 +85,8 @@ try{
 	</table>
 	</div>
 </div><!-- /<div class="right_wrap"> -->
-<%
+<%-- <%
 } catch(DataAccessException dae){
-	/* dae.printStackTrace(); */
 	out.println("문제발생");
 }//end catch
-%>
+%> --%>

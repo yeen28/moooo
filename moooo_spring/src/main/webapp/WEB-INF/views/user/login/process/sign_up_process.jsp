@@ -30,12 +30,12 @@
 <div id="container_top">
 <img alt="success" src="<%= commonUrl %>/common/images/registration.PNG"><br/>
 <span>회원가입이 <strong>완료</strong>되었습니다.</span><br/>
-<span>${ param.nickname }님 환영합니다.</span>
+<span>${ requestScope.nickname }님 환영합니다.</span>
 </div>
 <hr/>
 <div id="container_bottom">
-<a href="<%= commonUrl %>/index.jsp" id="home">홈으로</a>
-<a href="<%= commonUrl %>/users/login/login_page.jsp" id="login">로그인</a>
+<a href="<%= commonUrl %>/index.do" id="home">홈으로</a>
+<a href="<%= commonUrl %>/user/login/login_page.do" id="login">로그인</a>
 </div>
 </div>
 

@@ -6,8 +6,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<c:if test="${ empty sess_user_id }">
-<c:redirect url="../login/login.jsp"/>
+<c:if test="${ empty sessionScope.user_id }">
+<c:redirect url="${ commonUrl }/user/login/login.do"/>
 </c:if>
 
 <!DOCTYPE html>
@@ -74,7 +74,7 @@ $(function() {
 <input type="password" id="new_pass" name="new_pass" class="form-control" required/><br/>
 <label>새로운 비밀번호 확인</label><br/>
 <input type="password" id="new_pass2" name="new_pass2" class="form-control" required/><br/>
-<input type="hidden" name="user_id" value="${sessionScope.id}"/>
+<input type="hidden" name="user_id" value="${ sessionScope.user_id }"/>
 </div>
 
 <div id="container-btn">

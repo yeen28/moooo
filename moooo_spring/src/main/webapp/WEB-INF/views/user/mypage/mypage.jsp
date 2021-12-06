@@ -241,21 +241,27 @@ function upload() {
   <li role="presentation" class="active"><a href="" id="myInfo" style="cursor: pointer;">정보변경</a></li>
   <li role="presentation"><a id="sell_buy" style="cursor: pointer;">내가 쓴 글</a></li>
   <li role="presentation"><a id="interest" style="cursor: pointer;">관심글</a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/users/login/change_password.jsp">비밀번호 변경</a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/users/login/leave.jsp">회원탈퇴</a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/user/login/change_password.do">비밀번호 변경</a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/user/login/leave.do">회원탈퇴</a></li>
 </ul>
 </div>
 
 	<div id="view"><br/>
-	<form action="${ commonUrl }/users/mypage/proc/update_proc.jsp" id="frm" method="post" enctype="multipart/form-data">
+	<form action="${ commonUrl }/user/mypage/proc/update_proc.do" id="frm" method="post" enctype="multipart/form-data">
 		<div id="myImg">
 			<div style="text-align: left;">이미지</div>
-			<% if( uv.getImg() == null ) { %>
+			<%-- <% if( uv.getImg() == null ) { %> --%>
+			<c:choose>
+			<c:when test="${ empty img }">
 			<img id="viewImg" src="<%= commonUrl %>/common/images/defaultImg.png" alt="image" width="100" height="100"><br/>
-			<% } else { %>
-			<img id="viewImg" src="<%= commonUrl %>/common/images/upload/${uv.img}" alt="image"><br/>
+			</c:when>
+			<%-- <% } else { %> --%>
+			<c:otherwise>
+			<img id="viewImg" src="<%= commonUrl %>/common/images/upload/${ img }" alt="image"><br/>
 			<!-- 사진변경 버튼 / 클릭시 팝업? -->
-			<% } %>
+			</c:otherwise>
+			</c:choose>
+			<%-- <% } %> --%>
 			<!-- <img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="100" height="100"> -->
 			<!-- <br/><br/><br/><br/><br/><br/>
 			 <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진등록</b></label> -->
@@ -269,14 +275,14 @@ function upload() {
 
 	<div id="id1">
 		<div style="text-align: left;">*닉네임</div>
-		<input type="text" value="${ uv.nickname }" name="nickname" id="nickname" class="form-control" style="width: 150px; height: 40px; font-size: 15px;"/>		
+		<input type="text" value="${ nickname }" name="nickname" id="nickname" class="form-control" style="width: 150px; height: 40px; font-size: 15px;"/>		
 		<input type="button" value="중복확인" class="check_btn" id="chk_nickname_dup"/>
-		<input type="hidden" name="user_id" value="${ sess_user_id }"/> 
+		<input type="hidden" name="user_id" value="${ sessionScope.user_id }"/> 
 	</div>
 	
 	<div id="phone1">
 		<div style="text-align: left;">*휴대폰 번호</div>
-		<input type="text" name="phone" id="phone" class="form-control" Placeholder="핸드폰 번호" value="${ uv.phone }"
+		<input type="text" name="phone" id="phone" class="form-control" Placeholder="핸드폰 번호" value="${ phone }"
 				style="width: 300px; height: 40px; font-size: 15px;"/>		
 	</div>
 	

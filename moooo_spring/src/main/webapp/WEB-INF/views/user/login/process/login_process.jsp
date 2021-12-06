@@ -7,6 +7,13 @@
 <%@ include file="/common/jsp/common_code.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:catch var="e">
-<c:redirect url="${ commonUrl }/index.jsp"/>
-</c:catch>
+<script type="text/javascript">
+<c:choose>
+<c:when test="${ not empty msg }">
+alert("${ msg }");
+</c:when>
+<c:otherwise>
+<c:redirect url="${ commonUrl }/index.do"/>
+</c:otherwise>
+</c:choose>
+</script>

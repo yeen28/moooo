@@ -1,15 +1,13 @@
-<%@page import="kr.co.sist.user.vo.UserVO"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.io.File"%>
-<%@page import="kr.co.sist.user.dao.MypageDAO"%>
 <%@page import="org.springframework.dao.DataAccessException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<%
+<%-- <%
 	//1. 파일업로드 컴포넌트 생성. ( 파일이 업로드 된다. )
 //File uploadPath=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload");
 File uploadPath=new File("E:/moooo/common/images/upload");
@@ -28,10 +26,10 @@ String fileSystemName=mr.getFilesystemName("img"); //변경된 파일명
 
 MemberVO uv=new MemberVO();
 uv.setImg(fileSystemName);
-%>
+%> --%>
 
 <script type="text/javascript">
-<%
+<%-- <%
 MypageDAO md = new MypageDAO();
 try{
 	//이전 파일은 삭제하기
@@ -44,11 +42,9 @@ try{
 		}//else{System.out.println("실패");}
 	}
 	md.updateMypage(uv);
-%>
+%> --%>
 location.href="javascript:history.back()";
-<%} catch (DataAccessException dae){ 
-	/* dae.printStackTrace(); */
-%>
-location.href="<%= protocol %><%= domain %><%= contextRoot %>/common/error/error.jsp";
-<%}%>
+<%-- <%} catch (DataAccessException dae){ %>
+location.href="<%= protocol %><%= domain %><%= contextRoot %>/common/error/error.do";
+<%}%> --%>
 </script>	

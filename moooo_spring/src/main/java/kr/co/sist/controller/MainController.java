@@ -1,4 +1,4 @@
-package kr.co.sist.Controller;
+package kr.co.sist.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

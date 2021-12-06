@@ -41,10 +41,10 @@
 	<a href="<%= commonUrl %>/user/login/login.do" class="link_login">로그인</a>
 	<div class="sub_area">
 	<div class="look_box">
-		<a href="<%= commonUrl %>/users/login/find.do" class="link_look">아이디</a>
-		<a href="<%= commonUrl %>/users/login/find.do" class="link_look">비밀번호찾기</a>
+		<a href="<%= commonUrl %>/user/login/find_form.do" class="link_look">아이디</a>
+		<a href="<%= commonUrl %>/user/login/find_form.do" class="link_look">비밀번호찾기</a>
 	</div>
-	<a href="<%= commonUrl %>/users/login/sign_up.do" class="link_join">회원가입</a>
+	<a href="<%= commonUrl %>/user/login/sign_up.do" class="link_join">회원가입</a>
 	</div>
 	</div>
 </div>
@@ -52,8 +52,8 @@
 <c:otherwise>
 <div id="user">
   <h3>${ sessionScope.sess_user_id }</h3>
-  <a href="<%= commonUrl %>/users/mypage/mypage.do">내정보</a>
-  <a href="<%= commonUrl %>/users/login/logout.do">로그아웃</a>
+  <a href="<%= commonUrl %>/user/mypage/mypage_form.do">내정보</a>
+  <a href="<%= commonUrl %>/user/login/logout_proc.do">로그아웃</a>
   <br/><br/><br/>
   <table class="table table2">
   <tr>
@@ -75,14 +75,14 @@
 <h4><a href="<%= commonUrl %>/view/want_buy/want_buy.do">사고싶어요</a></h4>
 <ul>
 <c:forEach var="category" items="${ requestScope.listCategory }">
-  <li><a href="<%= commonUrl %>/view/want_buy/want_buy.jsp?category=${ category.category_id }"><c:out value="${ category.name }"/></a></li>
+  <li><a href="<%= commonUrl %>/view/want_buy/want_buy.do?category=${ category.category_id }"><c:out value="${ category.name }"/></a></li>
 </c:forEach>
 </ul>
 <hr>
-<h4><a href="<%= commonUrl %>/view/want_sell/want_sell.jsp">팔아요</a></h4>
+<h4><a href="<%= commonUrl %>/view/want_sell/want_sell.do">팔아요</a></h4>
 <ul>
 <c:forEach var="category" items="${ requestScope.listCategory }">
-  <li><a href="<%= commonUrl %>/view/want_sell/want_sell.jsp?category=${ category.category_id }"><c:out value="${ category.name }"/></a></li>
+  <li><a href="<%= commonUrl %>/view/want_sell/want_sell.do?category=${ category.category_id }"><c:out value="${ category.name }"/></a></li>
 </c:forEach>
 </ul>
 <hr>

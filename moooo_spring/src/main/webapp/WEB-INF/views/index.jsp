@@ -51,7 +51,7 @@
 	<div class="panel-heading notice_subtitle">
 		<span class="notice_subtitle_text">사고싶어요</span>
 			<div id="moreView">
-				<a href="<%= commonUrl %>/view/want_buy/want_buy.jsp">
+				<a href="<%= commonUrl %>/view/want_buy/want_buy.do">
 					<span id="moreView"><img src="<%= commonUrl %>/common/images/icons/moreView.PNG" width="25px"/></span>
 				</a>
 			</div>

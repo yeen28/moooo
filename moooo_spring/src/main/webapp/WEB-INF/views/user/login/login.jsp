@@ -77,7 +77,7 @@ $(function() {
 	
 	<div id="signin-bottom">
 	<a href="<%= commonUrl %>/user/login/sign_up.do">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="<%= commonUrl %>/user/login/find.do">아이디/비밀번호 찾기</a>
+	<a href="<%= commonUrl %>/user/login/find_form.do">아이디/비밀번호 찾기</a>
 	</div>
 </div>
 

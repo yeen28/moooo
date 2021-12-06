@@ -31,6 +31,18 @@ public class MainService {
 	@Autowired
 	private WantSellDAO sDAO;
 	
+	private HttpSession session;
+	
+	public boolean isThereSession() { //HttpSession session) {
+		boolean result=false;
+		
+		if(session != null) {
+			result=true;
+		} //end if
+		
+		return result;
+	} //isThereSession
+	
 	public boolean isThereSession(String user_id) {
 		boolean flag=false;
 		if(user_id != null) {
@@ -48,16 +60,6 @@ public class MainService {
 		List<CategoryVO> list=cDAO.selectAllCategory();
 		return list;
 	} //getCategory
-	
-	/**
-	 * @param user_id
-	 * @return 사용자의 휴대폰번호
-	 * @throws SQLException
-	 */
-	public String getUserPhone(String user_id) throws SQLException {
-		String phone=mDAO.selectPhone(user_id);
-		return phone;
-	} //getUserPhone
 	
 	public List<WantBuyVO> getWantBuyTitle() throws SQLException {
 		int category=0;
@@ -81,5 +83,21 @@ public class MainService {
 		String comments=hDAO.selectHowTo();
 		return comments;
 	} //getHowToUse
+	
+	public String getUserNickname(String user_id) {
+		String nickname="";
+		
+		return nickname;
+	} //getUserNickname
+	
+	/**
+	 * @param user_id
+	 * @return 사용자의 휴대폰번호
+	 * @throws SQLException
+	 */
+	public String getUserPhone(String user_id) throws SQLException {
+		String phone=mDAO.selectPhone(user_id);
+		return phone;
+	} //getUserPhone
 	
 } //class

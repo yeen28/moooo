@@ -56,9 +56,8 @@ String id=(String)session.getAttribute("sess_user_id");
 <div id="mid">
 
 <%
-MemberDAO mDAO=new MemberDAO();
-try{
-String nickname=mDAO.selNickname(id);
+//try{
+//String nickname=mDAO.selNickname(id);
 %>
 <div id="mid-top">
 개인회원 탈퇴 전, 안내 사항을 꼭 확인해주세요.
@@ -78,12 +77,13 @@ String nickname=mDAO.selNickname(id);
   탈퇴 후에는 게시글을 임의로 삭제해드릴 수 없습니다.</p> -->
 </div>
 
-<form action="<%= commonUrl %>/users/login/process/leave_process.jsp" method="post" id="leaveFrm" name="leaveFrm">
+<form action="${ commonUrl }/user/login/process/leave_process.do" method="post" id="leaveFrm" name="leaveFrm">
 <div id=bottom>
 <table class="table">
 <tr>
   <td class="th"><label for="exampleInputEmail1">아이디</label></td>
-  <td><%= id %><input type="hidden" value="<%=id%>" name="user_id"/></td>
+  <%-- <td><%= id %><input type="hidden" value="<%=id%>" name="user_id"/></td> --%>
+  <td><c:out value="${ sessionScope.user_id }"/><input type="hidden" value="${ sessionScope.user_id }" name="user_id"/></td>
 </tr>
 <tr>
   <td class="th"><label for="exampleInputEmail1">닉네임</label></td>

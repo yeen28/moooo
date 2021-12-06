@@ -56,17 +56,17 @@ function sendId( nickname ){
 <input type="text" name="nickname" id="nickname"/>
 <input type="text" style="display: none;"/>
 <input type="button" value="중복확인" id="btn"/>
-<c:if test="${not empty param.nickname }">
+<c:if test="${not empty nickname }">
 <div>
 <span style="color:#0D569F; font-weight: bold;">
-입력하신 <c:out value="${ param.nickname }"/>
+입력하신 <c:out value="${ nickname }"/>
 </span>는 
 <c:choose>
 <c:when test="${ empty resultNickname }">
 <span style="color:#0D569F; font-weight: bold;">
 사용가능합니다.
 </span>
-[<a href="javascript:sendId('${ param.nickname }')">사용</a>]
+[<a href="javascript:sendId('${ nickname }')">사용</a>]
 </c:when>
 <c:otherwise>
 <span style="color:#D75043; font-weight: bold;">

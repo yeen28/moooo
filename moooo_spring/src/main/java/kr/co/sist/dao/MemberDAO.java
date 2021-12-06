@@ -196,7 +196,7 @@ public class MemberDAO {
 	 * 회원탈퇴 ( 회원이 탈퇴하면 모든 기록 삭제 )
 	 * @throws SQLException
 	 */
-	public int deleteMember(String id) throws SQLException{
+	public int deleteMember(String id) throws SQLException{ //dae
 		int cnt=0;
 		
 		String deleteMember="delete from users where user_id=?";
