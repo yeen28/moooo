@@ -22,9 +22,10 @@ public class MainController {
 	@Autowired
 	private MainService ms;
 	
-	@RequestMapping(value="/index.do",method=GET)
-	public String index(HttpSession session, Model model) throws SQLException {
+	@RequestMapping(value="index.do",method=GET)
+	public String index(HttpSession session, Model model) {// throws SQLException {
 		
+		try {
 		model.addAttribute("listBuyTitle", ms.getWantBuyTitle());
 		model.addAttribute("listSellTitle", ms.getWantSellTitle());
 		model.addAttribute("howToUse", ms.getHowToUse());
@@ -33,6 +34,8 @@ public class MainController {
 		if(ms.isThereSession(user_id)) { //세션이 있으면 true
 			model.addAttribute("phone", ms.getUserPhone(user_id));
 		} //end if
+		
+		}catch(SQLException se) {}
 		
 		return "index";
 	} //index

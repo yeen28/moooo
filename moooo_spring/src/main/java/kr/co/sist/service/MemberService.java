@@ -10,7 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.dao.MemberDAO;
-import kr.co.sist.util.cipher.DataEncrypt;
+//import kr.co.sist.util.cipher.DataEncrypt;
 import kr.co.sist.vo.DeleteMemberVO;
 import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.TempPassVO;
@@ -139,11 +139,11 @@ public class MemberService {
 	public String encryptPass(String plainPass) {
 		String encryptPass="";
 		
-		try {
-			encryptPass=DataEncrypt.messageDigest("MD5", plainPass);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			encryptPass=DataEncrypt.messageDigest("MD5", plainPass);
+//		} catch (NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+//		}
 		
 		return encryptPass;
 	} //encryptPass

@@ -45,12 +45,12 @@ public class MypageController {
 		return jspPage;
 	}
 
-	@RequestMapping(value="해당글로 이동.do",method=GET)
-	public String move() {
-		String jspPage="";
-		
-		return jspPage;
-	}
+//	@RequestMapping(value="해당글로 이동.do",method=GET)
+//	public String move() {
+//		String jspPage="";
+//		
+//		return jspPage;
+//	}
 
 	@RequestMapping(value="delete_write_list.do",method=GET)
 	public String deleteWirteList(List<Integer> listWrite,Model model) {

@@ -20,15 +20,15 @@ import kr.co.sist.vo.WantSellVO;
 @Component
 public class MainService {
 	
-	@Autowired
+	@Autowired(required = false)
 	private CategoryDAO cDAO;
-	@Autowired
+	@Autowired(required = false)
 	private HowToDAO hDAO;
-	@Autowired
+	@Autowired(required = false)
 	private MemberDAO mDAO;
-	@Autowired
+	@Autowired(required = false)
 	private WantBuyDAO bDAO;
-	@Autowired
+	@Autowired(required = false)
 	private WantSellDAO sDAO;
 	
 	private HttpSession session;
