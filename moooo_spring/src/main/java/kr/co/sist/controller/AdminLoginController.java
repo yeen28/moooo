@@ -22,24 +22,24 @@
 //		return "";
 //	} //mainForm
 //
-////	@RequestMapping(value="login_form.do",method=GET)
-////	public String loginForm() {
-////		
-////	}
-////
-////	@RequestMapping(value="login_proc.do",method=GET)
-////	public String loginProc(AdminLoginVO aVO,Model model) {
-////		
-////	}
-////
-////	@RequestMapping(value="change_pass_form.do",method=GET)
-////	public String changePassForm() {
-////		
-////	}
-////
-////	@RequestMapping(value="change_pass_proc.do",method=GET)
-////	public String changePassProc(AdminLoginVO aVO, Model model) {
-////		
-////	}
+//	@RequestMapping(value="login_form.do",method=GET)
+//	public String loginForm() {
+//		
+//	}
+//
+//	@RequestMapping(value="login_proc.do",method=GET)
+//	public String loginProc(AdminLoginVO aVO,Model model) {
+//		
+//	}
+//
+//	@RequestMapping(value="change_pass_form.do",method=GET)
+//	public String changePassForm() {
+//		
+//	}
+//
+//	@RequestMapping(value="change_pass_proc.do",method=GET)
+//	public String changePassProc(AdminLoginVO aVO, Model model) {
+//		
+//	}
 //	
 //} //class

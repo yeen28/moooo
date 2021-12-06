@@ -52,6 +52,8 @@ $(function() {
 			}); //ajax
 			return;
 		} //end if
+		
+		$("#frm").submit();
 	}); //click
 	
 }); //ready
@@ -64,7 +66,7 @@ $(function() {
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 
 <div id="container">
-	<form class="form-signin" action="<%= commonUrl %>/user/login/process/login_process.jsp" method="post">
+	<form class="form-signin" id="frm" action="<%= commonUrl %>/user/login/login_proc.do" method="post">
         <h2 id="signin-heading"><img src="<%= commonUrl %>/common/images/icons/login_icon.PNG" width="50px"/>&nbsp;<strong>로그인</strong></h2>
         <label>아이디</label>
         <input type="text" id="inputId" name="user_id" class="form-control" placeholder="아이디" autofocus>

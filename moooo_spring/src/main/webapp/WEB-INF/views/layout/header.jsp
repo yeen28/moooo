@@ -20,16 +20,16 @@ a{ color:#333; }
 <ul class="nav nav-pills nav_right" role="tablist">
   <li role="presentation"><a href="<%= commonUrl %>/view/about/about.jsp">About</a></li>
 <% if((String)session.getAttribute("sess_user_id") != null){ %>
-  <li role="presentation"><a href="<%= commonUrl %>/users/login/logout.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/users/mypage/mypage.jsp">MyPage</a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/user/login/logout.do"><span class="glyphicon glyphicon-log-out"></span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/user/mypage/mypage.do">MyPage</a></li>
   <%} else { %>
-  <li role="presentation"><a href="<%= commonUrl %>/users/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/user/login/login.do"><span class="glyphicon glyphicon-log-in"></span></a></li>
   <!-- <li role="presentation"><a href="#">Login <span class="badge">42</span></a></li> -->
   <% } //end else %>
 </ul>
 </div>
 <div id="title">
 <img src="<%= commonUrl %>/common/images/moooo.png" width="50px;"/>
-<h1><a href="<%= commonUrl %>/index.jsp">MooOO</a></h1>
+<h1><a href="<%= commonUrl %>/index.do">MooOO</a></h1>
 </div>
 </div>

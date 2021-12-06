@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/jsp/common_code.jsp" %>
 <!DOCTYPE html>
 <html lang="ko" class="no-js error">
 <head>
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>페이지오류</title>
-    <link rel="stylesheet" type="text/css" href="error.css">
+    <link rel="stylesheet" type="text/css" href="${ commonUrl }/error/error.css">
 </head>
 <body class="error">
 <p class="skip-nav">

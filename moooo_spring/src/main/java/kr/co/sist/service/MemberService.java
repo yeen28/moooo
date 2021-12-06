@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.sist.dao.MemberDAO;
 //import kr.co.sist.util.cipher.DataEncrypt;
@@ -35,18 +37,14 @@ public class MemberService {
 		try {
 			mDAO.selectLogin(mVO.getUser_id(), mVO.getPass());
 			result=true;
-		} catch(SQLException se) {}
+		} catch(SQLException se) {
+			result=false;
+		} catch(DataAccessException dae) {
+			result=false;
+		}//end catch
 		
 		return result;
 	} //loginProc
-	
-//	/**
-//	 * 로그아웃 처리
-//	 * @param SessionStatus
-//	 */
-//	public void logoutProc(SessionStatus ss) {
-//		ss.setComplete();
-//	} //logoutProc
 	
 	/**
 	 * 아이디 중복검사

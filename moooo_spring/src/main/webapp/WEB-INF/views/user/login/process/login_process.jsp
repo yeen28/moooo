@@ -11,6 +11,7 @@
 <c:choose>
 <c:when test="${ not empty msg }">
 alert("${ msg }");
+location.href="javascript:history.back()";
 </c:when>
 <c:otherwise>
 <c:redirect url="${ commonUrl }/index.do"/>

@@ -22,7 +22,7 @@ public class MainController {
 	@Autowired
 	private MainService ms;
 	
-	@RequestMapping(value="index.do",method=GET)
+	@RequestMapping(value="/index.do",method=GET)
 	public String index(HttpSession session, Model model) {// throws SQLException {
 		
 		try {

@@ -2,19 +2,25 @@ package kr.co.sist.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.sist.service.MemberService;
 import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.UpdatePassVO;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 
 @Controller
 @RequestMapping("user/login/")
@@ -40,7 +46,7 @@ public class MemberController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="login_proc.do",method=GET)
+	@RequestMapping(value="login_proc.do",method=POST)
 	public String loginProc(MemberVO mVO, Model model) {
 		String page="user/login/process/login_process";
 		
