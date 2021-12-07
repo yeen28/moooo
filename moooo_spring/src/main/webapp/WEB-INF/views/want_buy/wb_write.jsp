@@ -8,8 +8,8 @@
 
 <!-- 서머노트에서 콜백함수 사용해서 이미지 등록하기 -->
 
-<c:if test="${ empty sess_user_id }">
-<c:redirect url="/users/login/login.jsp"/>
+<c:if test="${ empty user_id }">
+<c:redirect url="/user/login/login.do"/>
 </c:if>
 
 <!DOCTYPE html>
@@ -115,8 +115,6 @@ if(buy_id != null){
 	WantBuyVO wv=wd.selEditBuy(Integer.parseInt(buy_id),sess_user_id);
 	pageContext.setAttribute("wv", wv);
 }//end if
-
-pageContext.setAttribute("buy_id", buy_id);
 %> --%>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
@@ -133,7 +131,7 @@ pageContext.setAttribute("buy_id", buy_id);
 		<h3 class="title2">사고싶어요 작성</h3>
 	</div>
 
-<form name="frm" id="frm" method="post">
+<form name="frm" id="frm" method="post" action="wb_write_proc.do">
 <div>
 <table class="table" style="width: 1000px;">
 <tr>
@@ -152,23 +150,30 @@ pageContext.setAttribute("buy_id", buy_id);
 <tr>
 	<td>가격 : </td>
 	<td>
-		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" <% if(buy_id != null){ 
-		%>value="${ wv.price }"<% } else { %> value="0"<% } %>></td>
+		<%-- <input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" <% if(buy_id != null){ 
+		%>value="${ wv.price }"<% } else { %> value="0"<% } %>> --%>
+		<c:choose>
+		<c:when test="${ empty buy }">
+		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="0">
+		</c:when>
+		<c:otherwise>
+		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ wv.price }">
+		</c:otherwise>
+		</c:choose>
+	</td>
 	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td>카테고리 : </td>
 	<td>
-	<%-- <%
-	List<CategoryVO> list=new WantBuyDAO().selCategory();
-	%> --%>
 	<select id="category_id" name="category_id" class="form-control">
-	<% 
+	<%-- <% 
 	if(buy_id == null){ 
-	%>
+	%> --%>
 	<option value="none"><c:out value="-------- 선택 --------"/></option>
+	<option value="1"><c:out value="d"/></option>
 	<c:forEach var="list" items="${ list }">
 	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
 	</c:forEach>
-	<%
+	<%-- <%
 	} else {
 	%>
 	<% String selected=""; %>
@@ -183,20 +188,18 @@ pageContext.setAttribute("buy_id", buy_id);
 	</c:choose>
 	<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/></option>
 	</c:forEach>
-	<% } //end else %>
+	<% } //end else %> --%>
 	</select>
-	</c:catch>
-	<c:if test="${ not empty e }">
-	 <%-- ${ e } --%>
+	<%-- <c:if test="${ not empty e }">
 	문제발생
-	</c:if>
+	</c:if> --%>
 	</td>
 </tr>
 </table>
 </div>
 <div class="note">
 	<%-- <textarea name="comments" id="summernote"><% if(buy_id != null) { %>${ wv.comments }<% } %></textarea> --%>
-	<textarea name="comments" id="summernote"><% if(buy_id != null) { %>${ wv.comments }<% } %></textarea>
+	<textarea name="comments" id="summernote">${ wv.comments }</textarea>
 </div>
 <c:choose>
 <c:when test="${ empty buy_id }">
@@ -211,8 +214,8 @@ pageContext.setAttribute("buy_id", buy_id);
 <%-- <% 
 String ip_addr=request.getRemoteAddr();
 %> --%>
-<input type="hidden" name="ip_addr" value="${ ip_addr }"/>
-<input type="hidden" name="user_id" value="${ sessionScope.sess_user_id }"/>
+<%-- <input type="hidden" name="ip_addr" value="${ ip_addr }"/>
+<input type="hidden" name="user_id" value="${ sessionScope.user_id }"/> --%>
 </form>
 
 	<div style="text-align: center">
@@ -222,14 +225,6 @@ String ip_addr=request.getRemoteAddr();
 </div><!-- /<div id="right"> -->
 </div><!-- /<div id="container"> -->
 
-	<c:if test="${ not empty e }">
-	 <%-- ${ e } --%>
-	<script type="text/javascript">
-	alert("작성자만 수정할 수 있습니다.");
-	location.href="javascript:history.back()";
-	</script>
-	</c:if>
-
 <div style="clear:both;">
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </div>
@@ -237,25 +232,18 @@ String ip_addr=request.getRemoteAddr();
 
 <c:if test="${ not empty param.title }">
 <%-- <%
-WantBuyDAO wd=new WantBuyDAO();
-
-String url=commonUrl+"/view/want_buy/want_buy.jsp";
+String url=commonUrl+"/want_buy/want_buy.jsp";
 if( "add".equals(request.getParameter("type")) ) {
 	wd.insertBuy(wv);
 } else {
 	wd.updateBuy(wv);
-	url=commonUrl+"/view/want_buy/want_buy_detail.jsp?buy_id="+wv.getBuy_id();
+	url=commonUrl+"/want_buy/want_buy_detail.jsp?buy_id="+wv.getBuy_id();
 } //end else
-pageContext.setAttribute("url", url);
 %> --%>
 <script type="text/javascript">
-alert("팔아요 글이 등록됐습니다.");
+alert("${ msg }");
 location.href="${ url }";
 </script>
-<%-- <c:if test="${ not empty e }">
-${ e }
-<c:redirect url="../../common/error/error.jsp"/>
-</c:if> --%>
 </c:if>
 
 </body>

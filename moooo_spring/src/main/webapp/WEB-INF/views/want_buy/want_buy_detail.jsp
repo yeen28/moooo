@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<c:if test="${ empty sess_user_id }">
-<c:redirect url="/users/login/login.jsp"/>
+<c:if test="${ empty user_id }">
+<c:redirect url="/user/login/login.do"/>
 </c:if>
 
 <!DOCTYPE html>
@@ -56,8 +56,24 @@
 
 <script type="text/javascript">
 function notice(){
-	location.href="<%= commonUrl %>/view/want_buy/want_buy.do";
+	location.href="<%= commonUrl %>/want_buy/want_buy.do";
 }//notice
+
+function chkUserEdit( sessionId, writer ) {
+	if(sessionId == writer){
+		location.href="<%= commonUrl %>/want_buy/wb_write.do?buy_id="+${ buy.getBuy_id() };
+	} else{
+		alert("작성자만 수정할 수 있습니다.");
+	}
+} //chkUserEdit
+
+function chkUserDelete( sessionId, writer ) {
+	if(sessionId == writer){
+		location.href="<%= commonUrl %>/want_buy/want_buy_delete.do?buy_id="+${ buy.getBuy_id() };
+	} else{
+		alert("작성자만 삭제할 수 있습니다.");
+	}
+} //chkUserDelete
 </script>
 </head>
 
@@ -107,8 +123,8 @@ WantBuyVO wv = wd.selectBuy(buy_id);
 					</table>
 				</div>
 				<a href="<%= commonUrl %>/want_buy/want_buy.do">목록</a>
-				<a href="<%= commonUrl %>/want_buy/wb_write.do?buy_id=${ buy.getBuy_id() }">수정</a>
-				<a href="<%= commonUrl %>/want_buy/want_buy_delete.do?buy_id=${ buy.getBuy_id() }">삭제</a>
+				<a href="#void" onclick="chkUserEdit('${sessionScope.user_id}','${ buy.getUser_id() }')">수정</a>
+				<a href="#void" onclick="chkUserDelete('${sessionScope.user_id}','${ buy.getUser_id() }')">삭제</a>
 			</div>
 		</div>
 	</div>

@@ -22,6 +22,7 @@
             <div class="column error-case">
                 <div class="error-msg">
                     <i class="icon error-page"><span class="blind">홈페이지 접속 장애 안내</span></i><br>
+                    ${ dae }
                     <strong>"서비스 이용에 불편을 드려 대단히 죄송합니다."</strong>
                     <div class="ib-blue-box"></div>
                     <em class="primary">요청하신 페이지를 찾을 수 없거나 사용권한이 없습니다.</em>

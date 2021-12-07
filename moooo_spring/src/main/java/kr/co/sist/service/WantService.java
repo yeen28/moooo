@@ -137,6 +137,11 @@ public class WantService {
 		return end;
 	} //endNum
 	
+	/**
+	 * 사고싶어요 상세페이지 내용 얻기
+	 * @param buy_id
+	 * @return WantBuyVO
+	 */
 	public WantBuyVO getWantBuyDetail(int buy_id) {
 		WantBuyVO wVO=null;
 		
@@ -149,18 +154,36 @@ public class WantService {
 		return wVO;
 	} //getWantBuyDetail
 	
-	public boolean addBuy() {
-		boolean result=false;
-		
-		
-		
-		return result;
-	}
-	
-//	public boolean updateBuy(WantBuyVO wVO) {
+	/**
+	 * 글 추가 처리
+	 * @throws DataAccessException
+	 */
+	public void addBuy(WantBuyVO wv) throws DataAccessException {
+		bDAO.insertBuy(wv);
+	} //addBuy
+//	public boolean addBuy(String ipAddr, String sessionId, WantBuyVO wv) throws DataAccessException {
+//		boolean result=false;
 //		
-//	}
-//	
+//		bDAO.insertBuy(wv);
+//		
+//		return result;
+//	} //addBuy
+	
+	/**
+	 * 글 수정 처리
+	 * @param wVO
+	 * @return true 성공 | false 실패
+	 * @throws DataAccessException
+	 */
+	public boolean updateBuy(WantBuyVO wVO) throws DataAccessException {
+		int cnt=bDAO.updateBuy(wVO);
+		if(cnt == 0) {
+			return false;
+		} else {
+			return true;
+		} //end else
+	} //updateBuy
+	
 //	public boolean deleteBuy(int) {
 //		
 //	}

@@ -144,8 +144,8 @@ public class WantBuyDAO {
 	public void insertBuy(WantBuyVO wv) throws DataAccessException {
 		StringBuilder insert=new StringBuilder();
 		insert
-		.append("	insert into want_buy(buy_id,title,comments,price,view_cnt, input_date,ip_addr,user_id,category_id)	")
-		.append("	values(seq_want_buy.nextval,?,?,?,0,sysdate,?,?,?)");
+		.append("	insert into want_buy(title,comments,price,view_cnt, input_date,ip_addr,user_id,category_id,buy_id)	")
+		.append("	values(?,?,?,0,sysdate,?,?,?,seq_want_buy.nextval)");
 		
 		jt.update(insert.toString(), new Object[] { wv.getTitle(), wv.getComments(), wv.getPrice(), wv.getIp_addr(),wv.getUser_id(), wv.getCategory_id() });
 	}//insertBuy

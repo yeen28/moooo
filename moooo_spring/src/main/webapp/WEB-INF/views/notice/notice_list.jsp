@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 <%
-session.setAttribute("sess_user_id", "user_id2");
+session.setAttribute("user_id", "user_id2");
 %>
 <!DOCTYPE html>
 <html>

@@ -35,7 +35,7 @@
 <div id="login">
 <!-- login -->
 <c:choose>
-<c:when test="${ empty sessionScope.sess_user_id }">
+<c:when test="${ empty sessionScope.user_id }">
 <div id="left_login">
 	<div id="account" class="sc_login">
 	<a href="<%= commonUrl %>/user/login/login.do" class="link_login">로그인</a>
@@ -51,7 +51,7 @@
 </c:when>
 <c:otherwise>
 <div id="user">
-  <h3>${ sessionScope.sess_user_id }</h3>
+  <h3>${ sessionScope.user_id }</h3>
   <a href="<%= commonUrl %>/user/mypage/mypage_form.do">내정보</a>
   <a href="<%= commonUrl %>/user/login/logout_proc.do">로그아웃</a>
   <br/><br/><br/>
@@ -72,17 +72,17 @@
 <div id="side">
 <h4><a href="<%= commonUrl %>/notice/notice_list.do">공지사항</a></h4>
 <hr>
-<h4><a href="<%= commonUrl %>/view/want_buy/want_buy.do">사고싶어요</a></h4>
+<h4><a href="<%= commonUrl %>/want_buy/want_buy.do">사고싶어요</a></h4>
 <ul>
 <c:forEach var="category" items="${ requestScope.listCategory }">
-  <li><a href="<%= commonUrl %>/view/want_buy/want_buy.do?category=${ category.category_id }"><c:out value="${ category.name }"/></a></li>
+  <li><a href="<%= commonUrl %>/want_buy/want_buy.do?category=${ category.category_id }"><c:out value="${ category.name }"/></a></li>
 </c:forEach>
 </ul>
 <hr>
-<h4><a href="<%= commonUrl %>/view/want_sell/want_sell.do">팔아요</a></h4>
+<h4><a href="<%= commonUrl %>/want_sell/want_sell.do">팔아요</a></h4>
 <ul>
 <c:forEach var="category" items="${ requestScope.listCategory }">
-  <li><a href="<%= commonUrl %>/view/want_sell/want_sell.do?category=${ category.category_id }"><c:out value="${ category.name }"/></a></li>
+  <li><a href="<%= commonUrl %>/want_sell/want_sell.do?category=${ category.category_id }"><c:out value="${ category.name }"/></a></li>
 </c:forEach>
 </ul>
 <hr>
