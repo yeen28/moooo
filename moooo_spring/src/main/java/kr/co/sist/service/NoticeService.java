@@ -133,6 +133,11 @@ public class NoticeService {
 		return end;
 	} //endNum
 	
+	/**
+	 * 공지 상세페이지
+	 * @param notice_id
+	 * @return NoticeVO
+	 */
 	public NoticeVO noticeDetail(int notice_id) {
 		NoticeVO nVO=null;
 		

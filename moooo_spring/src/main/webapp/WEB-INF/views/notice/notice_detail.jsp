@@ -38,17 +38,11 @@
 
 <script type="text/javascript">
 function notice(){
-	location.href="<%= commonUrl %>/view/notice/notice.jsp";
+	location.href="<%= commonUrl %>/notice/notice_list.do";
 }//notice
 </script>
 </head>
 <body>
-<%-- <%
-String param1 = request.getParameter("notice_id");
-int notice_id = Integer.parseInt(param1);
-NoticeDAO nDAO = new NoticeDAO();
-NotiInsertVO nVO = nDAO.selectNotice(notice_id);
-%> --%>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
@@ -69,18 +63,16 @@ NotiInsertVO nVO = nDAO.selectNotice(notice_id);
 						<tbody>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
-								<%-- <td colspan="5" style="font-size: 16px; color: #333;"><%= nVO.getTitle() %></td> --%>
-								<td colspan="5" style="font-size: 16px; color: #333;"><c:out value="${ title }"/></td>
+								<td colspan="5" style="font-size: 16px; color: #333;"><c:out value="${ nv.title }"/></td>
 							</tr>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성일</td>
-								<%-- <td style="font-size: 16px; color: #333;"><%= nVO.getInput_date() %></td> --%>
+								<td style="font-size: 16px; color: #333;">${ nv.getInput_date() }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">조회수</td>
-								<%-- <td style="font-size: 16px; color: #333;"><%= nVO.getView_cnt() %></td> --%>
+								<td style="font-size: 16px; color: #333;">${ nv.getView_cnt() }</td>
 							</tr>
 							<tr>
-								<%-- <td colspan="6" style="font-size: 16px; color: #333;"><%= nVO.getComments() %></td> --%>
-								<td colspan="6" style="font-size: 16px; color: #333;"><c:out value="${ comments }"/></td>
+								<td colspan="6" style="font-size: 16px; color: #333;"><c:out value="${ nv.comments }" escapeXml="false"/></td>
 							</tr>
 						</tbody>
 					</table>

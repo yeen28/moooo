@@ -104,7 +104,7 @@ pageContext.setAttribute("selectedNotice", list);
 							<tr>
 								<td style="font-size: 16px; text-align: center; color: #333;">${ notice.notice_id }</td>
 								<td style="font-size: 16px; text-align: center; color: #333;">
-								  <a href="<%= commonUrl %>/view/notice/notice_detail.do?notice_id=${ notice.notice_id }">${ notice.title }</a>
+								  <a href="<%= commonUrl %>/notice/notice_detail.do?notice_id=${ notice.notice_id }">${ notice.title }</a>
 								</td>
 								<td style="font-size: 16px; text-align: center; color: #333;">${ notice.admin_id }</td>
 								<td style="font-size: 16px; text-align: center; color: #333;">${ notice.input_date }</td>
@@ -119,19 +119,19 @@ pageContext.setAttribute("selectedNotice", list);
 					<ul class="pagination">
 						<li>
 						<c:if test="${ nowPage ne 1 }">
-							<a href="<%= commonUrl %>/view/notice/notice_list.do?page=${ nowPage-1 }" aria-label="Previous">
+							<a href="<%= commonUrl %>/notice/notice_list.do?page=${ nowPage-1 }" aria-label="Previous">
 								<span aria-hidden="true">&laquo;</span>
 							</a>
 						</c:if>
 						</li>
 						<c:set var="num" value="${ selectedNotice }"/>
 						<c:forEach var="i" begin="${ start }" end="${ end }">
-						<li><a href="<%= commonUrl %>/view/notice/notice_list.do?page=${ i }"><c:out value="${ i }"/></a></li>
+						<li><a href="<%= commonUrl %>/notice/notice_list.do?page=${ i }"><c:out value="${ i }"/></a></li>
 						</c:forEach>
 						<li>
 						<%-- <% if(LastPage != 0 && nowPage != LastPage){ %> --%>
 						<c:if test="${ LastPage ne 0 and nowPage ne LastPage }">
-							<a href="<%= commonUrl %>/view/notice/notice_list.do?page=${ nowPage+1 }" aria-label="Next">
+							<a href="<%= commonUrl %>/notice/notice_list.do?page=${ nowPage+1 }" aria-label="Next">
 								<span aria-hidden="true">&raquo;</span>
 							</a>
 							<%-- <% } %> --%>

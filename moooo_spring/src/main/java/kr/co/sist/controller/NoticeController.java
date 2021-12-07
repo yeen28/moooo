@@ -42,9 +42,11 @@ public class NoticeController {
 
 	@RequestMapping(value="notice_detail.do",method=GET)
 	public String noticeDetail(int notice_id,Model model) {
-		String jsp="";
+		String jspPage="notice/notice_detail";
 		
-		return jsp;
+		model.addAttribute("nv", ns.noticeDetail(notice_id));
+		
+		return jspPage;
 	} //noticeDetail
 	
 } //class
