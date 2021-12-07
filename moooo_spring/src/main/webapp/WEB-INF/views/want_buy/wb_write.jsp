@@ -152,11 +152,9 @@ pageContext.setAttribute("buy_id", buy_id);
 	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td>카테고리 : </td>
 	<td>
-	<c:catch var="e">
-	<%
+	<%-- <%
 	List<CategoryVO> list=new WantBuyDAO().selCategory();
-	pageContext.setAttribute("list", list);
-	%>
+	%> --%>
 	<select id="category_id" name="category_id" class="form-control">
 	<% 
 	if(buy_id == null){ 
@@ -195,17 +193,20 @@ pageContext.setAttribute("buy_id", buy_id);
 	<%-- <textarea name="comments" id="summernote"><% if(buy_id != null) { %>${ wv.comments }<% } %></textarea> --%>
 	<textarea name="comments" id="summernote"><% if(buy_id != null) { %>${ wv.comments }<% } %></textarea>
 </div>
-<% if(buy_id == null){ %>
+<c:choose>
+<c:when test="${ empty buy_id }">
 <input type="hidden" name="type" value="add"/>
-<% } else { %>
+</c:when>
+<c:otherwise>
 <input type="hidden" name="type" value="edit"/>
 <input type="hidden" name="buy_id" value="${ buy_id }"/>
-<% } //end else %>
+</c:otherwise>
+</c:choose>
 
-<% 
+<%-- <% 
 String ip_addr=request.getRemoteAddr();
-%>
-<input type="hidden" name="ip_addr" value="<%= ip_addr %>"/>
+%> --%>
+<input type="hidden" name="ip_addr" value="${ ip_addr }"/>
 <input type="hidden" name="user_id" value="${ sessionScope.sess_user_id }"/>
 </form>
 
@@ -215,7 +216,7 @@ String ip_addr=request.getRemoteAddr();
 	</div><!-- /<div class="right_wrap"> -->
 </div><!-- /<div id="right"> -->
 </div><!-- /<div id="container"> -->
-	</c:catch>
+
 	<c:if test="${ not empty e }">
 	 <%-- ${ e } --%>
 	<script type="text/javascript">

@@ -1,5 +1,3 @@
-<%@page import="kr.co.sist.user.dao.WantBuyDAO"%>
-<%@page import="kr.co.sist.user.vo.WantBuyVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -44,7 +42,7 @@
 </head>
 
 <body>
-<%
+<%-- <%
 //category가 있는 경우, 해당 카테고리의 글만 얻기
 int category=0;
 try{
@@ -83,15 +81,15 @@ pageContext.setAttribute("start", start);
 pageContext.setAttribute("end", end);
 pageContext.setAttribute("nowPage", nowPage);
 pageContext.setAttribute("list", list);
-%>
+%> --%>
 <!-- header -->
-<jsp:include page="/layout/header.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
 <!-- container -->
 <div id="container">
 	
 <!-- 왼쪽 바 -->
-<jsp:include page="/layout/side_left.jsp"/>
+<jsp:include page="/layout/side_left.do"/>
 	
 <div id="right">
 	<div class="notice_wrap">
@@ -99,8 +97,8 @@ pageContext.setAttribute("list", list);
 		<h2 style="font-weight: bold;">사고싶어요</h2>
 		
 		<div>
-		<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/wb_write.jsp">+추가</a>
-		<a href="<%= protocol %><%= domain %><%= contextRoot %>/view/want_buy/want_buy.jsp">전체 글 보기</a>
+		<a href="<%= commonUrl %>/view/want_buy/wb_write.do">+추가</a>
+		<a href="<%= commonUrl %>/view/want_buy/want_buy.do">전체 글 보기</a>
 		</div>
 			
 		</div>
@@ -127,7 +125,7 @@ pageContext.setAttribute("list", list);
 		<tr>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.buy_id }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">
-              <a href="<%= commonUrl %>/view/want_buy/want_buy_detail.jsp?buy_id=${ buy.buy_id }">${ buy.title }</a>
+              <a href="<%= commonUrl %>/view/want_buy/want_buy_detail.do?buy_id=${ buy.buy_id }">${ buy.title }</a>
           </td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.price }원</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.user_id }</td>
@@ -143,20 +141,20 @@ pageContext.setAttribute("list", list);
 			<ul class="pagination">
 	<li>
 		<c:if test="${ nowPage ne 1 and param.page ne null }">
-			<a href="<%= commonUrl %>/view/want_buy/want_buy.jsp?page=${ nowPage-1 }" aria-label="Previous">
+			<a href="<%= commonUrl %>/view/want_buy/want_buy.do?page=${ nowPage-1 }" aria-label="Previous">
 			<span aria-hidden="true">&laquo;</span>
 			</a>
 		</c:if>
 	</li>
 	<c:forEach var="i" begin="${ start }" end="${ end }">
-		<li><a href="<%= commonUrl %>/view/want_buy/want_buy.jsp?page=${ i }"><c:out value="${ i }"/></a></li>
+		<li><a href="<%= commonUrl %>/view/want_buy/want_buy.do?page=${ i }"><c:out value="${ i }"/></a></li>
 	</c:forEach>
 	<li>
-	<% if(LastPage != 0 && nowPage != LastPage){ %>
-		<a href="<%= commonUrl %>/view/want_buy/want_buy.jsp?page=${ nowPage+1 }" aria-label="Next">
+	<%-- <% if(LastPage != 0 && nowPage != LastPage){ %> --%>
+		<a href="<%= commonUrl %>/view/want_buy/want_buy.do?page=${ nowPage+1 }" aria-label="Next">
 			<span aria-hidden="true">&raquo;</span>
 		</a>
-	<% } %>
+	<%-- <% } %> --%>
 	</li>
 </ul>
 </nav>
@@ -166,7 +164,7 @@ pageContext.setAttribute("list", list);
 </div>
 
 <div style="clear:both;">
-<jsp:include page="/layout/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </div>
 
 </body>

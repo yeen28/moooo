@@ -58,26 +58,26 @@
 
 <script type="text/javascript">
 function notice(){
-	location.href="<%= commonUrl %>/view/want_buy/want_buy.jsp";
+	location.href="<%= commonUrl %>/view/want_buy/want_buy.do";
 }//notice
 </script>
 </head>
 
 <body>
-<%
+<%-- <%
 String param1 = request.getParameter("buy_id");
 int buy_id = Integer.parseInt(param1);
 WantBuyDAO wd = new WantBuyDAO();
 WantBuyVO wv = wd.selectBuy(buy_id);
-%>
-	<!-- header -->
-	<jsp:include page="/layout/header.jsp"/>
+%> --%>
+<!-- header -->
+<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
 	<!-- container -->
 	<div id="container">
 	
 	<!-- 왼쪽 바 -->
-	<jsp:include page="/layout/side_left.jsp"/>
+	<jsp:include page="/layout/side_left.do"/>
 	
 	<div id="right">
 		<div class="notice_wrap">
@@ -116,8 +116,8 @@ WantBuyVO wv = wd.selectBuy(buy_id);
 	</div>
 	</div>
 	
-	<div style="clear:both;">
-<jsp:include page="/layout/footer.jsp"/>
+<div style="clear:both;">
+<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </div>
 
 </body>
