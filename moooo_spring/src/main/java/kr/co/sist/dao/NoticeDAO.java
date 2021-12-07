@@ -27,7 +27,7 @@ public class NoticeDAO {
 	 * @return 공지 개수
 	 * @throws SQLException
 	 */
-	public int selectNotiCnt() throws SQLException {
+	public int selectNotiCnt() throws DataAccessException {
 		int cnt=0;
 		
 		String select="select count(*) from notice";

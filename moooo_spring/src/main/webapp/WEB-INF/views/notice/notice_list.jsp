@@ -124,6 +124,7 @@ pageContext.setAttribute("selectedNotice", list);
 							</a>
 						</c:if>
 						</li>
+						<c:set var="num" value="${ selectedNotice }"/>
 						<c:forEach var="i" begin="${ start }" end="${ end }">
 						<li><a href="<%= commonUrl %>/view/notice/notice_list.do?page=${ i }"><c:out value="${ i }"/></a></li>
 						</c:forEach>

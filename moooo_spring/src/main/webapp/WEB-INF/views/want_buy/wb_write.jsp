@@ -126,7 +126,7 @@ pageContext.setAttribute("buy_id", buy_id);
 	<div id="container">
 	
 	<!-- 왼쪽 바 -->
-	<jsp:include page="/layout/side_left.jsp"/>
+	<jsp:include page="/layout/side_left.do"/>
 	
 	<div id="right">
 	<div class="right_wrap">
@@ -192,6 +192,7 @@ pageContext.setAttribute("buy_id", buy_id);
 </table>
 </div>
 <div class="note">
+	<%-- <textarea name="comments" id="summernote"><% if(buy_id != null) { %>${ wv.comments }<% } %></textarea> --%>
 	<textarea name="comments" id="summernote"><% if(buy_id != null) { %>${ wv.comments }<% } %></textarea>
 </div>
 <% if(buy_id == null){ %>
@@ -224,16 +225,12 @@ String ip_addr=request.getRemoteAddr();
 	</c:if>
 
 <div style="clear:both;">
-<jsp:include page="/layout/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </div>
 </c:if>
 
 <c:if test="${ not empty param.title }">
-<jsp:useBean id="wv" class="kr.co.sist.user.vo.WantBuyVO" scope="page"/>
-<jsp:setProperty property="*" name="wv"/>
-
-<c:catch var="e">
-<%
+<%-- <%
 WantBuyDAO wd=new WantBuyDAO();
 
 String url=commonUrl+"/view/want_buy/want_buy.jsp";
@@ -244,16 +241,15 @@ if( "add".equals(request.getParameter("type")) ) {
 	url=commonUrl+"/view/want_buy/want_buy_detail.jsp?buy_id="+wv.getBuy_id();
 } //end else
 pageContext.setAttribute("url", url);
-%>
+%> --%>
 <script type="text/javascript">
 alert("팔아요 글이 등록됐습니다.");
 location.href="${ url }";
 </script>
-</c:catch>
-<c:if test="${ not empty e }">
-<%-- ${ e } --%>
+<%-- <c:if test="${ not empty e }">
+${ e }
 <c:redirect url="../../common/error/error.jsp"/>
-</c:if>
+</c:if> --%>
 </c:if>
 
 </body>

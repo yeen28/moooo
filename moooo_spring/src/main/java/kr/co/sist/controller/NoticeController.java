@@ -21,22 +21,20 @@ public class NoticeController {
 	public String noticeForm(String page, Model model) {
 		String jsp="notice/notice_list";
 		
-		int nowPage=1;
-		try {
-			nowPage=Integer.parseInt(page);
-			
-		} catch(NumberFormatException nfe) {
-			nowPage=1;
-		} //end catch
+		int nowPage=ns.nowPage(page);
+//		int totalCount=ns.searchAllCnt();
+//		int blockPage=ns.blockPage();
+//		int start=ns.startNum(nowPage, blockPage);
+//		int end=ns.endNum(start, blockPage);
 		
-		if( ns.searchNoticeList(nowPage) == null ) {
+		if( ns.searchNoticeList(page) == null ) {
 			model.addAttribute("msg", "조회된 결과가 없습니다.");
+		} else {
+			model.addAttribute("selectedNotice", ns.searchNoticeList(page));
 			model.addAttribute("nowPage", nowPage);
 			model.addAttribute("LastPage", nowPage);
 			model.addAttribute("start", nowPage);
 			model.addAttribute("end", nowPage);
-		} else {
-			model.addAttribute("selectedNotice", ns.searchNoticeList(nowPage));
 		}//end else
 		
 		return jsp;
