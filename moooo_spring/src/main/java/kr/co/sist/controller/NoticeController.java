@@ -18,8 +18,27 @@ public class NoticeController {
 	private NoticeService ns;
 	
 	@RequestMapping(value="notice_list.do",method=GET)
-	public String noticeForm(int begin,int end,Model model) {
+	public String noticeForm(String page, Model model) {
 		String jsp="notice/notice_list";
+		
+		int nowPage=1;
+		try {
+			nowPage=Integer.parseInt(page);
+			
+		} catch(NumberFormatException nfe) {
+			nowPage=1;
+		} //end catch
+		
+		if( ns.searchNoticeList(nowPage) == null ) {
+			model.addAttribute("msg", "조회된 결과가 없습니다.");
+			model.addAttribute("nowPage", nowPage);
+			model.addAttribute("LastPage", nowPage);
+			model.addAttribute("start", nowPage);
+			model.addAttribute("end", nowPage);
+		} else {
+			model.addAttribute("selectedNotice", ns.searchNoticeList(nowPage));
+		}//end else
+		
 		return jsp;
 	} //noticeForm
 

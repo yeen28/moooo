@@ -15,11 +15,28 @@ public class NoticeService {
 	@Autowired(required = false)
 	private NoticeDAO nDAO;
 	
-	public List<NoticeVO> searchNoticeList(int begin,int end){
+	public List<NoticeVO> searchNoticeList(int page) {
 		List<NoticeVO> list=null;
 		
 		try {
-			list = nDAO.selectNotiTitle(begin, end);
+			int numPerPage=10;
+			int totData=nDAO.selectNotiCnt();
+			int LastPage=totData/numPerPage;
+			if(totData % numPerPage > 0){
+				++LastPage;
+			}//end if
+			int blockPage=10;
+			int nowPage=page; //현재 페이지
+			
+			int start=((nowPage-1)/blockPage)*10+1;
+			int end=start+blockPage-1;
+			if( end > LastPage ){
+				end=LastPage;
+			}//end if
+			
+			int rowBegin=(nowPage-1)*numPerPage+1;
+			int rowEnd=nowPage*numPerPage;
+			list=nDAO.selectNotiTitle(rowBegin, rowEnd);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

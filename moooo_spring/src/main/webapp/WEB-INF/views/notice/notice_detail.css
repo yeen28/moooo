@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.notice_head {
+	/* border-bottom: 1px solid; */
+	margin-bottom: 10px;
+}
+
+.notice_border {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 10px;
+}
+
+.noticeBtn {
+	font-size: 20px; 
+	background-color: #494949; 
+	color: #FFFFFF;
+	border: 1px solid #494949; 
+	border-radius: 5px; 
+	width: 90px;
+	margin-top: 40px;
+}
