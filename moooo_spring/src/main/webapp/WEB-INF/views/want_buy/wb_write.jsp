@@ -105,7 +105,6 @@ $(function () {
 </head>
 <body>
 <c:if test="${ empty param.title }">
-<c:catch var="e">
 <%-- <%
 String sess_user_id=(String)session.getAttribute("sess_user_id");
 
@@ -140,8 +139,14 @@ pageContext.setAttribute("buy_id", buy_id);
 <tr>
 	<td>제목 : </td>
 	<td colspan="4">
-		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" <% 
-		if(buy_id != null){ %>value="${ wv.title }"<%}%>>
+		<c:choose>
+		<c:when test="${ empty buy }">
+		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title">
+		</c:when>
+		<c:otherwise>
+		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" value="${ buy.title }">
+		</c:otherwise>
+		</c:choose>
 	</td>
 </tr>
 <tr>

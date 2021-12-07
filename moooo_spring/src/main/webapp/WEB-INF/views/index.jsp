@@ -59,7 +59,7 @@
 <div class="panel-body">
 	<ul id="ul-list">
 		<c:forEach var="buy" items="${ listBuyTitle }">
-			<li><a href="<%= commonUrl %>/view/want_buy/want_buy.do"><c:out value="${ buy.title }"/></a></li>
+			<li><a href="<%= commonUrl %>/want_buy/want_buy.do"><c:out value="${ buy.title }"/></a></li>
 		</c:forEach>
 	</ul>
 </div>
@@ -70,7 +70,7 @@
 	<div class="panel-heading notice_subtitle">
 		<span class="notice_subtitle_text">팔아요</span>
 			<div id="moreView">
-				<a href="<%= commonUrl %>/view/want_sell/want_sell.do">
+				<a href="<%= commonUrl %>/want_sell/want_sell.do">
 					<span id="moreView"><img src="<%= commonUrl %>/common/images/icons/moreView.PNG" width="25px"/></span>
 				</a>
 			</div>
@@ -78,7 +78,7 @@
 <div class="panel-body">
 	<ul id="ul-list">
 		<c:forEach var="sell" items="${ listSellTitle }">
-			<li><a href="<%= commonUrl %>/view/want_sell/want_sell.do"><c:out value="${ sell.title }"/></a></li>
+			<li><a href="<%= commonUrl %>/want_sell/want_sell.do"><c:out value="${ sell.title }"/></a></li>
 		</c:forEach>
 	</ul>
 </div>

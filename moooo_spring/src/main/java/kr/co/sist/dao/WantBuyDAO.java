@@ -25,7 +25,7 @@ public class WantBuyDAO {
 	 * @return ±Û °³¼ö
 	 * @throws SQLException
 	 */
-	public int selectBuyCnt(int category) throws SQLException {
+	public int selectBuyCnt(int category) throws DataAccessException {
 		int cnt=0;
 		
 		String select="";

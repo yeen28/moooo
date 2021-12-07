@@ -1,5 +1,3 @@
-<%@page import="kr.co.sist.user.vo.WantBuyVO"%>
-<%@page import="kr.co.sist.user.dao.WantBuyDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info="사고싶어요 상세페이지"%>
@@ -90,27 +88,27 @@ WantBuyVO wv = wd.selectBuy(buy_id);
 						<tbody>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
-								<td colspan="3" style="font-size: 16px; color: #333;">${ wv.getTitle() }</td>
+								<td colspan="3" style="font-size: 16px; color: #333;">${ buy.getTitle() }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성자</td>
-								<td style="font-size: 16px; color: #333;"><%= wv.getUser_id() %></td>
+								<td style="font-size: 16px; color: #333;">${ buy.getUser_id() }</td>
 							</tr>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성일</td>
-								<td style="font-size: 16px; color: #333;"><%= wv.getInput_date() %></td>
+								<td style="font-size: 16px; color: #333;">${ buy.getInput_date() }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">가격</td>
-								<td style="font-size: 16px; color: #333;"><%= wv.getPrice() %>원</td>
+								<td style="font-size: 16px; color: #333;">${ buy.getPrice() }원</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">조회수</td>
-								<td style="font-size: 16px; color: #333;"><%= wv.getView_cnt() %></td>
+								<td style="font-size: 16px; color: #333;">${ buy.getView_cnt() }</td>
 							</tr>
 							<tr>
-								<td colspan="6" style="font-size: 16px; color: #333;"><%= wv.getComments() %></td>
+								<td colspan="6" style="font-size: 16px; color: #333;">${ buy.getComments() }</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<a href="<%= commonUrl %>/view/want_buy/want_buy.jsp">목록</a>
-				<a href="<%= commonUrl %>/view/want_buy/wb_write.jsp?buy_id=<%= wv.getBuy_id() %>">수정</a>
-				<a href="<%= commonUrl %>/view/want_buy/want_buy_delete.jsp?buy_id=<%= wv.getBuy_id() %>">삭제</a>
+				<a href="<%= commonUrl %>/want_buy/want_buy.do">목록</a>
+				<a href="<%= commonUrl %>/want_buy/wb_write.do?buy_id=${ buy.getBuy_id() }">수정</a>
+				<a href="<%= commonUrl %>/want_buy/want_buy_delete.do?buy_id=${ buy.getBuy_id() }">삭제</a>
 			</div>
 		</div>
 	</div>
