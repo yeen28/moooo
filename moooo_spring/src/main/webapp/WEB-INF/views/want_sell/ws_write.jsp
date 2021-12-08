@@ -1,8 +1,4 @@
-<%@page import="kr.co.sist.user.vo.WantSellVO"%>
-<%@page import="kr.co.sist.user.dao.WantSellDAO"%>
-<%@page import="kr.co.sist.user.vo.CategoryVO"%>
 <%@page import="java.util.List"%>
-<%@page import="kr.co.sist.user.dao.WantBuyDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info="팔아요 추가/수정"
@@ -12,8 +8,8 @@
 
 <!-- 서머노트에서 콜백함수 사용해서 이미지 등록하기 -->
 
-<c:if test="${ empty sess_user_id }">
-<c:redirect url="/users/login/login.jsp"/>
+<c:if test="${ empty user_id }">
+<c:redirect url="/user/login/login.do"/>
 </c:if>
 
 <!DOCTYPE html>
@@ -108,12 +104,8 @@ $(function () {
 </script>
 </head>
 <body>
-<%
-request.setCharacterEncoding("UTF-8");
-%>
 <c:if test="${ empty param.title }">
-<c:catch var="e">
-<%
+<%-- <%
 String sess_user_id=(String)session.getAttribute("sess_user_id");
 
 String sell_id=request.getParameter("sell_id");
@@ -125,15 +117,15 @@ if(sell_id != null){
 }//end if
 
 pageContext.setAttribute("sell_id", sell_id);
-%>
+%> --%>
 <!-- header -->
-<jsp:include page="/layout/header.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
 	<!-- container -->
 	<div id="container">
 	
 	<!-- 왼쪽 바 -->
-	<jsp:include page="/layout/side_left.jsp"/>
+	<jsp:include page="/layout/side_left.do"/>
 	
 	<div id="right">
 	<div class="right_wrap">
@@ -147,29 +139,30 @@ pageContext.setAttribute("sell_id", sell_id);
 <tr>
 	<td>제목 : </td>
 	<td colspan="4">
-		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" <% 
-		if(sell_id != null){ %>value="${ wv.title }"<%}%>>
+		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" value="${ wv.title }">
+<%-- 		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" <% 
+		if(sell_id != null){ %>value="${ wv.title }"<%}%>> --%>
 	</td>
 </tr>
 <tr>
 	<td>가격 : </td>
 	<td>
-		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" <% if(sell_id != null){ 
-		%>value="${ wv.price }"<% } else { %> value="0"<% } %>></td>
+		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ wv.price }"/>
+<%-- 		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" <% if(sell_id != null){ 
+		%>value="${ wv.price }"<% } else { %> value="0"<% } %>> --%>
+	</td>
 	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td>카테고리 : </td>
 	<td>
-	<c:catch var="e">
-	<%
+	<%-- <%
 	List<CategoryVO> list=new WantSellDAO().selCategory();
-	pageContext.setAttribute("list", list);
-	%>
+	%> --%>
 	<select id="category_id" name="category_id" class="form-control">
-	<% 
+	<%-- <% 
 	if(sell_id == null){ 
-	%>
+	%> --%>
 	<option value="none"><c:out value="-------- 선택 --------"/></option>
-	<c:forEach var="list" items="${ list }">
+	<%-- <c:forEach var="list" items="${ list }">
 	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
 	</c:forEach>
 	<%
@@ -187,32 +180,27 @@ pageContext.setAttribute("sell_id", sell_id);
 	</c:choose>
 	<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/></option>
 	</c:forEach>
-	<% } //end else %>
+	<% } //end else %> --%>
 	</select>
-	</c:catch>
-	<c:if test="${ not empty e }">
-	 <%-- ${ e } --%>
+	<%-- <c:if test="${ not empty e }">
 	문제발생
-	</c:if>
+	</c:if> --%>
 	</td>
 </tr>
 </table>
 </div>
 <div class="note">
-	<textarea name="comments" id="summernote"><% if(sell_id != null) { %>${ wv.comments }<% } %></textarea>
+	<textarea name="comments" id="summernote">${ wv.comments }</textarea>
 </div>
-<% if(sell_id == null){ %>
+<%-- <% if(sell_id == null){ %> --%>
 <input type="hidden" name="type" value="add"/>
-<% } else { %>
+<%-- <% } else { %> --%>
 <input type="hidden" name="type" value="edit"/>
 <%-- <input type="hidden" name="sell_id" value="${ sell_id }"/> --%>
-<% } //end else %>
+<%-- <% } //end else %> --%>
 
-<% 
-String ip_addr=request.getRemoteAddr();
-%>
-<input type="hidden" name="ip_addr" value="<%= ip_addr %>"/>
-<input type="hidden" name="user_id" value="${ sessionScope.sess_user_id }"/>
+<%-- <input type="hidden" name="ip_addr" value="<%= ip_addr %>"/>
+<input type="hidden" name="user_id" value="${ sessionScope.sess_user_id }"/> --%>
 </form>
 
 	<div style="text-align: center">
@@ -221,28 +209,18 @@ String ip_addr=request.getRemoteAddr();
 	</div><!-- /<div class="right_wrap"> -->
 </div><!-- /<div id="right"> -->
 </div><!-- /<div id="container"> -->
-	</c:catch>
-	<c:if test="${ not empty e }">
-	 <%-- ${ e } --%>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	alert("작성자만 수정할 수 있습니다.");
 	location.href="javascript:history.back()";
-	</script>
-	</c:if>
+	</script> -->
 
 <div style="clear:both;">
-<jsp:include page="/layout/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </div>
 </c:if>
 
 <c:if test="${ not empty param.title }">
-<jsp:useBean id="wv" class="kr.co.sist.user.vo.WantSellVO" scope="page"/>
-<jsp:setProperty property="*" name="wv"/>
-
-<c:catch var="e">
-<%
-WantSellDAO wd=new WantSellDAO();
-
+<%-- <%
 String url=commonUrl+"/view/want_sell/want_sell.jsp";
 if( "add".equals(request.getParameter("type")) ) {
 	wd.insertSell(wv);
@@ -250,17 +228,14 @@ if( "add".equals(request.getParameter("type")) ) {
 	wd.updateSell(wv);
 	url=commonUrl+"/view/want_sell/want_sell_detail.jsp?sell_id="+wv.getSell_id();
 } //end else
-pageContext.setAttribute("url", url);
-%>
+%> --%>
 <script type="text/javascript">
 alert("팔아요 글이 등록됐습니다.");
 location.href="${ url }";
 </script>
-</c:catch>
-<c:if test="${ not empty e }">
-<%-- ${ e } --%>
+<%-- <c:if test="${ not empty e }">
 <c:redirect url="../../common/error/error.jsp"/>
-</c:if>
+</c:if> --%>
 </c:if>
 
 </body>

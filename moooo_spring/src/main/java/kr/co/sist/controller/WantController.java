@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.sist.service.WantService;
@@ -69,8 +68,6 @@ public class WantController {
 	public String wantBuyWriteProc(HttpServletRequest request,HttpSession session,WantBuyVO wVO,Model model) throws DataAccessException {
 		String jspPage="want_buy/wb_write";
 		
-//		int buyId=Integer.parseInt(buy_id);
-		
 		String ip_addr=request.getRemoteAddr();
 		String session_id=(String)session.getAttribute("user_id");
 		wVO.setIp_addr(ip_addr);
@@ -81,10 +78,10 @@ public class WantController {
 			model.addAttribute("url", "want_buy.do");
 		} else { // 수정하는 경우
 			if( ws.updateBuy(wVO) ) { // 글 수정 성공
-			//model.addAttribute("buy",ws.getWantBuyDetail(buyId));
+				model.addAttribute("url", "want_buy.do?buy_id="+wVO.getBuy_id());
 			} else { //글 수정 실패
-				
-			}
+				System.out.println("글 수정 실패");
+			}//end else
 		}
 		model.addAttribute("msg", "팔아요 글이 등록됐습니다.");
 		

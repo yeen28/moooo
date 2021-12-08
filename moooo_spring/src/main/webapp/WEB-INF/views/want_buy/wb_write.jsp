@@ -113,7 +113,6 @@ String buy_id=request.getParameter("buy_id");
 if(buy_id != null){
 	WantBuyDAO wd=new WantBuyDAO();
 	WantBuyVO wv=wd.selEditBuy(Integer.parseInt(buy_id),sess_user_id);
-	pageContext.setAttribute("wv", wv);
 }//end if
 %> --%>
 <!-- header -->
@@ -157,7 +156,7 @@ if(buy_id != null){
 		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="0">
 		</c:when>
 		<c:otherwise>
-		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ wv.price }">
+		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ buy.price }">
 		</c:otherwise>
 		</c:choose>
 	</td>
@@ -199,7 +198,7 @@ if(buy_id != null){
 </div>
 <div class="note">
 	<%-- <textarea name="comments" id="summernote"><% if(buy_id != null) { %>${ wv.comments }<% } %></textarea> --%>
-	<textarea name="comments" id="summernote">${ wv.comments }</textarea>
+	<textarea name="comments" id="summernote">${ buy.comments }</textarea>
 </div>
 <c:choose>
 <c:when test="${ empty buy_id }">
@@ -210,12 +209,6 @@ if(buy_id != null){
 <input type="hidden" name="buy_id" value="${ buy_id }"/>
 </c:otherwise>
 </c:choose>
-
-<%-- <% 
-String ip_addr=request.getRemoteAddr();
-%> --%>
-<%-- <input type="hidden" name="ip_addr" value="${ ip_addr }"/>
-<input type="hidden" name="user_id" value="${ sessionScope.user_id }"/> --%>
 </form>
 
 	<div style="text-align: center">
