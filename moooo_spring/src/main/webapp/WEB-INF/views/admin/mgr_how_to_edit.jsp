@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>   
 
-<c:if test="${ empty sess_id }">
+<c:if test="${ empty sessionScope.admin_id }">
 <c:redirect url="/admin/login.do"/>
 </c:if>
 
@@ -52,7 +52,7 @@ a{color: #333;}
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>  
 <!-- 국제화 : 다른 나라의 언어로 서비스를 제공할 때 i18n -->
-<script src="<%= protocol %><%= domain %><%= contextRoot %>/common/js/summernote/lang/summernote-ko-KR.js"></script>
+<script src="<%= commonUrl %>/common/js/summernote/lang/summernote-ko-KR.js"></script>
 
 <script>
 $(document).ready(function() {

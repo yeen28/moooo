@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.vo.UpdatePassVO;
+import kr.co.sist.vo.UpdateUserPassVO;
 import kr.co.sist.vo.MemberVO;
 
 @Component
@@ -117,7 +117,7 @@ public class MemberDAO {
 	 * @return
 	 * @throws DataAccessException
 	 */
-	public int updatePw( UpdatePassVO uVO ) throws DataAccessException {
+	public int updatePw( UpdateUserPassVO uVO ) throws DataAccessException {
 		int cnt=0;
 		
 		StringBuilder updateMember=new StringBuilder();

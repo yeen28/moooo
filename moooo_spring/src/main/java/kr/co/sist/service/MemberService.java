@@ -16,7 +16,7 @@ import kr.co.sist.dao.MemberDAO;
 import kr.co.sist.vo.DeleteMemberVO;
 import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.TempPassVO;
-import kr.co.sist.vo.UpdatePassVO;
+import kr.co.sist.vo.UpdateUserPassVO;
 
 @Component
 public class MemberService {
@@ -111,7 +111,7 @@ public class MemberService {
 		return pass;
 	} //tempPass
 
-	public boolean changePass(UpdatePassVO uVO) {
+	public boolean changePass(UpdateUserPassVO uVO) {
 		boolean result=false;
 		
 		return result;

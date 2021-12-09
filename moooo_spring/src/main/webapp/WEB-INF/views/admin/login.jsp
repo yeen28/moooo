@@ -45,9 +45,9 @@ $(function () {
 </script>
 </head>
 <body style="background-color: #DFDFDF; margin-top: 100px;">
-<c:if test="${ empty sessionScope.admin_id and empty param.admin_id}">
+<c:if test="${ empty sessionScope.admin_id and empty requestScope.msg }">
 <div class="container">
-	<form action="<%= protocol %><%= domain %><%= contextRoot %>/admin/login.do" id="admin_frm" method="post">
+	<form action="<%= commonUrl %>/admin/login.do" id="admin_frm" method="post">
 		<div>
 			<div style="padding-bottom: 30px;">
 				<h3 class="subtitle">Moo<span class="glyphicon glyphicon-cog"></span><span class="glyphicon glyphicon-cog"></span></h3>
@@ -66,7 +66,7 @@ $(function () {
 					<label>비밀번호</label>
 					<div class="input-group">
 						<div class="input-group-addon" aria-label="center Align" style="padding:5px;">
-						<img alt="pw" src="<%= protocol %><%= domain %><%= contextRoot %>/common/images/icons/pass_icon.PNG" width="25px;"/>
+						<img alt="pw" src="<%= commonUrl %>/common/images/icons/pass_icon.PNG" width="25px;"/>
 						</div>
 						 <input value="admin" type="password" class="form-control"   style="height: 50px"  aria-label="Large"  id="admin_pass" name="pass" placeholder="비밀번호">
 					</div>
@@ -80,21 +80,11 @@ $(function () {
 </div>
 </c:if>
 
-<c:if test="${ not empty param.admin_id }">
-<%-- <%
-String password=request.getParameter("admin_pass");
-
-LoginDAO mDAO=new LoginDAO();
-session.setAttribute("sess_id", mDAO.selectLogin(aVO.getAdmin_id(), aVO.getPass()));
-%> --%>
-<%-- <c:redirect url="main.jsp"/>
- --%>
-<%-- <c:if test="${ not empty e }">
+<c:if test="${ not empty requestScope.msg }">
 <script type="text/javascript">
-alert("존재하지 않는 아이디, 비밀번호입니다.");
-location.href="javascript:history.back()";
+alert("${ msg }");
+//location.href="javascript:history.back()";
 </script>
-</c:if> --%>
 </c:if>
 
 </body>

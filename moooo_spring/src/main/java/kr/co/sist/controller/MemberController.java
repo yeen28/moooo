@@ -8,7 +8,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import kr.co.sist.service.MemberService;
 import kr.co.sist.vo.MemberVO;
-import kr.co.sist.vo.UpdatePassVO;
+import kr.co.sist.vo.UpdateUserPassVO;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -114,7 +114,7 @@ public class MemberController {
 	} //changePassForm
 	
 	@RequestMapping(value="change_pass_proc.do",method=GET)
-	public String changePassProc(UpdatePassVO uVO, Model model) {
+	public String changePassProc(UpdateUserPassVO uVO, Model model) {
 		String page="user/login/process/change_pass_process";
 		return page;
 	} //changePassProc

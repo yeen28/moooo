@@ -1,14 +1,14 @@
 package kr.co.sist.vo;
 
-public class UpdatePassVO {
-	private String user_id, before_pass, new_pass;
+public class UpdateAdminPassVO {
+	private String admin_id, before_pass, new_pass;
 
-	public String getUser_id() {
-		return user_id;
+	public String getAdmin_id() {
+		return admin_id;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
 	}
 
 	public String getNew_pass() {
