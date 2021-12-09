@@ -32,32 +32,31 @@
 <img alt="find" src="<%= commonUrl %>/common/images/find.png">
 </div>
 
+<c:choose>
+<c:when test="${ not empty mVO }">
 <div class="container-mid result-mid">
-<span><strong>${ nickname }</strong>님의 임시비밀번호입니다.<br/>
-임시비밀번호 : <strong><c:out value="${ pw }"/></strong></span>
+<span><strong>${ mVO.getNickname() }</strong>님의 임시비밀번호입니다.<br/>
+임시비밀번호 : <strong><c:out value="${ mVO.getPass() }"/></strong></span>
 </div>
 
 <div id="result-bottom">
-<a class="btn" href="<%= commonUrl %>/users/login/login.jsp">로그인</a>
+<a class="btn" href="<%= commonUrl %>/user/login/login.do">로그인</a>
 </div>
+</c:when>
 
-<div class="find_img">
-<img alt="find" src="<%= commonUrl %>/common/images/find.png">
-</div>
-
+<c:otherwise>
 <div class="container-mid result-mid">
 <span>입력하신 데이터에 일치하는 회원정보가 존재하지 않습니다.</span>
 </div>
 
 <div id="result-bottom">
-<a class="btn" href="<%= commonUrl %>/users/login/find.jsp">확인</a>
+<a class="btn" href="<%= commonUrl %>/user/login/find_form.do">확인</a>
 </div>
-
-</div>
+</c:otherwise>
+</c:choose>
 
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </div>
-
 </body>
 </html>

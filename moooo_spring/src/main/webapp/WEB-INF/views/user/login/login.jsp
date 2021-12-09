@@ -69,10 +69,10 @@ $(function() {
 	<form class="form-signin" id="frm" action="<%= commonUrl %>/user/login/login_proc.do" method="post">
         <h2 id="signin-heading"><img src="<%= commonUrl %>/common/images/icons/login_icon.PNG" width="50px"/>&nbsp;<strong>로그인</strong></h2>
         <label>아이디</label>
-        <input type="text" id="inputId" name="user_id" class="form-control" placeholder="아이디" autofocus>
+        <input value="aaa" type="text" id="inputId" name="user_id" class="form-control" placeholder="아이디" autofocus>
         <div id="idView"></div>
 		<label style="margin-top: 10px">비밀번호</label>
-		<input type="password" id="inputPassword" name="pass" class="form-control" placeholder="비밀번호">
+		<input value="111" type="password" id="inputPassword" name="pass" class="form-control" placeholder="비밀번호">
         <div id="passView"></div>
 		<button class="btn btn-lg btn-block" type="button" id="loginBtn">로그인하기</button><!-- AJAX로 하기 -->
 	</form>

@@ -57,9 +57,9 @@ public class MemberDAO {
 	 * @param name
 	 * @param email
 	 * @return 아이디
-	 * @throws SQLException
+	 * @throws DataAccessException
 	 */
-	public String selectFindId( String nickname, String phone ) throws SQLException {
+	public String selectFindId( String nickname, String phone ) throws DataAccessException {
 		String id="";
 		
 		StringBuilder selectId=new StringBuilder();
@@ -78,9 +78,9 @@ public class MemberDAO {
 	 * @param id
 	 * @param email
 	 * @return 비밀번호
-	 * @throws SQLException
+	 * @throws DataAccessException
 	 */
-	public String selectFindPw (String user_id, String phone) throws SQLException {
+	public String selectFindPass (String user_id, String phone) throws DataAccessException {
 		String pw="";
 		
 		StringBuilder selectId=new StringBuilder();
@@ -91,7 +91,7 @@ public class MemberDAO {
 		pw=jt.queryForObject(selectId.toString(), new Object[] { user_id, phone }, String.class);
 		
 		return pw;
-	}//selectFindPw
+	}//selectFindPass
 	
 	/**
 	 * 세션의 아이디를 사용하여 일치하는 비밀번호 얻기
@@ -115,9 +115,9 @@ public class MemberDAO {
 	 * 비밀번호 변경
 	 * @param uVO
 	 * @return
-	 * @throws DataAccessException
+	 * @throws SQLException
 	 */
-	public int updatePw( UpdateUserPassVO uVO ) throws DataAccessException {
+	public int updatePass( UpdateUserPassVO uVO ) throws SQLException {
 		int cnt=0;
 		
 		StringBuilder updateMember=new StringBuilder();
@@ -173,6 +173,25 @@ public class MemberDAO {
 	}//selectNickname
 	
 	/**
+	 * 닉네임 얻기
+	 * @param id
+	 * @return 닉네임
+	 * @throws SQLException
+	 */
+	public String selectGetNickname(String user_id) throws SQLException{
+		String result="";
+		
+		StringBuilder select=new StringBuilder();
+		select
+		.append("	select nickname	")
+		.append("	from users	")
+		.append("	where user_id=?	");
+		result=jt.queryForObject(select.toString(), new Object[] { user_id }, String.class);
+		
+		return result;
+	}//selectGetNickname
+	
+	/**
 	 * 회원탈퇴<br/>
 	 * 회원의 아이디와 비밀번호가 일치하는지 확인
 	 * @param mVO
@@ -211,7 +230,7 @@ public class MemberDAO {
 	 * @return 휴대폰 번호
 	 * @throws SQLException
 	 */
-	public String selectPhone(String id) throws SQLException{
+	public String selectPhone(String id) throws DataAccessException {
 		String result=null;
 		
 		StringBuilder select=new StringBuilder();
@@ -223,25 +242,6 @@ public class MemberDAO {
 		
 		return result;
 	}//selectPhone
-	
-	/**
-	 * 닉네임 얻기
-	 * @param id
-	 * @return 닉네임
-	 * @throws SQLException
-	 */
-	public String selNickname(String id) throws SQLException{
-		String result="";
-		
-		StringBuilder select=new StringBuilder();
-		select
-		.append("	select nickname	")
-		.append("	from users	")
-		.append("	where user_id=?	");
-		result=jt.queryForObject(select.toString(), new Object[] { id }, String.class);
-		
-		return result;
-	}//selNickname
 	
 	/**
 	 * 전체회원 목록

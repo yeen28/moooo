@@ -5,9 +5,11 @@
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
-<%
-session.setAttribute("user_id", "user_id2");
-%>
+
+<c:if test="${ empty sessionScope.user_id }">
+<c:redirect url="${ commonUrl }/user/login/login.do"/>
+</c:if>
+
 <!DOCTYPE html>
 <html>
 <head>

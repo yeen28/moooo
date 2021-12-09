@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.dao.CategoryDAO;
@@ -31,26 +32,14 @@ public class MainService {
 	@Autowired(required = false)
 	private WantSellDAO sDAO;
 	
-	private HttpSession session;
-	
-	public boolean isThereSession() { //HttpSession session) {
-		boolean result=false;
-		
-		if(session != null) {
-			result=true;
-		} //end if
-		
-		return result;
-	} //isThereSession
-	
-	public boolean isThereSession(String user_id) {
-		boolean flag=false;
-		if(user_id != null) {
-			flag=true;
-		} //end if
-		
-		return flag;
-	} //isThereSession
+//	public boolean isThereSession(String user_id) {
+//		boolean flag=false;
+//		if(user_id != null) {
+//			flag=true;
+//		} //end if
+//		
+//		return flag;
+//	} //isThereSession
 	
 	/**
 	 * @return 전체 카테고리 List
@@ -95,7 +84,7 @@ public class MainService {
 	 * @return 사용자의 휴대폰번호
 	 * @throws SQLException
 	 */
-	public String getUserPhone(String user_id) throws SQLException {
+	public String getUserPhone(String user_id) throws DataAccessException {
 		String phone=mDAO.selectPhone(user_id);
 		return phone;
 	} //getUserPhone

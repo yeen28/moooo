@@ -5,10 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<c:if test="${ empty sess_user_id }">
-<c:redirect url="../login/login.jsp"/>
-</c:if>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,9 +36,6 @@ function deleteMember() {
 </head>
 
 <body>
-<%
-String id=(String)session.getAttribute("sess_user_id");
-%>
 <div id="wrap">
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
@@ -54,11 +47,6 @@ String id=(String)session.getAttribute("sess_user_id");
 </div>
 
 <div id="mid">
-
-<%
-//try{
-//String nickname=mDAO.selNickname(id);
-%>
 <div id="mid-top">
 개인회원 탈퇴 전, 안내 사항을 꼭 확인해주세요.
 </div>
@@ -77,7 +65,7 @@ String id=(String)session.getAttribute("sess_user_id");
   탈퇴 후에는 게시글을 임의로 삭제해드릴 수 없습니다.</p> -->
 </div>
 
-<form action="${ commonUrl }/user/login/process/leave_process.do" method="post" id="leaveFrm" name="leaveFrm">
+<form action="${ commonUrl }/user/login/process/leave_proc.do" method="post" id="leaveFrm" name="leaveFrm">
 <div id=bottom>
 <table class="table">
 <tr>

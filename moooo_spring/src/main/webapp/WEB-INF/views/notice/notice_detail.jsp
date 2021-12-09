@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<c:if test="${ empty sess_user_id }">
-<c:redirect url="${ commonUrl }/user/login/login.jsp"/>
+<c:if test="${ empty sessionScope.user_id }">
+<c:redirect url="${ commonUrl }/user/login/login.do"/>
 </c:if>
 
 <!DOCTYPE html>

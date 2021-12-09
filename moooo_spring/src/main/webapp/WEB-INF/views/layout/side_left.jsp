@@ -1,6 +1,3 @@
-<%@page import="kr.co.sist.vo.CategoryVO"%>
-<%@page import="kr.co.sist.dao.CategoryDAO"%>
-<%@page import="kr.co.sist.dao.MemberDAO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -59,7 +56,7 @@
   <tr>
     <td class="t-label" style="padding-left: 0;">전화번호</td>
     <td class="t-label">
-  <c:out value="${ phone }"/><br/>
+  <c:out value="${ requestScope.phone }"/><br/>
 	</td>
   </tr>
   </table>

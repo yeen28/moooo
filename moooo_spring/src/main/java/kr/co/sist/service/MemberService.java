@@ -1,5 +1,6 @@
 package kr.co.sist.service;
 
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
@@ -87,28 +88,48 @@ public class MemberService {
 		return result;
 	} //signUpProc
 	
-	
-	public String findIdProc(MemberVO mVO) {
+	/**
+	 * 아이디 찾기 처리 업무로직
+	 * @param mVO
+	 * @return user_id 아이디
+	 * @throws DataAccessException
+	 */
+	public String findIdProc(MemberVO mVO) throws DataAccessException {
 		String id="";
+		
+		id=mDAO.selectFindId(mVO.getNickname(), mVO.getPhone());
 		
 		return id;
 	} //findIdProc
 	
-	public String findPassProc(MemberVO mVO) {
-		String pass="";
+	public String findPassProc(MemberVO mVO) throws DataAccessException, SQLException {
+		// 회원정보가 일치하지 않으면 예외를 던짐
+		mDAO.selectFindPass(mVO.getUser_id(), mVO.getPhone()); //암호화되어있는 비밀번호가 리턴됨
 		
-		return pass;
+		return tempPass(mVO);
 	} //findPassProc
 	
 	/**
-	 * 임시 비밀번호
+	 * 임시 비밀번호 생성 후 비밀번호 업데이트
 	 * @param tVO
 	 * @return
+	 * @throws SQLException 
 	 */
-	public String tempPass(TempPassVO tVO) {
-		String pass="";
+	public String tempPass(MemberVO mVO) throws SQLException {
+		String tempPass="";
 		
-		return pass;
+		for(int i=0; tempPass.length()<8; i++) {
+			int rand = (int) (Math.random() * 75) + 48;
+			if (rand < 58 || (rand > 64 && rand < 91) || rand > 96) { // 숫자, 대문자, 소문자
+				tempPass += (char) rand;
+			} else continue;
+		}//end while
+		UpdateUserPassVO uVO=new UpdateUserPassVO();
+		uVO.setUser_id(mVO.getUser_id());
+		uVO.setNew_pass(tempPass);
+		mDAO.updatePass(uVO);
+		
+		return tempPass;
 	} //tempPass
 
 	public boolean changePass(UpdateUserPassVO uVO) {
@@ -117,13 +138,25 @@ public class MemberService {
 		return result;
 	} //changePass
 
+	/**
+	 * 회원 탈퇴 폼에서 보여줄 닉네임 얻기
+	 * @param mVO
+	 * @return
+	 * @throws SQLException 
+	 */
+	public String getUserNickname(String user_id) throws SQLException {
+		String result="";
+		
+		result=mDAO.selectGetNickname(user_id);
+		
+		return result;
+	} //getUserNickname
+	
 	public boolean deleteMember(DeleteMemberVO dVO) {
 		boolean result=false;
 		
-		String user_id=(String)session.getAttribute("user_id");
-		
 		try {
-			mDAO.deleteMember(user_id);
+			mDAO.deleteMember(dVO.getUser_id());
 		} catch(SQLException se) {}
 		
 		return result;
@@ -136,6 +169,29 @@ public class MemberService {
 	 */
 	public String encryptPass(String plainPass) {
 		String encryptPass="";
+		
+		try {
+		//일방향 해쉬 알고리즘 선택
+		MessageDigest md=MessageDigest.getInstance("SHA-512"); /* MD2, MD5, SHA-384, SHA-512 */
+		//일반문자열을 변환
+		md.update( plainPass.getBytes() );
+		//변환된 문자열을 받는다.
+		byte[] sha=md.digest();
+//		md.update( plainText2.getBytes() );
+//		byte[] sha2=md.digest();
+//		//알아볼 수 있는 문자열로 변환
+//		Base64 base=new Base64();
+//		String cipherText=new String( base.encode( sha ) );
+//		String cipherText2=new String( base.encode( sha2 ) );
+//		%>
+//
+//		일반 문자열 : <%= plainText %>, <%= plainText2 %><br/>
+//		encode문자열 : <%= cipherText %><br/>
+//		encode문자열 : <%= cipherText2 %><br/>
+		} catch(NoSuchAlgorithmException e) {
+			
+		}
+		
 		
 //		try {
 //			encryptPass=DataEncrypt.messageDigest("MD5", plainPass);

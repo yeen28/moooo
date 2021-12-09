@@ -27,45 +27,38 @@
 
 <div class="find_container">
 
+<c:choose>
+<c:when test="${ not empty mVO }">
 <div class="find_img">
 <img alt="find" src="<%= commonUrl %><%= common_images %>/find.png">
 </div>
-
 <div class="container-mid result-mid">
-<span><strong><c:out value="${ nickname }"/></strong>님의 아이디입니다.<br/>
-아이디 : <strong><c:out value="${ id }"/></strong></span>
+<span><strong><c:out value="${ mVO.getNickname() }"/></strong>님의 아이디입니다.<br/>
+아이디 : <strong><c:out value="${ mVO.getUser_id() }"/></strong></span>
 </div>
 
 <div id="result-bottom">
-<a class="btn" href="<%= commonUrl %>/users/login/login.jsp">로그인</a>
+<a class="btn" href="<%= commonUrl %>/user/login/login.do">로그인</a>
 </div>
-</div>
+</c:when>
 
-<!-- footer -->
-<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
-</div>
-
-<div id="find_wrap">
-<!-- header -->
-<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-
-<div class="find_container">
+<c:otherwise>
 <div class="find_img">
 <img alt="find" src="<%= commonUrl %>/common/images/find.png">
 </div>
-
 <div class="container-mid result-mid">
 <span>이름과 이메일을 확인해주세요.</span>
 </div>
 
 <div id="result-bottom">
-<a class="btn" href="<%= commonUrl %>/users/login/find.jsp">확인</a>
+<a class="btn" href="<%= commonUrl %>/user/login/find_form.do">확인</a>
 </div>
+</c:otherwise>
+</c:choose>
 </div>
 
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </div>
-
 </body>
 </html>

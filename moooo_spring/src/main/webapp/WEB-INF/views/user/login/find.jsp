@@ -31,7 +31,7 @@
 </div>
 
 <div class="container-mid">
-<form class="form-signin" action="<%= commonUrl %>/users/login/process/find_id_process.jsp" method="post">
+<form class="form-signin" action="<%= commonUrl %>/user/login/find_id_proc.do" method="post">
 <div id="left">
 <table>
 	<tr><td><span><strong>아이디 찾기</strong><br/>회원님의 닉네임과 휴대폰번호를 입력해주세요.</span></td></tr>
@@ -53,7 +53,7 @@
 </div>
 </form>
 
-<form action="<%= commonUrl %>/users/login/process/find_pass_process.jsp" method="post">
+<form action="<%= commonUrl %>/user/login/find_pass_proc.do" method="post">
 <div id="right">
 <table>
 	<tr><td><span><strong>비밀번호 찾기</strong><br/>회원님의 닉네임과 아이디, 휴대폰번호를 입력해주세요.</span></td></tr>

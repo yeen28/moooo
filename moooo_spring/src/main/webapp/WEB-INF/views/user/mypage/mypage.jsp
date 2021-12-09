@@ -5,14 +5,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<c:if test="${ empty sess_user_id }">
-<c:redirect url="/users/login/login.jsp"/>
+<c:if test="${ empty sessionScope.user_id }">
+<c:redirect url="${ commonUrl }/user/login/login.do"/>
 </c:if>
-
-<% 
-String sess_id=(String)session.getAttribute("sess_user_id"); 
-pageContext.setAttribute("sess_user_id", sess_id);
-%>
 
 <!DOCTYPE html>
 <html>
@@ -36,32 +31,22 @@ pageContext.setAttribute("sess_user_id", sess_id);
 	width: 1400px;
 	height: 130px;
 	text-align:left;
-/* 	background-color: #FFE08C; */
 }
 #view{
-	/* border: 1px solid #000000;  */
 	height: 1000px; 
 	margin: auto;
 	position: relative;
-/* 	background-color: #B7F0B1;	 */
 }
 #passCh{
 float: right;
-	/* top: 50px;
-	left: 550px;
-	position: absolute; */
 }
 #leave{
 float: right;
-	/* top: 50px;
-	left: 680px;
-	position: absolute; */
 }
 #myImg{
 	top: 80px;
 	left: 30px;
 	position: absolute;
-/* 	background-color: #D4F4FA; */
 }
 #viewImg{
 	border: none;
@@ -70,7 +55,6 @@ float: right;
 	top: 30px;
 	left: 5px;
 	position: absolute;
-/* 	background-color: #FFE08C; */
 }
 #img{
 	top: 130px;
@@ -93,14 +77,10 @@ float: right;
 	position: absolute;
 }
 .list {
-	/* position: absolute;
-	top: 30px;  */
 	width : 135%;
 	height: 600px;
 	margin: 30px auto;
 	padding: 20px;
-	/* border: 1px solid #dfdfdf;
-	border-radius: 15px; */
 	overflow: scroll;
 }
 </style>
@@ -115,7 +95,7 @@ float: right;
 $(function() {
 	$("#myInfo").click(function() {
 		/* $.ajax({
-			url: "ajax_sub/myInfo.jsp",
+			url: "ajax_sub/myInfo.do",
 			type: "post",
 			dataType: "html",
 			error: function( xhr ) {
@@ -129,7 +109,7 @@ $(function() {
 	
 	$("#sell_buy").click(function() {
 		$.ajax({
-			url: "ajax_sub/sell_buy_list.jsp",
+			url: "ajax_sub/write_list_form.do",
 			type: "post",
 			dataType: "html",
 			error: function( xhr ) {
@@ -143,7 +123,7 @@ $(function() {
 	
 	$("#interest").click(function() {
 		$.ajax({
-			url: "ajax_sub/interest_list.jsp",
+			url: "ajax_sub/interest_list.do",
 			type: "post",
 			dataType: "html",
 			error: function( xhr ) {
@@ -241,8 +221,8 @@ function upload() {
   <li role="presentation" class="active"><a href="" id="myInfo" style="cursor: pointer;">정보변경</a></li>
   <li role="presentation"><a id="sell_buy" style="cursor: pointer;">내가 쓴 글</a></li>
   <li role="presentation"><a id="interest" style="cursor: pointer;">관심글</a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/user/login/change_password.do">비밀번호 변경</a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/user/login/leave.do">회원탈퇴</a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/user/login/change_pass_form.do">비밀번호 변경</a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/user/login/leave_form.do">회원탈퇴</a></li>
 </ul>
 </div>
 
@@ -252,12 +232,12 @@ function upload() {
 			<div style="text-align: left;">이미지</div>
 			<%-- <% if( uv.getImg() == null ) { %> --%>
 			<c:choose>
-			<c:when test="${ empty img }">
+			<c:when test="${ empty mVO.getImg() }">
 			<img id="viewImg" src="<%= commonUrl %>/common/images/defaultImg.png" alt="image" width="100" height="100"><br/>
 			</c:when>
 			<%-- <% } else { %> --%>
 			<c:otherwise>
-			<img id="viewImg" src="<%= commonUrl %>/common/images/upload/${ img }" alt="image"><br/>
+			<img id="viewImg" src="<%= commonUrl %>/common/images/upload/${ mVO.getImg() }" alt="image"><br/>
 			<!-- 사진변경 버튼 / 클릭시 팝업? -->
 			</c:otherwise>
 			</c:choose>
@@ -275,14 +255,14 @@ function upload() {
 
 	<div id="id1">
 		<div style="text-align: left;">*닉네임</div>
-		<input type="text" value="${ nickname }" name="nickname" id="nickname" class="form-control" style="width: 150px; height: 40px; font-size: 15px;"/>		
+		<input type="text" value="${ mVO.nickname }" name="nickname" id="nickname" class="form-control" style="width: 150px; height: 40px; font-size: 15px;"/>		
 		<!-- <input type="button" value="중복확인" class="check_btn" id="chk_nickname_dup"/> -->
 		<input type="hidden" name="user_id" value="${ sessionScope.user_id }"/> 
 	</div>
 	
 	<div id="phone1">
 		<div style="text-align: left;">*휴대폰 번호</div>
-		<input type="text" name="phone" id="phone" class="form-control" Placeholder="핸드폰 번호" value="${ phone }" style="width: 300px; height: 40px; font-size: 15px;"/>		
+		<input type="text" name="phone" id="phone" class="form-control" Placeholder="핸드폰 번호" value="${ mVO.phone }" style="width: 300px; height: 40px; font-size: 15px;"/>		
 	</div>
 	
 	<div>
