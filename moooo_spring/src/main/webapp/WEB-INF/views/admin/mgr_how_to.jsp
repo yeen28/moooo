@@ -53,12 +53,11 @@ a{color: #333;}
 <!-- 왼쪽 메뉴바 -->
 <div class="left-nav">
 <ul class="nav nav-pills nav-stacked">
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/main.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
-  <li role="presentation" class="active"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
-<!--   <li role="presentation"><a href="#">동네이야기 관리</a></li> -->
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/change_pass.do"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/main.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
+  <li role="presentation" class="active"><a href="<%= commonUrl %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/change_pass.do"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
 <li></li>
 </ul>
 </div>
@@ -72,7 +71,7 @@ pageContext.setAttribute("comments", comments);
 <div class="right" style="width: 1000px;">
 
 <h2>이용방법</h2>
-<a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_how_to_edit.do">수정하기</a>
+<a href="<%= commonUrl %>/admin/mgr_how_to_edit.do">수정하기</a>
 <br/>
 <div>
 <div class="editWrap">

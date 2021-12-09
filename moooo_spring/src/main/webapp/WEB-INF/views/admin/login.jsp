@@ -4,6 +4,11 @@
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>    
+
+<c:if test="${ not empty sessionScope.admin_id }">
+<c:redirect url="${ commonUrl }/admin/main_form.do"/>
+</c:if>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,9 +50,9 @@ $(function () {
 </script>
 </head>
 <body style="background-color: #DFDFDF; margin-top: 100px;">
-<c:if test="${ empty sessionScope.admin_id and empty requestScope.msg }">
+<c:if test="${ empty sessionScope.admin_id }">
 <div class="container">
-	<form action="<%= commonUrl %>/admin/mgr/login_proc.do" id="admin_frm" method="post">
+	<form action="<%= commonUrl %>/admin/login_proc.do" id="admin_frm" method="post">
 		<div>
 			<div style="padding-bottom: 30px;">
 				<h3 class="subtitle">MooOO<span class="glyphicon glyphicon-cog"></span><span class="glyphicon glyphicon-cog"></span></h3>

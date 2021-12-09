@@ -21,7 +21,7 @@ import kr.co.sist.vo.AdminLoginVO;
 import kr.co.sist.vo.UpdateAdminPassVO;
 
 @Controller
-@RequestMapping("admin/mgr/")
+@RequestMapping("admin/")
 @SessionAttributes("admin_id")
 public class AdminLoginController {
 	
@@ -45,7 +45,7 @@ public class AdminLoginController {
 	 * @return
 	 */
 	@RequestMapping(value="login_proc.do",method=POST)
-	public String loginProc(AdminLoginVO aVO,Model model) throws SQLException {
+	public String loginProc(AdminLoginVO aVO,Model model) {
 		String jspPage="";
 		
 		if( als.procLogin(aVO) ) {  //로그인 성공
@@ -68,20 +68,20 @@ public class AdminLoginController {
 		return jspPage;
 	} //mainForm
 
-	@RequestMapping(value="change_pass_form.do",method=GET)
+	@RequestMapping(value="change_pass.do",method=GET)
 	public String changePassForm() {
 		String jspPage="admin/change_pass";
 		return jspPage;
 	} //changePassForm
 
 	@RequestMapping(value="change_pass_proc.do",method=GET)
-	public String changePassProc(UpdateAdminPassVO uVO, Model model) throws DataAccessException {
+	public String changePassProc(UpdateAdminPassVO uVO, Model model) throws DataAccessException, SQLException {
 		String jspPage="admin/change_pass";
 		
 		if( als.changePass(uVO) ) { //비밀번호 변경 성공
-			
+			model.addAttribute("msg", "비밀번호가 변경됐습니다.");
 		} else { // 실패
-			
+			model.addAttribute("msg", "비밀번호를 확인해주세요.");
 		} //end else
 		
 		return jspPage;

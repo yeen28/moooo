@@ -26,5 +26,5 @@ public class UpdateAdminPassVO {
 	public void setBefore_pass(String before_pass) {
 		this.before_pass = before_pass;
 	}
-	
+
 }

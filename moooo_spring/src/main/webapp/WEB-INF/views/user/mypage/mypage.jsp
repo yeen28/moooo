@@ -157,9 +157,9 @@ $(function() {
 });//ready
 
 $(function() {
-	$("#chk_nickname_dup").click(function() {
+	/* $("#chk_nickname_dup").click(function() {
 		window.open("dup_nickname.jsp", "dup", "width=500,height=400");
-	});	//click
+	});	//click */
 	
 	$("#addSave").click(function() {
 		
@@ -276,14 +276,13 @@ function upload() {
 	<div id="id1">
 		<div style="text-align: left;">*닉네임</div>
 		<input type="text" value="${ nickname }" name="nickname" id="nickname" class="form-control" style="width: 150px; height: 40px; font-size: 15px;"/>		
-		<input type="button" value="중복확인" class="check_btn" id="chk_nickname_dup"/>
+		<!-- <input type="button" value="중복확인" class="check_btn" id="chk_nickname_dup"/> -->
 		<input type="hidden" name="user_id" value="${ sessionScope.user_id }"/> 
 	</div>
 	
 	<div id="phone1">
 		<div style="text-align: left;">*휴대폰 번호</div>
-		<input type="text" name="phone" id="phone" class="form-control" Placeholder="핸드폰 번호" value="${ phone }"
-				style="width: 300px; height: 40px; font-size: 15px;"/>		
+		<input type="text" name="phone" id="phone" class="form-control" Placeholder="핸드폰 번호" value="${ phone }" style="width: 300px; height: 40px; font-size: 15px;"/>		
 	</div>
 	
 	<div>

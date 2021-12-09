@@ -19,7 +19,7 @@ public class AdminLoginDAO {
 	 * @return ¾ÆÀÌµð
 	 * @throws SQLException
 	 */
-	public String selectLogin( String id, String pass ) throws SQLException {
+	public String selectLogin( String id, String pass ) throws DataAccessException {
 		String result="";
 		
 		StringBuilder selectMember=new StringBuilder();

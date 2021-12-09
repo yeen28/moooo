@@ -22,11 +22,18 @@ public class AdminLoginService {
 	 * @return true 성공 | false 실패
 	 * @throws SQLException
 	 */
-	public boolean procLogin(AdminLoginVO aVO) throws SQLException {
+	public boolean procLogin(AdminLoginVO aVO) {
 		// 비밀번호 암호화
 		aVO.setPass(encryptPass(aVO.getPass()));
 		
-		String id=alDAO.selectLogin(aVO.getAdmin_id(), aVO.getPass());
+		String id="";
+		try {
+			id = alDAO.selectLogin(aVO.getAdmin_id(), aVO.getPass());
+			
+		} catch (DataAccessException dae) {
+			return false;
+		}//end catch
+		
 		if( "".equals(id) ) { //로그인 실패
 			return false;
 		} else { //로그인 성공
@@ -34,9 +41,29 @@ public class AdminLoginService {
 		}//end else
 	} //procLogin
 	
-	public boolean changePass(UpdateAdminPassVO uVO) throws DataAccessException {
+	/**
+	 * 비밀번호 변경 업무로직
+	 * @param uVO
+	 * @return true 성공 | false 실패
+	 * @throws DataAccessException, SQLException
+	 */
+	public boolean changePass(UpdateAdminPassVO uVO) throws DataAccessException, SQLException {
 		uVO.setNew_pass(encryptPass(uVO.getNew_pass())); // 비밀번호 암호화
-		int cnt=alDAO.updatePass(uVO.getAdmin_id(), uVO.getNew_pass());
+		
+		/* 입력한 이전 비밀번호가 맞는지 확인 */
+		String beforePass=uVO.getBefore_pass();
+		String newPass=uVO.getNew_pass();
+		int cnt=0;
+
+		String dbPass=alDAO.selectChangePass( uVO.getAdmin_id() );
+
+		if( beforePass.equals(dbPass) ){
+			cnt=alDAO.updatePass(uVO.getAdmin_id(), newPass);
+		} else {
+			return false;
+		} //end else
+		
+		// 변경 DB작업에서 성공여부
 		if( cnt == 0) { //실패
 			return false;
 		} else { //성공
@@ -50,7 +77,7 @@ public class AdminLoginService {
 	 * @return
 	 */
 	public String encryptPass(String plainPass) {
-		String encryptPass="";
+		String encryptPass=plainPass;
 		
 //		try {
 //			encryptPass=DataEncrypt.messageDigest("MD5", plainPass);
@@ -58,7 +85,7 @@ public class AdminLoginService {
 //			e.printStackTrace();
 //		}
 		
-		return plainPass;
+		return encryptPass;
 	} //encryptPass
 	
 } //class

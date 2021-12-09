@@ -39,9 +39,6 @@ a{color: #333;}
 .menu{border:1px solid #CFCFCF;}
 </style>
 
-<script type="text/javascript">
-
-</script>
 </head>
 <body style="background-color: #DFDFDF;">
 <jsp:include page="layout/header.jsp"/>

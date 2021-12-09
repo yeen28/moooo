@@ -58,6 +58,11 @@ $(function () {
 			return;
 		}
 		
+		if( $("#newpass_ad").val() != $("#check_newpass_ad").val() ){
+			alert("새 비밀번호와 새 비밀번호 확인이 다릅니다.\n다시 입력해주세요.");
+			return;
+		}
+		
 		var con_pass = confirm("비밀번호를 변경하시겠습니까?");
 		if( con_pass ) {
 			$("#frm_ad_pass").submit();
@@ -85,7 +90,7 @@ $(function () {
 
 <div class="right">
 <%-- <c:if test="${ not empty sessionScope.sess_id and empty param.pass_ad or param.hid eq 'fail' }"> --%>
-      <form action="change_pass.do" method="post" id="frm_ad_pass">
+      <form action="change_pass_proc.do" method="post" id="frm_ad_pass">
       <div>
          <div style="margin: 200px auto; width: 600px;text-align: left;">
          </div>
@@ -111,28 +116,9 @@ $(function () {
 <%-- </c:if> --%>
 </div>
 
-<c:if test="${ not empty param.pass_ad and param.hid ne 'fail' }">
-<form action="<%= commonUrl %>/admin/change_pass.do" id="procFrm">
-<%-- <%
-/* 입력한 이전 비밀번호가 맞는지 확인 */
-String beforePwd=request.getParameter("pass_ad");
-String newPwd=request.getParameter("newpass_ad");
-String chkNewPwd=request.getParameter("check_newpass_ad");
-String msg="";
-
-LoginDAO aDAO=new LoginDAO();
-String id=(String)session.getAttribute("sess_id"); 
-String dbPwd=aDAO.selChangePwd( id );
-
-if( beforePwd.equals(dbPwd) && newPwd.equals(chkNewPwd) ){
-	aDAO.updatePwd(id, newPwd);
-	msg="비밀번호가 변경됐습니다.";
-%> --%>
+<c:if test="${ not empty msg and param.hid ne 'fail' }">
+<form action="<%= commonUrl %>/admin/change_pass_proc.do" id="procFrm">
 	<input type="hidden" name="hid" value="succeed"/>
-	<%-- <%
-} else {
-	msg="비밀번호를 틀렸습니다. 다시 입력해주세요.";
-	%> --%>
 	<input type="hidden" name="hid" value="fail"/>
 </form>
 <script type="text/javascript">
