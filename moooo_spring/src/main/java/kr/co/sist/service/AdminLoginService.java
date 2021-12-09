@@ -58,7 +58,7 @@ public class AdminLoginService {
 //			e.printStackTrace();
 //		}
 		
-		return encryptPass;
+		return plainPass;
 	} //encryptPass
 	
 } //class

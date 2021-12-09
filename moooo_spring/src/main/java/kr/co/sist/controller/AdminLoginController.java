@@ -21,7 +21,7 @@ import kr.co.sist.vo.AdminLoginVO;
 import kr.co.sist.vo.UpdateAdminPassVO;
 
 @Controller
-@RequestMapping("mgr/")
+@RequestMapping("admin/mgr/")
 @SessionAttributes("admin_id")
 public class AdminLoginController {
 	
@@ -50,7 +50,7 @@ public class AdminLoginController {
 		
 		if( als.procLogin(aVO) ) {  //로그인 성공
 			model.addAttribute("admin_id", aVO.getAdmin_id());
-			jspPage="redirect:admin/main.do";
+			jspPage="redirect:/admin/mgr/main_form.do";
 			
 		} else { //로그인 실패
 			model.addAttribute("msg", "아이디, 비밀번호를 확인해주세요.");
