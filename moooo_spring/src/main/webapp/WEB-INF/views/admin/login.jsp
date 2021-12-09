@@ -50,7 +50,7 @@ $(function () {
 	<form action="<%= commonUrl %>/admin/mgr/login_proc.do" id="admin_frm" method="post">
 		<div>
 			<div style="padding-bottom: 30px;">
-				<h3 class="subtitle">Moo<span class="glyphicon glyphicon-cog"></span><span class="glyphicon glyphicon-cog"></span></h3>
+				<h3 class="subtitle">MooOO<span class="glyphicon glyphicon-cog"></span><span class="glyphicon glyphicon-cog"></span></h3>
 			</div>
 			<div class="wrap">
 				<div class="margin1">

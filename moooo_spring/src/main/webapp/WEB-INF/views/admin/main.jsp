@@ -5,9 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>   
 
-<%-- <%
-session.setAttribute("admin_id", "admin");
-%> --%>
 <c:if test="${ empty sessionScope.admin_id }">
 <c:redirect url="/admin/login.do"/>
 </c:if>
@@ -52,11 +49,11 @@ a{color: #333;}
 <!-- 왼쪽 메뉴바 -->
 <div class="left-nav">
 <ul class="nav nav-pills nav-stacked">
-  <li role="presentation" class="active"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/main.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
-  <li role="presentation"><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/change_pass.do"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
+  <li role="presentation" class="active"><a href="<%= commonUrl %>/admin/main.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/change_pass.do"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
 <li></li>
 </ul>
 </div>

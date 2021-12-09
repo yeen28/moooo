@@ -271,6 +271,11 @@ public class MemberDAO {
 		return list;
 	} //selectAllUser
 	
+	/**
+	 * 전체 회원 수
+	 * @return 전체 회원 수
+	 * @throws SQLException
+	 */
 	public int selectUserCnt() throws SQLException {
 		int cnt=0;
 		

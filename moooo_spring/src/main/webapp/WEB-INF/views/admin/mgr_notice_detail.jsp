@@ -53,6 +53,21 @@ a{color: #333;}
 function notice(){
 	location.href="<%= commonUrl %>/want_sell/want_sell.do";
 }//notice
+
+function chkWriter(sessionId, writerId, control) {
+	if( sessionId == writerId ){ //작성자가 맞다면
+		if(control == "edit"){
+			//수정으로 이동
+		}//end if
+		if(control == "delete"){
+			//삭제로 이동
+		}//end if
+		
+	} else { //작성자가 아니라면
+		alert("작성자만 수정할 수 있습니다.");
+		location.href="javascript:history.back()";
+	} //end else
+} //chkWriter
 </script>
 </head>
 
@@ -66,7 +81,6 @@ function notice(){
   <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
   <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
   <li role="presentation" class="active"><a href="<%= commonUrl %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
-<!--   <li role="presentation"><a href="#">동네이야기 관리</a></li> -->
   <li role="presentation"><a href="<%= commonUrl %>/admin/change_pass.do"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
 <li></li>
 </ul>
@@ -74,9 +88,6 @@ function notice(){
 <!-- /왼쪽 메뉴바 -->
 
 <%-- <%
-int notice_id = Integer.parseInt(request.getParameter("notice_id"));
-
-NoticeDAO wd = new NoticeDAO();
 NotiInsertVO wv = wd.selectNotice(notice_id);
 %> --%>
 <div class="right">
@@ -105,12 +116,9 @@ NotiInsertVO wv = wd.selectNotice(notice_id);
 				</table>
 			</div>
 				<a href="<%= commonUrl %>/admin/mgr_notice.do" class="noticeBtn">목록</a>
-				<a href="<%= commonUrl %>/admin/mgr_notice_write.do?notice_id=${ notice.getNotice_id() }" class="noticeBtn">수정</a>
+				<a href="<%= commonUrl %>/admin/mgr_notice_write.do?notice_id=${ notice.getNotice_id() }" class="noticeBtn" onclick="chkWriter('${ sessionScope.admin_id }','${ notice.getAdmin_id() }','edit')">수정</a>
 				<a href="<%= commonUrl %>/admin/mgr_notice_delete.do?notice_id=${ notice.getNotice_id() }" class="noticeBtn">삭제</a>
 			</div>
 		</div>
-<%-- <c:if test="${ not empty e }">
-<c:redirect url="${ commonUrl }/common/error/error.jsp"/>
-</c:if> --%>
 </body>
 </html>

@@ -77,7 +77,6 @@ $(function () {
   <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
   <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
   <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
-<!--   <li role="presentation"><a href="#">동네이야기 관리</a></li> -->
   <li role="presentation" class="active"><a href="<%= commonUrl %>/admin/change_pass.do"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
 <li></li>
 </ul>
@@ -142,10 +141,6 @@ $(function() {
 	$("#procFrm").submit();
 }); //ready
 </script>
-
-<%-- <c:if test="${ not empty e }">
-죄송합니다. 비밀번호 변경 중 문제가 발생했습니다.<br/>잠시후 다시 시도해주세요.
-</c:if> --%>
 </c:if>
 		
 </body>

@@ -8,8 +8,8 @@
 
 <!-- 서머노트에서 콜백함수 사용해서 이미지 등록하기 -->
 
-<c:if test="${ empty sess_id }">
-<c:redirect url="${ commonUrl }/admin/login.jsp"/>
+<c:if test="${ empty sessionScope.admin_id }">
+<c:redirect url="${ commonUrl }/admin/login.do"/>
 </c:if>
 
 <!DOCTYPE html>
@@ -160,12 +160,11 @@ $(function () {
 <!-- 왼쪽 메뉴바 -->
 <div class="left-nav">
 <ul class="nav nav-pills nav-stacked">
-  <li role="presentation"><a href="<%= commonUrl %>/admin/main.jsp"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_user.jsp"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_how_to.jsp"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
-  <li role="presentation" class="active"><a href="<%= commonUrl %>/admin/mgr_notice.jsp"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
-<!--   <li role="presentation"><a href="#">동네이야기 관리</a></li> -->
-  <li role="presentation"><a href="<%= commonUrl %>/admin/change_pass.jsp"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/main.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
+  <li role="presentation" class="active"><a href="<%= commonUrl %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/change_pass.do"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
 <li></li>
 </ul>
 </div>
@@ -173,14 +172,8 @@ $(function () {
 
 <c:if test="${ empty param.title }">
 <%-- <%
-String sess_id=(String)session.getAttribute("sess_id");
-
-String notice_id=request.getParameter("notice_id");
-
-NoticeDAO nd=new NoticeDAO();
 if(notice_id != null){ //글을 수정하는 경우
 	NotiInsertVO nv=nd.selEditNotice(Integer.parseInt(notice_id),sess_id);
-	pageContext.setAttribute("nv", nv);
 }//end if --%>
 <div class="right">
 <h2>공지사항 작성</h2>
@@ -204,19 +197,13 @@ if(notice_id != null){ //글을 수정하는 경우
 <input type="hidden" name="type" value="edit"/>
 <%-- <input type="hidden" name="sell_id" value="${ sell_id }"/> --%>
 
-<input type="hidden" name="admin_id" value="${ sessionScope.sess_id }"/>
+<input type="hidden" name="admin_id" value="${ sessionScope.admin_id }"/>
 </form>
 
 	<div style="text-align: center">
 		<input type="button" class="btn" value="작성 완료" id="add">
 	</div>
 </div><!-- /<div id="right"> -->
-<%-- 	<c:if test="${ not empty e }">
-	<script type="text/javascript">
-	alert("작성자만 수정할 수 있습니다.");
-	location.href="javascript:history.back()";
-	</script>
-	</c:if> --%>
 </c:if>
 
 <c:if test="${ not empty param.title }">
@@ -233,9 +220,6 @@ if( "add".equals(request.getParameter("type")) ) {
 alert("등록됐습니다.");
 location.href="${ url }";
 </script>
-<%-- <c:if test="${ not empty e }">
-<c:redirect url="${ commonUrl }/common/error/error.jsp"/>
-</c:if> --%>
 </c:if>
 
 </body>
