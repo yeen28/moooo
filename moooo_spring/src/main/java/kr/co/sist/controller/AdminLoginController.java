@@ -50,7 +50,7 @@ public class AdminLoginController {
 		
 		if( als.procLogin(aVO) ) {  //로그인 성공
 			model.addAttribute("admin_id", aVO.getAdmin_id());
-			jspPage="redirect:/admin/mgr/main_form.do";
+			jspPage="redirect:/admin/main_form.do";
 			
 		} else { //로그인 실패
 			model.addAttribute("msg", "아이디, 비밀번호를 확인해주세요.");
