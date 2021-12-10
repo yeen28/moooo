@@ -4,19 +4,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.sist.dao.MemberDAO;
 //import kr.co.sist.util.cipher.DataEncrypt;
 import kr.co.sist.vo.DeleteMemberVO;
 import kr.co.sist.vo.MemberVO;
-import kr.co.sist.vo.TempPassVO;
 import kr.co.sist.vo.UpdateUserPassVO;
 
 @Component
@@ -24,8 +19,6 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO mDAO;
-	
-	private HttpSession session;
 	
 	/**
 	 * 로그인 처리
@@ -102,6 +95,13 @@ public class MemberService {
 		return id;
 	} //findIdProc
 	
+	/**
+	 * 비밀번호 찾기 업무로직
+	 * @param mVO
+	 * @return 임시비밀번호
+	 * @throws DataAccessException
+	 * @throws SQLException
+	 */
 	public String findPassProc(MemberVO mVO) throws DataAccessException, SQLException {
 		// 회원정보가 일치하지 않으면 예외를 던짐
 		mDAO.selectFindPass(mVO.getUser_id(), mVO.getPhone()); //암호화되어있는 비밀번호가 리턴됨
@@ -118,12 +118,13 @@ public class MemberService {
 	public String tempPass(MemberVO mVO) throws SQLException {
 		String tempPass="";
 		
-		for(int i=0; tempPass.length()<8; i++) {
+		while( tempPass.length() < 8 ) {
 			int rand = (int) (Math.random() * 75) + 48;
 			if (rand < 58 || (rand > 64 && rand < 91) || rand > 96) { // 숫자, 대문자, 소문자
 				tempPass += (char) rand;
 			} else continue;
 		}//end while
+		
 		UpdateUserPassVO uVO=new UpdateUserPassVO();
 		uVO.setUser_id(mVO.getUser_id());
 		uVO.setNew_pass(tempPass);
@@ -132,10 +133,18 @@ public class MemberService {
 		return tempPass;
 	} //tempPass
 
-	public boolean changePass(UpdateUserPassVO uVO) {
-		boolean result=false;
-		
-		return result;
+	/**
+	 * 비밀번호 변경 업무로직
+	 * @param uVO
+	 * @return true 성공 | false 실패
+	 * @throws SQLException
+	 */
+	public boolean changePass(UpdateUserPassVO uVO) throws SQLException {
+		if( mDAO.updatePass(uVO) != 0) { //비밀번호 변경 성공
+			return true;
+		} else {
+			return false;
+		} //end else
 	} //changePass
 
 	/**
@@ -176,7 +185,7 @@ public class MemberService {
 		//일반문자열을 변환
 		md.update( plainPass.getBytes() );
 		//변환된 문자열을 받는다.
-		byte[] sha=md.digest();
+//		byte[] sha=md.digest();
 //		md.update( plainText2.getBytes() );
 //		byte[] sha2=md.digest();
 //		//알아볼 수 있는 문자열로 변환

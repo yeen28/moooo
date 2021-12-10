@@ -53,7 +53,7 @@ a{color: #333;}
 <!-- 왼쪽 메뉴바 -->
 <div class="left-nav">
 <ul class="nav nav-pills nav-stacked">
-  <li role="presentation"><a href="<%= commonUrl %>/admin/main.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/main_form.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
   <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
   <li role="presentation" class="active"><a href="<%= commonUrl %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
   <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>

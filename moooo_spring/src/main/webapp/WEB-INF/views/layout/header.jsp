@@ -12,6 +12,11 @@
 a{ color:#333; }
 
 .nav_right>li{float: right;}
+
+body{
+background: rgb(9,21,13);
+background: linear-gradient(0deg, rgba(9,21,13,1) 0%, rgba(46,104,81,1) 35%, rgba(62,170,116,1) 100%);
+}
 </style>
 
 

@@ -23,6 +23,9 @@ public class MainController {
 	@Autowired(required = false)
 	private MainService ms;
 	
+	/**
+	 * 사용자 메인화면
+	 */
 	@RequestMapping(value="/index.do",method=GET)
 	public String index(HttpSession session, Model model)  throws SQLException {
 		
@@ -41,12 +44,17 @@ public class MainController {
 		return "index";
 	} //index
 	
+	/**
+	 * 왼쪽 메뉴 카테고리 보여주기
+	 */
 	@RequestMapping(value="/layout/side_left.do",method=GET)
 	public String sideLeft(Model model) throws SQLException {
 		model.addAttribute("listCategory", ms.getCategory());
 		return "layout/side_left";
 	} //sideLeft
 	
+	
+	////////////////////// 예외처리 /////////////////////////////
 	@ExceptionHandler(SQLException.class)
 	public ModelAndView sqlErr(SQLException se) {
 		ModelAndView mav=new ModelAndView();

@@ -26,6 +26,9 @@
 	float: left;
 	margin-left: 50px;
 }
+#login, #side{
+	background-color: #FFFFFF;
+}
 </style>
 
 <div id="left" style="float:left">

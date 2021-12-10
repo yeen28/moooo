@@ -154,8 +154,13 @@ public class MemberController {
 	 * 비밀번호 변경 처리
 	 */
 	@RequestMapping(value="change_pass_proc.do",method=GET)
-	public String changePassProc(UpdateUserPassVO uVO, Model model) {
+	public String changePassProc(UpdateUserPassVO uVO, Model model) throws SQLException {
 		String page="user/login/process/change_pass_process";
+		
+		if( ms.changePass(uVO) ) { //비밀번호 변경 성공
+			model.addAttribute("msg", "비밀번호를 변경했습니다.");
+		}
+		
 		return page;
 	} //changePassProc
 	

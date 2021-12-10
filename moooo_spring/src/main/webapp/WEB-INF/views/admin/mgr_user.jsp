@@ -7,7 +7,7 @@
 <%@ include file="/common/jsp/common_code.jsp" %>
 
 <c:if test="${ empty sessionScope.admin_id }">
-<c:redirect url="/admin/login.do"/>
+<c:redirect url="/admin/login_form.do"/>
 </c:if>
 
 <!DOCTYPE html>
@@ -46,7 +46,7 @@ a{color: #333;}
 <!-- 왼쪽 메뉴바 -->
 <div class="left-nav">
 <ul class="nav nav-pills nav-stacked">
-  <li role="presentation"><a href="<%= commonUrl %>/admin/main.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/admin/main_form.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
   <li role="presentation" class="active"><a href="<%= commonUrl %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
   <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
   <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
@@ -80,6 +80,11 @@ a{color: #333;}
 <th>최초가입일</th>
 </tr>
 </thead>
+<c:if test="${ empty memberList }">
+<tr>
+<td>조회된 목록이 없습니다.</td>
+</tr>
+</c:if>
 <c:forEach var="list" items="${ memberList }">
 <tr>
 <td><c:out value="${ list.img }"/></td>

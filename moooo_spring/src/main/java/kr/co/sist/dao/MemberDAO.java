@@ -245,10 +245,10 @@ public class MemberDAO {
 	
 	/**
 	 * 전체회원 목록
-	 * @return UserVO 목록
-	 * @throws SQLException
+	 * @return UserVO List
+	 * @throws DataAccessException
 	 */
-	public List<MemberVO> selectAllUser() throws SQLException {
+	public List<MemberVO> selectAllUser() throws DataAccessException {
 		List<MemberVO> list=null;
 		
 		String select="select user_id,pass,nickname,phone,nvl(img,'---')img,reported_cnt,input_date from users";

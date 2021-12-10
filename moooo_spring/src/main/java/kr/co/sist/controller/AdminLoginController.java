@@ -60,6 +60,9 @@ public class AdminLoginController {
 		return jspPage;
 	} //loginProc
 
+	/**
+	 * 관리자 메인화면 폼
+	 */
 	@RequestMapping(value="main_form.do",method=GET)
 	public String mainForm(HttpSession session, Model model) {
 		// session이 있으면 jsp를 보여주고,
@@ -68,12 +71,18 @@ public class AdminLoginController {
 		return jspPage;
 	} //mainForm
 
+	/**
+	 * 비밀번호 변경 폼
+	 */
 	@RequestMapping(value="change_pass.do",method=GET)
 	public String changePassForm() {
 		String jspPage="admin/change_pass";
 		return jspPage;
 	} //changePassForm
 
+	/**
+	 * 비밀번호 변경 처리
+	 */
 	@RequestMapping(value="change_pass_proc.do",method=GET)
 	public String changePassProc(UpdateAdminPassVO uVO, Model model) throws DataAccessException, SQLException {
 		String jspPage="admin/change_pass";
@@ -87,6 +96,8 @@ public class AdminLoginController {
 		return jspPage;
 	} //changePassProc
 	
+	
+	////////////////////////////////// 예외처리 //////////////////////////////////////////////
 	@ExceptionHandler(SQLException.class)
 	public ModelAndView seErr(SQLException se) {
 		ModelAndView mav=new ModelAndView();
