@@ -16,9 +16,9 @@ public class HowToDAO {
 	/**
 	 * 메인 화면에 보여줄 이용방법
 	 * @return 이용방법 내용
-	 * @throws SQLException
+	 * @throws DataAccessException
 	 */
-	public String selectHowTo() throws SQLException {
+	public String selectHowTo() throws DataAccessException {
 		String result="";
 		
 		String select="select * from how_to_use_it";
@@ -32,11 +32,11 @@ public class HowToDAO {
 	 * @param comm 업데이트할 내용
 	 * @throws DataAccessException
 	 */
-	public int updateHowTo(String comm) throws DataAccessException{
+	public int updateHowTo(String comm) throws SQLException {
 		int cnt=0;
 		
 		String update="update how_to_use_it set comments=?";
-		jt.update(update, comm);
+		cnt=jt.update(update, comm);
 		
 		return cnt;
 	} //updateHowTo

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -32,7 +33,7 @@ public class AdminLoginController {
 	 * 로그인 화면 ( 관리자 접속시 첫 화면 )
 	 * @return
 	 */
-	@RequestMapping(value="login_form.do",method=GET)
+	@RequestMapping(value="login.do",method=GET)
 	public String loginForm() {
 		String jspPage="admin/login";
 		return jspPage;
@@ -50,7 +51,7 @@ public class AdminLoginController {
 		
 		if( als.procLogin(aVO) ) {  //로그인 성공
 			model.addAttribute("admin_id", aVO.getAdmin_id());
-			jspPage="redirect:/admin/main_form.do";
+			jspPage="admin/main";
 			
 		} else { //로그인 실패
 			model.addAttribute("msg", "아이디, 비밀번호를 확인해주세요.");
@@ -59,15 +60,34 @@ public class AdminLoginController {
 		
 		return jspPage;
 	} //loginProc
+	
+	/**
+	 * 로그아웃 (세션 삭제)
+	 */
+	@RequestMapping(value="logout.do",method=GET)
+	public String logout(SessionStatus ss, Model model) {
+		if( !ss.isComplete() ) {
+			ss.setComplete(); //세션 삭제
+		}//end if
+		
+		return "admin/login";
+	} //logoutProc
 
 	/**
 	 * 관리자 메인화면 폼
 	 */
 	@RequestMapping(value="main_form.do",method=GET)
 	public String mainForm(HttpSession session, Model model) {
-		// session이 있으면 jsp를 보여주고,
-		// session이 없으면 redirect로 login페이지로 이동
-		String jspPage="admin/main";
+		String jspPage="";
+		
+		// session이 있으면 메인화면을 보여주고
+		if(session.getAttribute("admin_id") != null) {
+			jspPage="admin/main";
+		} else {
+			// session이 없으면 login페이지로 이동
+			jspPage="admin/login";
+		} //end else
+		
 		return jspPage;
 	} //mainForm
 

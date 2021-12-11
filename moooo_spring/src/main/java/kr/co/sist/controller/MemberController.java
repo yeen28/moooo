@@ -62,12 +62,12 @@ public class MemberController {
 	 * 肺弊酒眶 (技记 昏力)
 	 */
 	@RequestMapping(value="logout_proc.do",method=GET)
-	public String logoutProc(SessionStatus ss,MemberVO mVO, Model model) {
+	public String logoutProc(SessionStatus ss, Model model) {
 		if( !ss.isComplete() ) {
 			ss.setComplete(); //技记 昏力
 		}//end if
 		
-		return "redirect:/index.do";
+		return "/index";
 	} //logoutProc
 	
 	/**

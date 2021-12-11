@@ -24,13 +24,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<!-- jQuery CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<!-- Bootstrap CDN -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
 <style type="text/css">
 body{height:100%;}
 
@@ -70,7 +63,18 @@ $(document).ready(function() {
         	    ['color', ['color']],
         	    ['table',['table']],
         	    ['insert', ['link', 'picture', 'video']]
-        	  ]
+        	  ],
+        	  fontSizes: ['9', '10', '12', '14', '16', '18', '20', '22', '24', '26', '28', '30', '35', '45', '60'],
+        	  callbacks: { //이미지를 첨부하는 부분
+        		  onImageUpload: function( files, editor, welEditable ) {
+        			  //console.log('image upload: ', files);
+        			  //console.log('this: ', this);
+        			  //console.log('editor: ', editor);
+        			  //console.log('wel: ', welEditable);
+        			  sendFile(files[0], this);
+        			  //uploadSummernoteImageFile(files[0], this);
+        		  } //onImageUpload
+        	  } //callbacks
         });
 }); //ready
 </script>
@@ -101,19 +105,16 @@ $(function() {
 </div>
 <!-- /왼쪽 메뉴바 -->
 
-<%-- <%
-HowToDAO hd=new HowToDAO();
-String comments=hd.selHowTo();
-%> --%>
 <div class="right">
 
 <div><span id="headTitle">이용방법 수정</span><input type="button" id="saveBtn" value="저장"/></div>
 <br/>
-<form action="proc/proc_how_edit.do" id="frm" method="">
+<form action="mgr_how_to_edit_proc.do" id="frm" method="post">
 <div class="edit">
 	<textarea name="comments" id="summernote"><c:out value="${ comments }"/></textarea>
 </div>
 </form>
 </div>
+
 </body>
 </html>

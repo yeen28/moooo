@@ -63,11 +63,6 @@ a{color: #333;}
 </div>
 <!-- /왼쪽 메뉴바 -->
 
-<%-- <%
-HowToDAO hd=new HowToDAO();
-String comments=hd.selHowTo();
-pageContext.setAttribute("comments", comments);
-%> --%>
 <div class="right" style="width: 1000px;">
 
 <h2>이용방법</h2>
@@ -75,9 +70,17 @@ pageContext.setAttribute("comments", comments);
 <br/>
 <div>
 <div class="editWrap">
-	<c:out value="${ comments }" escapeXml="false"/>
+	<c:out value="${ requestScope.comments }" escapeXml="false"/>
 </div>
 </div>
 </div>
+
+<c:if test="${ not empty msg }">
+<script type="text/javascript">
+alert("${ msg }");
+location.href="<%= commonUrl %>/admin/mgr_how_to.do";
+</script>
+</c:if>
+
 </body>
 </html>
