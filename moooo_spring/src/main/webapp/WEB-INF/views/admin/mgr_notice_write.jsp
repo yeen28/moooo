@@ -171,15 +171,11 @@ $(function () {
 <!-- /왼쪽 메뉴바 -->
 
 <c:if test="${ empty param.title }">
-<%-- <%
-if(notice_id != null){ //글을 수정하는 경우
-	NotiInsertVO nv=nd.selEditNotice(Integer.parseInt(notice_id),sess_id);
-}//end if --%>
 <div class="right">
 <h2>공지사항 작성</h2>
 <br/>
 
-<form name="frm" id="frm" method="post">
+<form name="frm" id="frm" method="post" action="notice_edit_proc.do">
 <div>
 <table class="table" style="width: 1000px;">
 <tr>
@@ -207,18 +203,9 @@ if(notice_id != null){ //글을 수정하는 경우
 </c:if>
 
 <c:if test="${ not empty param.title }">
-<%-- <%
-String url=commonUrl+"/admin/mgr_notice.jsp";
-if( "add".equals(request.getParameter("type")) ) {
-	nd.insertNoti(nv);
-} else {
-	nd.updateNoti(nv);
-	url=commonUrl+"/admin/mgr_notice_detail.jsp?notice_id="+nv.getNotice_id();
-} //end else
-%> --%>
 <script type="text/javascript">
-alert("등록됐습니다.");
-location.href="${ url }";
+alert("${ msg }");
+location.href="<%= commonUrl %>/admin/"+"${ url }";
 </script>
 </c:if>
 

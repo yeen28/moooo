@@ -76,9 +76,9 @@ public class NoticeDAO {
 	 * 공지 내용
 	 * @param notice_id
 	 * @return
-	 * @throws SQLException
+	 * @throws DataAccessException
 	 */
-	public NoticeVO selectNotice(int notice_id, String control) throws SQLException {
+	public NoticeVO selectNotice(int notice_id, String control) throws DataAccessException {
 		NoticeVO nVO = new NoticeVO();
 		
 		if(control != "admin") {
@@ -171,9 +171,9 @@ public class NoticeDAO {
 	/**
 	 * 글 추가
 	 * @param NotiInsertVO
-	 * @throws DataAccessException
+	 * @throws SQLException
 	 */
-	public void insertNoti(NoticeVO wv) throws DataAccessException {
+	public void insertNoti(NoticeVO wv) throws SQLException {
 		StringBuilder insert=new StringBuilder();
 		insert
 		.append("	insert into notice(notice_id,title,comments,view_cnt,input_date,admin_id)	")
@@ -207,11 +207,11 @@ public class NoticeDAO {
 		
 		//delete는 조건에 맞는 것이 없다면 에러가 아니라 아무 일도 일어나지 않는다.
 		//그래서 select을 했다.
-		String select="select title from notice where notice_id=? and admin_id=?";
-		jt.queryForObject(select, new Object[] {notice_id, admin_id}, String.class);
+//		String select="select title from notice where notice_id=? and admin_id=?";
+//		jt.queryForObject(select, new Object[] {notice_id, admin_id}, String.class);
 		
 		String delete="delete from notice where notice_id=? and admin_id=?";
-		jt.update(delete, notice_id, admin_id);
+		cnt=jt.update(delete, notice_id, admin_id);
 		
 		return cnt;
 	}//deleteNoti

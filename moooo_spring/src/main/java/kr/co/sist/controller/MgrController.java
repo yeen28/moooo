@@ -6,12 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.sql.SQLException;
+
+import javax.servlet.http.HttpSession;
 
 import kr.co.sist.service.MgrHowToService;
 import kr.co.sist.service.MgrMemberService;
@@ -116,7 +119,7 @@ public class MgrController {
 	 * 공지사항 상세페이지
 	 */
 	@RequestMapping(value="mgr_notice_detail.do",method=GET)
-	public String noticeDetail(int notice_id, Model model) throws SQLException {
+	public String noticeDetail(@RequestParam(value = "notice_id", defaultValue = "0")int notice_id, Model model) throws SQLException {
 		String jspPage="admin/mgr_notice_detail";
 		
 		model.addAttribute("notice", ns.noticeDetail(notice_id, "admin"));
@@ -125,13 +128,61 @@ public class MgrController {
 	} //noticeDetail
 	
 	/**
-	 * 공지사항 추가 또는 삭제 폼
+	 * 공지사항 추가 또는 수정 폼
 	 */
 	@RequestMapping(value="notice_edit_form.do", method=GET)
-	public String noticeEditForm() {
-		String jspPage="admin/mgr_notice";
+	public String noticeEditForm(NoticeVO nVO, String control, Model model) throws SQLException {
+		String jspPage="admin/mgr_notice_write";
+		
+		model.addAttribute("notice", ns.noticeDetail(nVO.getNotice_id(), "admin"));
+		
 		return jspPage;
 	} //noticeEditForm
+	
+	/**
+	 * 공지사항 추가 또는 수정 처리
+	 */
+	@RequestMapping(value="notice_edit_proc.do", method=POST)
+	public String noticeEditProc(NoticeVO nVO, String control, Model model) throws SQLException {
+		String jspPage="admin/mgr_notice_write";
+		
+		if( "edit".equals(control) ) { //수정하는 경우
+			if( ns.editNotice(nVO) ) { //성공
+				model.addAttribute("msg", "등록됐습니다.");
+				model.addAttribute("url", "mgr_notice_detail.do?notice_id="+nVO.getNotice_id());
+			} else {
+				jspPage="/error/error";
+			} //end else
+		} else { //추가하는 경우
+			ns.addNotice(nVO);
+			model.addAttribute("msg", "등록됐습니다.");
+			model.addAttribute("url", "mgr_notice.do");
+		} //end else
+		model.addAttribute("notice", ns.noticeDetail(nVO.getNotice_id(), "admin"));
+		
+		return jspPage;
+	} //noticeEditForm
+	
+	/**
+	 * 공지사항 삭제
+	 */
+	@RequestMapping(value="mgr_notice_delete.do", method=GET)
+	public String noticeDelete(int notice_id, String writer, HttpSession session, Model model) throws SQLException {
+		String jspPage="";
+		
+		//작성자가 맞는지 확인
+		if( writer.equals((String)session.getAttribute("admin_id")) ){ //일치
+			if( ns.deleteNotice(notice_id, writer) ) { //성공
+				model.addAttribute("msg","삭제했습니다.");
+				jspPage="redirect:/admin/mgr_notice.do";
+			}
+		} else { //불일치
+			model.addAttribute("msg","작성자만 삭제 가능합니다.");
+			jspPage="redirect:/admin/mgr_notice_detail.do?notice_id="+notice_id;
+		} //end else
+		
+		return jspPage;
+	} //noticeDelete
 	
 	///////////////////// 예외처리 /////////////////////////////
 	@ExceptionHandler(SQLException.class)

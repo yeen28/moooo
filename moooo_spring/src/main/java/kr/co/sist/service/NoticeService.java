@@ -142,9 +142,51 @@ public class NoticeService {
 	public NoticeVO noticeDetail(int notice_id, String control) throws SQLException {
 		NoticeVO nVO=null;
 		
-		nVO=nDAO.selectNotice(notice_id, control);
+		try {
+			nVO=nDAO.selectNotice(notice_id, control);
+		} catch(DataAccessException dae) {  }
 		
 		return nVO;
 	} //noticeDetail
 	
-}
+	/**
+	 * 공지사항 추가
+	 * @param NoticeVO
+	 * @throws SQLException
+	 */
+	public void addNotice(NoticeVO nVO) throws SQLException {
+		nDAO.insertNoti(nVO);
+	} //addNotice
+	
+	/**
+	 * 공지사항 수정
+	 * @param NoticeVO
+	 * @return true 성공 | false 실패
+	 * @throws DataAccessException
+	 */
+	public boolean editNotice(NoticeVO nVO) throws DataAccessException {
+		int cnt=nDAO.updateNoti(nVO);
+		if(cnt == 0) { //변경 실패
+			return false;
+		} else { //변경 성공
+			return true;
+		} //end else
+	} //editNotice
+	
+	/**
+	 * 공지사항 삭제
+	 * @param notice_id
+	 * @param admin_id
+	 * @return true 성공 | false 실패
+	 * @throws SQLException
+	 */
+	public boolean deleteNotice(int notice_id, String admin_id) throws SQLException {
+		int cnt=nDAO.deleteNoti(notice_id, admin_id);
+		if( cnt == 0 ) { //실패
+			return false;
+		} else { //성공
+			return true;
+		} //end else
+	} //deleteNotice
+	
+} //class

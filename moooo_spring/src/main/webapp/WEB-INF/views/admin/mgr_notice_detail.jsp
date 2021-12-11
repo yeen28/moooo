@@ -113,8 +113,8 @@ function chkWriter(sessionId, writerId, control) {
 				</table>
 			</div>
 				<a href="<%= commonUrl %>/admin/mgr_notice.do" class="noticeBtn">목록</a>
-				<a href="<%= commonUrl %>/admin/mgr_notice_write.do?notice_id=${ notice.getNotice_id() }" class="noticeBtn" onclick="chkWriter('${ sessionScope.admin_id }','${ notice.getAdmin_id() }','edit')">수정</a>
-				<a href="<%= commonUrl %>/admin/mgr_notice_delete.do?notice_id=${ notice.getNotice_id() }" class="noticeBtn">삭제</a>
+				<a href="<%= commonUrl %>/admin/notice_edit_form.do?notice_id=${ notice.getNotice_id() }&control=edit" class="noticeBtn" onclick="chkWriter('${ sessionScope.admin_id }','${ notice.getAdmin_id() }','edit')">수정</a>
+				<a href="<%= commonUrl %>/admin/mgr_notice_delete.do?notice_id=${ notice.getNotice_id() }&writer=${ notice.getAdmin_id() }" class="noticeBtn">삭제</a>
 			</div>
 		</div>
 </body>

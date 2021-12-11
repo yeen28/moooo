@@ -69,6 +69,7 @@ a{color: #333;}
 </form>
 </div>
 <br/>
+<a href="notice_edit_form.do">+추가</a>
 <table class="table table-hover">
 <thead>
 <tr>
