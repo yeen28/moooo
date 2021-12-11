@@ -35,7 +35,7 @@
 <hr/>
 <div id="container_bottom">
 <a href="<%= commonUrl %>/index.do" id="home">홈으로</a>
-<a href="<%= commonUrl %>/user/login/login_page.do" id="login">로그인</a>
+<a href="<%= commonUrl %>/user/login/login.do" id="login">로그인</a>
 </div>
 </div>
 

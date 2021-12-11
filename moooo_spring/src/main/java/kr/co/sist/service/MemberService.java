@@ -9,7 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.dao.MemberDAO;
-//import kr.co.sist.util.cipher.DataEncrypt;
+import kr.co.sist.util.cipher.DataEncrypt;
 import kr.co.sist.vo.DeleteMemberVO;
 import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.UpdateUserPassVO;
@@ -28,6 +28,9 @@ public class MemberService {
 	public boolean loginProc(MemberVO mVO) {
 		boolean result=false;
 		
+		// 비밀번호 암호화
+		mVO.setPass(encryptPass(mVO.getPass()));
+		
 		try {
 			mDAO.selectLogin(mVO.getUser_id(), mVO.getPass());
 			result=true;
@@ -42,20 +45,19 @@ public class MemberService {
 	
 	/**
 	 * 아이디 중복검사
-	 * @param id
-	 * @return
+	 * @param 입력한 아이디
+	 * @return true 사용가능 | false 사용불가능
+	 * @throws SQLException
 	 */
-	public boolean searchIdDup(String id) {
-		boolean result=true;
+	public boolean searchIdDup(String id) throws SQLException {
+		boolean result=false;
 		
-		try {
-			String dbId=mDAO.selectId(id);
-			if(dbId == null) { // ""
-				result=false;
-			} //end if
-		} catch(SQLException se) {
+		String dbId=mDAO.selectId(id);
+		if( "".equals( dbId ) ) { // 사용가능한 아이디인 경우
+			result=true;
+		} else { // 이미 존재하는 아이디인 경우
 			result=false;
-		} //end catch
+		} //end else
 		
 		return result;
 	} //searchIdDup
@@ -68,8 +70,8 @@ public class MemberService {
 	public boolean signUpProc(MemberVO mVO) {
 		boolean result=false;
 		
+		String encryptPass=encryptPass(mVO.getPass()); //비밀번호 암호화
 		try {
-			String encryptPass=encryptPass(mVO.getPass());
 			mVO.setPass(encryptPass);
 			
 			mDAO.insertMember(mVO);
@@ -106,18 +108,19 @@ public class MemberService {
 		// 회원정보가 일치하지 않으면 예외를 던짐
 		mDAO.selectFindPass(mVO.getUser_id(), mVO.getPhone()); //암호화되어있는 비밀번호가 리턴됨
 		
-		return tempPass(mVO);
+		return tempPass(mVO.getUser_id()); //임시비밀번호 생성 후 리턴
 	} //findPassProc
 	
 	/**
 	 * 임시 비밀번호 생성 후 비밀번호 업데이트
-	 * @param tVO
+	 * @param 아이디
 	 * @return
 	 * @throws SQLException 
 	 */
-	public String tempPass(MemberVO mVO) throws SQLException {
+	public String tempPass(String user_id) throws SQLException {
 		String tempPass="";
 		
+		//8자리 임시비밀번호 생성
 		while( tempPass.length() < 8 ) {
 			int rand = (int) (Math.random() * 75) + 48;
 			if (rand < 58 || (rand > 64 && rand < 91) || rand > 96) { // 숫자, 대문자, 소문자
@@ -126,8 +129,8 @@ public class MemberService {
 		}//end while
 		
 		UpdateUserPassVO uVO=new UpdateUserPassVO();
-		uVO.setUser_id(mVO.getUser_id());
-		uVO.setNew_pass(tempPass);
+		uVO.setUser_id(user_id);
+		uVO.setNew_pass(encryptPass(tempPass)); //암호화
 		mDAO.updatePass(uVO);
 		
 		return tempPass;
@@ -142,7 +145,8 @@ public class MemberService {
 	public boolean changePass(UpdateUserPassVO uVO) throws SQLException {
 		if( mDAO.updatePass(uVO) != 0) { //비밀번호 변경 성공
 			return true;
-		} else {
+			
+		} else { //실패
 			return false;
 		} //end else
 	} //changePass
@@ -151,7 +155,7 @@ public class MemberService {
 	 * 회원 탈퇴 폼에서 보여줄 닉네임 얻기
 	 * @param mVO
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public String getUserNickname(String user_id) throws SQLException {
 		String result="";
@@ -172,7 +176,7 @@ public class MemberService {
 	} //deleteMember
 
 	/**
-	 * 비밀번호 암호화 업무로직
+	 * 비밀번호 암호화 업무로직 (MD5)
 	 * @param plainPass
 	 * @return
 	 */
@@ -180,33 +184,10 @@ public class MemberService {
 		String encryptPass="";
 		
 		try {
-		//일방향 해쉬 알고리즘 선택
-		MessageDigest md=MessageDigest.getInstance("SHA-512"); /* MD2, MD5, SHA-384, SHA-512 */
-		//일반문자열을 변환
-		md.update( plainPass.getBytes() );
-		//변환된 문자열을 받는다.
-//		byte[] sha=md.digest();
-//		md.update( plainText2.getBytes() );
-//		byte[] sha2=md.digest();
-//		//알아볼 수 있는 문자열로 변환
-//		Base64 base=new Base64();
-//		String cipherText=new String( base.encode( sha ) );
-//		String cipherText2=new String( base.encode( sha2 ) );
-//		%>
-//
-//		일반 문자열 : <%= plainText %>, <%= plainText2 %><br/>
-//		encode문자열 : <%= cipherText %><br/>
-//		encode문자열 : <%= cipherText2 %><br/>
-		} catch(NoSuchAlgorithmException e) {
-			
+			encryptPass=DataEncrypt.messageDigest("MD5", plainPass);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace(); //주석처리하기!!
 		}
-		
-		
-//		try {
-//			encryptPass=DataEncrypt.messageDigest("MD5", plainPass);
-//		} catch (NoSuchAlgorithmException e) {
-//			e.printStackTrace();
-//		}
 		
 		return encryptPass;
 	} //encryptPass

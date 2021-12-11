@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
@@ -81,17 +83,39 @@ public class MemberController {
 	 * 아이디 중복확인
 	 */
 	@RequestMapping(value="id_dup.do",method=GET)
-	public String idDuplication(String id, Model model) {
+	public String idDuplication(String user_id, Model model) throws SQLException {
 		String page="user/login/id_dup";
+		
+		model.addAttribute("input_id", user_id);
+		String msg="입력하신 "+user_id+"는 사용 ";
+		if( ms.searchIdDup(user_id) ) { //사용가능한 아이디인 경우
+			model.addAttribute("msg", msg+"가능합니다.");
+			model.addAttribute("available",true);
+		} else {
+			model.addAttribute("msg", msg+"불가능합니다.");
+			model.addAttribute("available",false);
+		} //end else
+		
 		return page;
 	} //idDuplication
 	
 	/**
+	 * 아이디를 입력하지 않았을 때 AJAX로 메시지 보여줌
+	 */
+	@RequestMapping(value="id_dup_null.do",method=GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String idDuplicationNull(Model model) {
+		JSONObject json=new JSONObject();
+		json.put("alertMsg", "중복 검사할 아이디를 입력해주세요.");
+		return json.toJSONString();
+	} //idDuplicationNull
+	
+	/**
 	 * 회원가입 처리
 	 */
-	@RequestMapping(value="sign_up_proc.do",method=GET)
+	@RequestMapping(value="sign_up_proc.do",method=POST)
 	public String signUpProc(MemberVO mVO, Model model) {
-		String page="user/login/sign_up";
+		String page="user/login/process/sign_up_process";
 		
 		if( ms.signUpProc(mVO) ) { //회원가입 성공
 			model.addAttribute("nickname",mVO.getNickname());

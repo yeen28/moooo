@@ -22,11 +22,11 @@
 <script type="text/javascript">
 $(function() {
 	$("#check_duplicate").click(function() {
-		window.open("id_dup.jsp", "dup", "width=500,height=400");
+		window.open("id_dup.do", "dup", "width=500,height=400");
 	});
 	
 	$("#chk_nickname_dup").click(function() {
-		window.open("dup_nickname.jsp", "dup", "width=500,height=400");
+		window.open("dup_nickname.do", "dup", "width=500,height=400");
 	});
 	
 	$("#btn-sign-up").click(function() {
@@ -104,7 +104,7 @@ $(function() {
 
 <div id="container">
       <h2 class="sign-title"><img src="<%= commonUrl %>/common/images/icons/sign_up.PNG" width="50px"/>&nbsp;<strong>회원가입</strong></h2>
-        <form action="<%= commonUrl %>/users/login/process/sign_up_process.jsp" role="form" class="new_user" id="new_user" name="new_user" accept-charset="UTF-8" method="post">
+        <form action="<%= commonUrl %>/user/login/sign_up_proc.do" role="form" class="new_user" id="new_user" name="new_user" accept-charset="UTF-8" method="post">
         <div>
         </div>
         
@@ -118,8 +118,8 @@ $(function() {
           </div><br/>
           <label for="user_name">닉네임</label>
           <div class="form-group">
-            <input required="required" placeholder="닉네임" class="form-control" type="text" name="nickname" id="nickname" readonly="readonly"/>
-            <input type="button" value="중복확인" class="check_btn" id="chk_nickname_dup"/>
+            <input required="required" placeholder="닉네임" class="form-control" type="text" name="nickname" id="nickname"/>
+            <!-- <input type="button" value="중복확인" class="check_btn" id="chk_nickname_dup"/> -->
           </div><br/>
           <label for="user_phone">휴대폰번호</label>
           <div class="form-group">
@@ -135,7 +135,7 @@ $(function() {
       <div id="agree">
           <h6>
             <input type="checkbox" id="tos_agreed" name="tos_agreed" value="tos_agreed">
-            <a target="_blank" rel="noopener" href="<%= commonUrl %>/users/login/tos.jsp">이용약관</a>에 동의합니다. (필수)
+            <a target="_blank" rel="noopener" href="<%= commonUrl %>/common/jsp/tos.jsp" style="color:#0000FF;">이용약관</a>에 동의합니다. (필수)
           </h6>
       </div>
       
