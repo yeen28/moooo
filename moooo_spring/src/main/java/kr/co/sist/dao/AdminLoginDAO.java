@@ -65,7 +65,7 @@ public class AdminLoginDAO {
 		.append("	update admin	")
 		.append("	set pass=?	")
 		.append("	where admin_id=?");
-		jt.update(updateMember.toString(), pass, id);
+		cnt=jt.update(updateMember.toString(), pass, id);
 		
 		return cnt;
 	}//updatePass

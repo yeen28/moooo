@@ -48,7 +48,7 @@ $(function () {
 			return;
 		} 
 		
-		if( $("#newpass_ad").val() == "" ){
+		if( $("#new_pass").val() == "" ){
 			alert("새로운 비밀번호를 입력해주세요.");
 			return;
 		}
@@ -58,7 +58,7 @@ $(function () {
 			return;
 		}
 		
-		if( $("#newpass_ad").val() != $("#check_newpass_ad").val() ){
+		if( $("#new_pass").val() != $("#check_newpass_ad").val() ){
 			alert("새 비밀번호와 새 비밀번호 확인이 다릅니다.\n다시 입력해주세요.");
 			return;
 		}
@@ -95,13 +95,14 @@ $(function () {
          <div style="margin: 200px auto; width: 600px;text-align: left;">
          </div>
          <div class="wrap">
+            <input type="hidden" name="admin_id" value="${ sessionScope.admin_id }"><%-- 변조 못하게 백엔드에서도 세션값을 받음 --%>
             <div class="margin1">
                <label>기존 비밀번호</label>
-               <input type="password" class="form-control" id="beforepass_ad" name="pass_ad" placeholder="기존 비밀번호를 입력하세요">
+               <input type="password" class="form-control" id="beforepass_ad" name="before_pass" placeholder="기존 비밀번호를 입력하세요">
             </div>
             <div class="margin1">
                <label>새로운 비밀번호</label>
-               <input type="password" class="form-control" id="newpass_ad" name="newpass_ad" placeholder="새로운 비밀번호를 입력하세요">
+               <input type="password" class="form-control" id="new_pass" name="new_pass" placeholder="새로운 비밀번호를 입력하세요">
             </div>
             <div class="margin1">
                <label>새로운 비밀번호 확인</label>
@@ -116,15 +117,11 @@ $(function () {
 <%-- </c:if> --%>
 </div>
 
-<c:if test="${ not empty msg and param.hid ne 'fail' }">
-<form action="<%= commonUrl %>/admin/change_pass_proc.do" id="procFrm">
-	<input type="hidden" name="hid" value="succeed"/>
-	<input type="hidden" name="hid" value="fail"/>
-</form>
+<c:if test="${ not empty msg }">
 <script type="text/javascript">
 $(function() {
 	alert( "${msg}" );
-	$("#procFrm").submit();
+	location.href="<%= commonUrl %>/admin/change_pass.do";
 }); //ready
 </script>
 </c:if>

@@ -103,14 +103,15 @@ public class AdminLoginController {
 	/**
 	 * 비밀번호 변경 처리
 	 */
-	@RequestMapping(value="change_pass_proc.do",method=GET)
-	public String changePassProc(UpdateAdminPassVO uVO, Model model) throws DataAccessException, SQLException {
+	@RequestMapping(value="change_pass_proc.do",method=POST)
+	public String changePassProc(HttpSession session, UpdateAdminPassVO uVO, Model model) throws DataAccessException, SQLException {
 		String jspPage="admin/change_pass";
 		
+		uVO.setAdmin_id((String)session.getAttribute("admin_id"));
 		if( als.changePass(uVO) ) { //비밀번호 변경 성공
 			model.addAttribute("msg", "비밀번호가 변경됐습니다.");
 		} else { // 실패
-			model.addAttribute("msg", "비밀번호를 확인해주세요.");
+			model.addAttribute("msg", "비밀번호를 다시 확인해주세요.");
 		} //end else
 		
 		return jspPage;
