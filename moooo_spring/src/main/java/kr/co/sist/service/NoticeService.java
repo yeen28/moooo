@@ -137,15 +137,12 @@ public class NoticeService {
 	 * 공지 상세페이지
 	 * @param notice_id
 	 * @return NoticeVO
+	 * @throws SQLException 
 	 */
-	public NoticeVO noticeDetail(int notice_id) {
+	public NoticeVO noticeDetail(int notice_id, String control) throws SQLException {
 		NoticeVO nVO=null;
 		
-		try {
-			nVO=nDAO.selectNotice(notice_id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		nVO=nDAO.selectNotice(notice_id, control);
 		
 		return nVO;
 	} //noticeDetail

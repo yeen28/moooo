@@ -76,7 +76,7 @@ public class AdminLoginController {
 	/**
 	 * 관리자 메인화면 폼
 	 */
-	@RequestMapping(value="main_form.do",method=GET)
+	@RequestMapping(value="main.do",method=GET)
 	public String mainForm(HttpSession session, Model model) {
 		String jspPage="";
 		

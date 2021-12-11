@@ -79,12 +79,14 @@ a{color: #333;}
 <th>등록일</th>
 </tr>
 </thead>
-<%-- <%
-List<NotiInsertVO> list=ud.selectNotiTitle(0,10);
-%> --%>
+<c:if test="${ empty noticeList }">
+<tr>
+<td>조회된 결과가 없습니다.</td>
+</tr>
+</c:if>
 <c:forEach var="list" items="${ noticeList }">
 <tr>
-<td><c:out value="${ list.notice_id}"/></td>
+<td><c:out value="${ list.notice_id }"/></td>
 <td><a href="${ commonUrl }/admin/mgr_notice_detail.do?notice_id=${ list.notice_id }"><c:out value="${ list.title }"/></a></td>
 <td><c:out value="${ list.admin_id }"/></td>
 <td><c:out value="${ list.view_cnt }"/></td>

@@ -78,11 +78,13 @@ public class NoticeDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public NoticeVO selectNotice(int notice_id) throws SQLException {
+	public NoticeVO selectNotice(int notice_id, String control) throws SQLException {
 		NoticeVO nVO = new NoticeVO();
 		
-		String updateCnt = "update notice set view_cnt = (view_cnt + 1) where notice_id = ?";
-		jt.update(updateCnt, notice_id);
+		if(control != "admin") {
+			String updateCnt = "update notice set view_cnt = (view_cnt + 1) where notice_id = ?";
+			jt.update(updateCnt, notice_id);
+		} //end if
 		
 		String selectQuery = "select notice_id, title, to_char(input_date,'yyyy-MM-dd')input_date,view_cnt,admin_id,comments from notice where notice_id = ?";
 

@@ -12,11 +12,11 @@
 </style>
 
 <div class="top-nav">
-<div class="logo"><h3><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/main.jsp">MooOO</a></h3></div>
+<div class="logo"><h3><a href="<%= commonUrl %>/admin/main.do">MooOO</a></h3></div>
 <table style="width: 100px;height:50px;text-align: center;float:right;">
 <tr>
 <td><a href=""><span class="glyphicon glyphicon-bell" style="color: #fff; font-size: 17px;"></span></a></td>
-<td><a href="<%= protocol %><%= domain %><%= contextRoot %>/admin/change_pass.jsp"><span class="glyphicon glyphicon-cog" style="color: #fff; font-size: 17px;"></span></a></td>
+<td><a href="<%= commonUrl %>/admin/change_pass.do"><span class="glyphicon glyphicon-cog" style="color: #fff; font-size: 17px;"></span></a></td>
 </tr>
 </table>
 </div>

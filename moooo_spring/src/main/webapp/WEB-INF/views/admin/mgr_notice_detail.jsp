@@ -87,9 +87,6 @@ function chkWriter(sessionId, writerId, control) {
 </div>
 <!-- /왼쪽 메뉴바 -->
 
-<%-- <%
-NotiInsertVO wv = wd.selectNotice(notice_id);
-%> --%>
 <div class="right">
 <h2>공지사항 관리</h2>
 <br/>
