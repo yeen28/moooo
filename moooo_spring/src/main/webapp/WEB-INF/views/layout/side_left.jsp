@@ -10,12 +10,11 @@
 
 <style type="text/css">
 #container{ width: 80%; margin: 80px auto; position: relative; }
-#side {width: 350px; border : 1px solid #333; margin: 30px 0 30px 0; padding: 30px 30px 30px 30px}
+#side {width: 350px; margin: 30px 0 30px 0; padding: 30px 30px 30px 30px}
 #user{
 	width: 350px;
 	text-align: left;
 	padding: 30px;
-	border: 1px solid #dfdfdf;
 }
 #left{
 	width: 350px;
@@ -27,7 +26,7 @@
 	margin-left: 50px;
 }
 #login, #side{
-	background-color: #FFFFFF;
+	background-color: #D2ECBF;background-color: rgba( 255, 255, 255, 0.9 );
 }
 </style>
 

@@ -6,7 +6,7 @@
 td>p{font-size: 13px;}
 #mid-mid{width: 800px; border: 1px solid #EEEEEF;padding: 30px 50px 30px 50px; background-color: #f7f7f7}
 td>h4{margin-bottom: 0;}
-#bottom{height: 350px; border: 2px solid #707070; margin-top: 30px;}
+#bottom{height: 350px; border: 2px solid #707070; margin-top: 30px; background-color: rgba( 255, 255, 255, 1 );}
 #bottom>table{width: 650px;margin: 50px auto;}
 .th{background-color: #F7F7F7;}
 #btn{width: 350px; margin: 30px auto;}

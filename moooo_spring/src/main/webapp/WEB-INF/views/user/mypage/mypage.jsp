@@ -36,6 +36,7 @@
 	height: 1000px; 
 	margin: auto;
 	position: relative;
+	background-color: #D2ECBF;background-color: rgba( 255, 255, 255, 0.8 );
 }
 #passCh{
 float: right;

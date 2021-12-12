@@ -4,8 +4,9 @@
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %> 
+
 <style type="text/css">
-#header{background-color: #D2ECBF; width: 100%; height: 300px;}
+#header{background-color: #D2ECBF;background-color: rgba( 255, 255, 255, 0.5 ); width: 100%; height: 300px;}
 #header>h1{text-align: center;}
 #title{ width: 300px; text-align: center; margin: 0px auto; padding: 150px 30px 0 30px; }
 #title>img{float:left;}
@@ -13,10 +14,12 @@ a{ color:#333; }
 
 .nav_right>li{float: right;}
 
-/* body{
-background: rgb(9,21,13);
-background: linear-gradient(0deg, rgba(9,21,13,1) 0%, rgba(46,104,81,1) 35%, rgba(62,170,116,1) 100%);
-} */
+body{
+	height: 100vh;
+	background-image: url(<%= commonUrl %>/common/images/backgroundImg.jpg);
+    background-repeat: no-repeat;
+    background-size : cover;
+}
 </style>
 
 
@@ -34,7 +37,7 @@ background: linear-gradient(0deg, rgba(9,21,13,1) 0%, rgba(46,104,81,1) 35%, rgb
 </ul>
 </div>
 <div id="title">
-<img src="<%= commonUrl %>/common/images/moooo.png" width="50px;"/>
-<h1><a href="<%= commonUrl %>/index.do">MooOO</a></h1>
+<%-- <img src="<%= commonUrl %>/common/images/" width="50px;"/> --%>
+<h1><a href="<%= commonUrl %>/index.do"><span style="font-weight: bold;">MooOO</span></a></h1>
 </div>
 </div>

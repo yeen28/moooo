@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'NanumBarunGothic';
+	src:url(../etc/NanumBarunGothicWeb.eot);
+	src:url(../etc/NanumBarunGothicWeb.eot?#iefix) format('embedded-opentype'),
+		url(../etc/NanumBarunGothicWeb.woff) format('woff'),
+		url(../etc/NanumBarunGothicWeb.ttf) format('truetype');
+}
+/* default */
+li{list-style:none;}
+a{font-size:inherit;color:inherit;text-decoration:none;}
+address{font-style:normal;color:#fff;font-size:inherit;}
+@media screen and (min-width:0\0) { 
+	select {
+		background:none;
+		padding: 5px;
+	}
+}
+/* layout */
+#footer .ir{display:inline-block;text-indent:-9999px;background-image:url(../img/common/ir_common.png);background-repeat:no-repeat;}
+#footer{font-size:14px;color:#999;background:#4d4d4d;}
+#footer.opened{position:relative;z-index:667;}
+#footer>.inner{max-width:1140px;margin:0 auto;padding:29px 0 39px;}
+#footer>.inner:after{display:block;clear:both;content:".";font-size:0;}
+#footer a{color:#ccc;}
+#footer li{float:left;}
+.footermenu{padding:17px 20px;border-bottom:1px solid #545454;}
+.footermenu>.inner{max-width:1140px;margin:0 auto;}
+.footermenu ul{overflow:hidden;}
+.footermenu li{padding:0 26px 0 27px;background:url(../img/common/bg_footermenu.png) no-repeat 0 50%;}
+.footermenu li:first-child{padding-left:0;background:none;}
+.footermenu li.ty2 a{color:#fff !important;}
+
+#footer .familysites{width:149px;display:inline-block;float:right;}
+#footer .familysites>a{display:block;padding:6px 9px;color:#999;border:1px solid #808080;background:url(../img/common/bg_familysite2.png) no-repeat 100% 8px;}
+#footer.opened .familysites>a{color:#fff;border-color:#003876;background-color:#003876;background-position:100% -22px;}
+#footer .familysites ul{display:none;overflow:hidden;position:absolute;    bottom: 81px;
+    width: 129px;padding:0 10px;background:#666;}
+#footer.opened .familysites ul{display:block;padding:14px 10px 5px;}
+#footer .familysites li{float:none;margin-top:3px;}
+#footer .familysites li:first-child{margin-top:0;}
+#footer .familysites li a{display:inline-block;padding:6px 0 6px 10px;font-size:13px;background:url(../img/common/bg_familysite.png) no-repeat 0 -19px;}
+#footer .familysites li a:hover,
+#footer .familysites li a:active{color:#fff;text-decoration:underline;background-position:0 11px;}
+address{float:left;}
+address>span{margin-right:15px;line-height:21px;}
+address>p{margin-top:13px;font-size:13px;}
+#footer .isms {right:0px;top:17px;width:420px;}
+#footer .isms img{float:left;margin-right:30px;width:70px;margin-top:7px}
+#footer .isms div{padding-top:6px}
+#footer .isms p{font-weight:500;letter-spacing:-1px;line-height:8px;margin-top:3px;}
+#footer .isms div .tit{margin-top:8px}
+#footer .isms span{font-weight:300;clear:both;letter-spacing:-1px;}
+
+#footer .markAndfamilysites{float:right;padding-top:7px;}
+
+#footer .sns{float:left;padding-top:7px;}
+#footer .sns li{height: auto !important;margin-right:25px;}
+#footer .sns li a img{!important;height: 40px !important;max-height: none !important;}
+#footer .relatedLinks{float:none !important;overflow: hidden;padding:0 0 20px 0;}
+#footer .sns.ty1{margin-left:10px;padding-top:0;display:inline-block;}
+#footer .sns.ty1 li{margin-right:10px;}
+#footer .sns.ty1 span.isms_info{display:inline-block;float:right;margin:4px 0 0 5px;font-size:10px;line-height:1.3;}
+#footer .sns{float:left;padding-top:7px;}
+#footer .sns li{height: auto !important;margin-right:25px;}
+#footer .sns li a img{!important;height: 40px !important;max-height: none !important;}
+
+@media screen and (max-width: 1200px){
+	#footer .ir{background-size:135px 245px;}
+	#footer>.inner{padding:10px 20px 25px;}
+	.footermenu{padding-bottom:0;border-bottom:0;}
+	.footermenu li{margin-bottom:16px;padding:0 8px;}
+}
+@media screen and (max-width: 1080px){
+	#footer>.inner{padding:10px 15px 21px;}
+	address{clear:none;padding:0;}
+}
+@media screen and (max-width: 960px){
+	#footer .relatedLinks,
+	address{float:none;}
+	#footer .relatedLinks{margin-bottom:23px;}
+	#footer .relatedLinks:after{content:".";font-size:0;clear:both;display:block;}
+    #footer .sns.ty1{display:none;}
+}
+@media screen and (max-width: 768px) {
+	.overflowHidden{overflow:hidden;}
+}
+@media screen and (max-width: 760px){
+	address>span{font-size:13px;}
+	address>span.address{display:block;}
+	address>p{margin-top:8px;font-size:12px;}
+	address>p span{position:absolute;left:-9999px;font-size:0;color:transparent;}
+    #footer .familysites ul {bottom: 164px;width: 129px;}
+    #footer .familysites {margin: 10px 0 0 0px;}
+  
+      .footermenu li {margin-bottom: 16px;padding: 0 8px;}
+  .footermenu {padding: 17px 20px 0px 20px;}
+   #footer  .sns li {height: auto !important;margin-right: 11px !important;}
+   #footer  .familysites {margin: 13px 0 0 0;}
+   #footer >.inner {padding: 16px 10px 26px;}
+
+   #footer  .relatedLinks {float: none !important;overflow: hidden;padding: 0 0 20px 0;}
+   #footer  .sns{float: none !important;padding: 7px 0 5px 0;width: 100%;text-align: center;overflow: hidden;}
+   #footer  .sns li {height: auto !important;margin-right: 11px !important;float: none !important;display: inline-block;}
+   #footer  .familysites {margin: 13px 0 0 0;float: none !important;width: 100% !important;}
+   #footer  .familysites ul  {width: 100% !important;}
+   #footer  .relatedLinks {margin-bottom: 0px !important;}
+   #footer .markAndfamilysites{float:none !important;width:100%;text-align:center;}
+}
+@media screen and (max-width: 360px){
+	address{letter-spacing:-1px;}
+}
+/* 20201127 IE 브라우저에서 첨부파일 영역의 '삭제' 버튼으로 체크박스가 선택되지 않는 현상 수정 */
+.attach_list label {
+    display: inline-block;
+}
+.attach_list label img {
+    pointer-events: none;
+}
