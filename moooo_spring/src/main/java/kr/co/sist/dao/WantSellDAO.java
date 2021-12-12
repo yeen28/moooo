@@ -102,7 +102,7 @@ public class WantSellDAO {
 	 * @param sell_id
 	 * @return
 	 */
-	public WantSellVO updateSelectViewCnt(int sell_id) throws SQLException {
+	public WantSellVO selectSell(int sell_id) throws SQLException {
 		WantSellVO nVO = new WantSellVO();
 
 		String updateCnt = "update want_sell set view_cnt = (view_cnt + 1) where sell_id = ?";
@@ -222,8 +222,7 @@ public class WantSellDAO {
 		int cnt=0;
 		
 		String update="update want_sell set title=?,comments=?,price=?,ip_addr=?,category_id=? where sell_id=?";
-		
-		jt.update(update, wv.getTitle(), wv.getComments(), wv.getPrice(), wv.getIp_addr(),wv.getCategory_id(), wv.getSell_id() );
+		cnt=jt.update(update, wv.getTitle(), wv.getComments(), wv.getPrice(), wv.getIp_addr(),wv.getCategory_id(), wv.getSell_id() );
 		
 		return cnt;
 	}//updateSell
@@ -236,13 +235,8 @@ public class WantSellDAO {
 	public int deleteSell(int sell_id, String user_id) throws DataAccessException {
 		int cnt=0;
 		
-		//delete는 조건에 맞는 것이 없다면 에러가 아니라 아무 일도 일어나지 않는다.
-		//그래서 select을 했다.
-		String select="select title from want_sell where sell_id=? and user_id=?";
-		jt.queryForObject(select, new Object[] {sell_id, user_id}, String.class);
-		
 		String delete="delete from want_sell where sell_id=? and user_id=?";
-		jt.update(delete, sell_id, user_id);
+		cnt=jt.update(delete, sell_id, user_id);
 		
 		return cnt;
 	}//deleteSell

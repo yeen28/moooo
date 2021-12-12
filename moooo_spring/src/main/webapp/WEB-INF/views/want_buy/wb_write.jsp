@@ -105,16 +105,6 @@ $(function () {
 </head>
 <body>
 <c:if test="${ empty param.title }">
-<%-- <%
-String sess_user_id=(String)session.getAttribute("sess_user_id");
-
-String buy_id=request.getParameter("buy_id");
-
-if(buy_id != null){
-	WantBuyDAO wd=new WantBuyDAO();
-	WantBuyVO wv=wd.selEditBuy(Integer.parseInt(buy_id),sess_user_id);
-}//end if
-%> --%>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
@@ -149,32 +139,21 @@ if(buy_id != null){
 <tr>
 	<td>가격 : </td>
 	<td>
-		<%-- <input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" <% if(buy_id != null){ 
-		%>value="${ wv.price }"<% } else { %> value="0"<% } %>> --%>
-		<c:choose>
-		<c:when test="${ empty buy }">
-		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="0">
-		</c:when>
-		<c:otherwise>
-		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ buy.price }">
-		</c:otherwise>
-		</c:choose>
+		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ buy.price }" placeholder="숫자만 입력해주세요.">
 	</td>
 	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td>카테고리 : </td>
 	<td>
 	<select id="category_id" name="category_id" class="form-control">
-	<%-- <% 
-	if(buy_id == null){ 
-	%> --%>
 	<option value="none"><c:out value="-------- 선택 --------"/></option>
-	<option value="1"><c:out value="d"/></option>
-	<c:forEach var="list" items="${ list }">
+	<c:choose>
+	<c:when test="${ empty buy.buy_id }"><!-- 추가하는 경우 -->
+	<c:forEach var="list" items="${ categoryList }">
 	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
 	</c:forEach>
-	<%-- <%
-	} else {
-	%>
+	</c:when>
+	<c:otherwise><!-- 수정하는 경우 -->
+	<%--
 	<% String selected=""; %>
 	<c:forEach var="list" items="${ list }">
 	<c:choose>
@@ -188,6 +167,8 @@ if(buy_id != null){
 	<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/></option>
 	</c:forEach>
 	<% } //end else %> --%>
+	</c:otherwise>
+	</c:choose>
 	</select>
 	<%-- <c:if test="${ not empty e }">
 	문제발생
@@ -197,7 +178,6 @@ if(buy_id != null){
 </table>
 </div>
 <div class="note">
-	<%-- <textarea name="comments" id="summernote"><% if(buy_id != null) { %>${ wv.comments }<% } %></textarea> --%>
 	<textarea name="comments" id="summernote">${ buy.comments }</textarea>
 </div>
 <c:choose>
@@ -224,15 +204,6 @@ if(buy_id != null){
 </c:if>
 
 <c:if test="${ not empty param.title }">
-<%-- <%
-String url=commonUrl+"/want_buy/want_buy.jsp";
-if( "add".equals(request.getParameter("type")) ) {
-	wd.insertBuy(wv);
-} else {
-	wd.updateBuy(wv);
-	url=commonUrl+"/want_buy/want_buy_detail.jsp?buy_id="+wv.getBuy_id();
-} //end else
-%> --%>
 <script type="text/javascript">
 alert("${ msg }");
 location.href="${ url }";

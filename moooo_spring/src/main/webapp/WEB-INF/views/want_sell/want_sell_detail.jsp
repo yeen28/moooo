@@ -78,33 +78,44 @@ $(function() {
 			//alert(reasonChk);
 			alert("신고되었습니다.");
 			$("#frm").submit();
-			<%-- location.href="<%= commonUrl %>/view/want_sell/want_sell_detail.jsp?sell_id="+${ param.sell_id }; --%>
+			<%-- location.href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id="+${ sell.sell_id }; --%>
 		} //end if
 	}); //click
 	
 	$("#closeBtn").click(function() {
-		location.href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id="+${ param.sell_id };
+		location.href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id="+${ sell.sell_id };
 	}); //click
 }); //ready
 
 function chkMe( sell_id, write_user_id ) {
-	if( write_user_id == "${sess_user_id}" ){
+	if( write_user_id == "${ sessionScope.user_id }" ){
 		alert("본인은 신고할 수 없습니다.");
 		return;
 	} else {
 		location.href="want_sell_detail.do?sell_id="+sell_id+"&report_id="+write_user_id;
 	} //end else
-}
+} //chkMe
+
+function chkUserEdit( sessionId, writer ) {
+	if(sessionId == writer){
+		location.href="<%= commonUrl %>/want_sell/ws_write.do?sell_id="+${ sell.sell_id };
+	} else{
+		alert("작성자만 수정할 수 있습니다.");
+	}
+} //chkUserEdit
+
+function chkUserDelete( sessionId, writer ) {
+	if(sessionId == writer){
+		location.href="<%= commonUrl %>/want_sell/want_sell_delete.do?sell_id="+${ sell.sell_id };
+	} else{
+		alert("작성자만 삭제할 수 있습니다.");
+	}
+} //chkUserDelete
+
 </script>
 </head>
 
 <body>
-<%-- <%
-int sell_id = Integer.parseInt(request.getParameter("sell_id"));
-
-WantSellDAO wd = new WantSellDAO();
-WantSellVO wv = wd.selectSell(sell_id);
-%> --%>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
@@ -124,13 +135,13 @@ WantSellVO wv = wd.selectSell(sell_id);
 			<div id="formArea">
 			<c:if test="${ not empty param.report_id }">
 			<div id="writeFrm">
-			<form id="frm" name="frm" action="want_sell_detail.do?sell_id=${ sell_id }" method="post">
-      			<c:import url="${ commonUrl }/user/report/report.do"/>
+			<form id="frm" name="frm" action="report_proc.do" method="get">
+      			<c:import url="${ commonUrl }/report.do"/>
       		</form>
       		</div>
       		</c:if>
 			</div>
-			<a href="#" onclick="chkMe('${ sell_id }', '${ sell.getUser_id() }')">신고하기</a>
+			<a href="#" onclick="chkMe('${ sell.sell_id }', '${ sell.user_id }')">신고하기</a>
 		</div>
 			
 			<div class="notice_border">
@@ -139,29 +150,29 @@ WantSellVO wv = wd.selectSell(sell_id);
 						<tbody>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
-								<td colspan="5" style="font-size: 16px; color: #333;">${ sell.getTitle() }</td>
+								<td colspan="5" style="font-size: 16px; color: #333;">${ sell.title }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성자</td>
-								<td style="font-size: 16px; color: #333;">${ sell.getUser_id() }</td>
+								<td style="font-size: 16px; color: #333;">${ sell.user_id }</td>
 							</tr>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성일</td>
-								<td style="font-size: 16px; color: #333;">${ sell.getInput_date() }</td>
+								<td style="font-size: 16px; color: #333;">${ sell.input_date }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">가격</td>
-								<td style="font-size: 16px; color: #333;">${ sell.getPrice() }원</td>
+								<td style="font-size: 16px; color: #333;">${ sell.price }원</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">조회수</td>
-								<td style="font-size: 16px; color: #333;">${ sell.getView_cnt() }</td>
+								<td style="font-size: 16px; color: #333;">${ sell.view_cnt }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">관심수</td>
-								<td style="font-size: 16px; color: #333;">${ sell.getInterest_cnt() }</td>
+								<td style="font-size: 16px; color: #333;">${ sell.interest_cnt }</td>
 							</tr>
 							<tr>
-								<td colspan="8" style="font-size: 16px; color: #333;">${ sell.getComments() }</td>
+								<td colspan="8" style="font-size: 16px; color: #333;">${ sell.comments }</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<a href="<%= commonUrl %>/want_sell/want_sell.do">목록</a>
-				<a href="<%= commonUrl %>/want_sell/ws_write.do?sell_id=${ sell.getSell_id() }">수정</a>
-				<a href="<%= commonUrl %>/want_sell/want_sell_delete.do?sell_id=${ sell.getSell_id() }">삭제</a>
+				<a href="#void" onclick="chkUserEdit('${sessionScope.user_id}','${ sell.user_id }')">수정</a>
+				<a href="#void" onclick="chkUserDelete('${sessionScope.user_id}','${ sell.user_id }')">삭제</a>
 			</div>
 		</div>
 	</div>
@@ -170,8 +181,5 @@ WantSellVO wv = wd.selectSell(sell_id);
 	<div style="clear:both;">
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </div>
-<%-- <c:if test="${ not empty e }">
-<c:redirect url="${ commonUrl }/common/error/error.jsp"/>
-</c:if> --%>
 </body>
 </html>

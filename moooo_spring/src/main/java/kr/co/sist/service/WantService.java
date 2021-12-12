@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.dao.ReportDAO;
 import kr.co.sist.dao.WantBuyDAO;
 import kr.co.sist.dao.WantSellDAO;
+import kr.co.sist.vo.ReportReasonVO;
 import kr.co.sist.vo.WantBuyVO;
 import kr.co.sist.vo.WantSellVO;
 
@@ -19,6 +21,8 @@ public class WantService {
 	private WantBuyDAO bDAO;
 	@Autowired(required = false)
 	private WantSellDAO sDAO;
+	@Autowired(required = false)
+	private ReportDAO rDAO;
 	
 	public List<WantBuyVO> searchBuyList(int category, String page){
 		List<WantBuyVO> list=null;
@@ -190,14 +194,20 @@ public class WantService {
 	 * @return true 성공 | false 실패
 	 * @throws SQLException
 	 */
-	public boolean deleteBuy(int buy_id) throws SQLException {
-		if( bDAO.deleteBuy(buy_id) != 0) { //삭제 성공
+	public boolean deleteBuy(int buy_id, String user_id) throws SQLException {
+		if( bDAO.deleteBuy(buy_id, user_id) != 0) { //삭제 성공
 			return true;
 		} else { //실패
 			return false;
 		} //end else
 	} //deleteBuy
 
+	/**
+	 * '팔아요' 글 목록 얻기
+	 * @param category
+	 * @param page
+	 * @return
+	 */
 	public List<WantSellVO> searchSellList(int category, String page) {
 		List<WantSellVO> list=null;
 		
@@ -223,22 +233,65 @@ public class WantService {
 		
 		return list;
 	}
-//	
-//	public WantSellVO getWantSellDetail(int) {
-//		
-//	}
-//	
-//	public boolean addSell(WantSellVO) {
-//		
-//	}
-//	
-//	public boolean updateSell(WantSellVO) {
-//		
-//	}
-//	public boolean deleteSell(int) {
-//		
-//	}
-//
+	
+	/**
+	 * 팔아요 상세페이지 내용 얻기
+	 * @param buy_id
+	 * @return WantBuyVO
+	 */
+	public WantSellVO getWantSellDetail(int sell_id) {
+		WantSellVO wVO=null;
+		
+		try {
+			wVO=sDAO.selectSell(sell_id);
+		} catch(SQLException se) {
+			se.printStackTrace();
+		}
+		
+		return wVO;
+	} //getWantSellDetail
+	
+	/**
+	 * 글 추가 처리
+	 * @throws DataAccessException
+	 */
+	public void addSell(WantSellVO wv) throws DataAccessException {
+		sDAO.insertSell(wv);
+	} //addSell
+	
+	/**
+	 * 글 수정 처리
+	 * @param wVO
+	 * @return true 성공 | false 실패
+	 * @throws DataAccessException
+	 */
+	public boolean updateSell(WantSellVO wVO) throws DataAccessException {
+		int cnt=sDAO.updateSell(wVO);
+		if(cnt == 0) {
+			return false;
+		} else {
+			return true;
+		} //end else
+	} //updateSell
+	
+	/**
+	 * '팔아요' 글 삭제
+	 * @param buy_id
+	 * @return true 성공 | false 실패
+	 * @throws SQLException
+	 */
+	public boolean deleteSell(int sell_id, String user_id) throws SQLException {
+		if( sDAO.deleteSell(sell_id, user_id) != 0) { //삭제 성공
+			return true;
+		} else { //실패
+			return false;
+		} //end else
+	} //deleteSell
+	
+	public List<ReportReasonVO> getReportReasonList() throws SQLException{
+		return rDAO.selectReport();
+	} //getReportReasonList
+	
 //	public boolean isWriter(String,String){
 //		
 //	}

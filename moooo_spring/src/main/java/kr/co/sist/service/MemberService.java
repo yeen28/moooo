@@ -1,6 +1,5 @@
 package kr.co.sist.service;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 

@@ -97,7 +97,6 @@ pageContext.setAttribute("list", list);
 				<h2 style="font-weight: bold;">팔아요</h2>
 				
 			<div>
-			<%-- <a href="<%= commonUrl %>/view/want_sell/want_sell_add.jsp">+추가</a> --%>
 			<a href="<%= commonUrl %>/want_sell/ws_write.do">+추가</a>
 		<a href="<%= commonUrl %>/want_sell/want_sell.do">전체 글 보기</a>
 			</div>

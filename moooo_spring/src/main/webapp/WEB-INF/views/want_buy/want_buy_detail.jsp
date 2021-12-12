@@ -78,12 +78,6 @@ function chkUserDelete( sessionId, writer ) {
 </head>
 
 <body>
-<%-- <%
-String param1 = request.getParameter("buy_id");
-int buy_id = Integer.parseInt(param1);
-WantBuyDAO wd = new WantBuyDAO();
-WantBuyVO wv = wd.selectBuy(buy_id);
-%> --%>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
@@ -104,27 +98,27 @@ WantBuyVO wv = wd.selectBuy(buy_id);
 						<tbody>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
-								<td colspan="3" style="font-size: 16px; color: #333;">${ buy.getTitle() }</td>
+								<td colspan="3" style="font-size: 16px; color: #333;">${ buy.title }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성자</td>
-								<td style="font-size: 16px; color: #333;">${ buy.getUser_id() }</td>
+								<td style="font-size: 16px; color: #333;">${ buy.user_id }</td>
 							</tr>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성일</td>
-								<td style="font-size: 16px; color: #333;">${ buy.getInput_date() }</td>
+								<td style="font-size: 16px; color: #333;">${ buy.input_date }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">가격</td>
-								<td style="font-size: 16px; color: #333;">${ buy.getPrice() }원</td>
+								<td style="font-size: 16px; color: #333;">${ buy.price }원</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">조회수</td>
-								<td style="font-size: 16px; color: #333;">${ buy.getView_cnt() }</td>
+								<td style="font-size: 16px; color: #333;">${ buy.view_cnt }</td>
 							</tr>
 							<tr>
-								<td colspan="6" style="font-size: 16px; color: #333;">${ buy.getComments() }</td>
+								<td colspan="6" style="font-size: 16px; color: #333;">${ buy.comments }</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<a href="<%= commonUrl %>/want_buy/want_buy.do">목록</a>
-				<a href="#void" onclick="chkUserEdit('${sessionScope.user_id}','${ buy.getUser_id() }')">수정</a>
-				<a href="#void" onclick="chkUserDelete('${sessionScope.user_id}','${ buy.getUser_id() }')">삭제</a>
+				<a href="#void" onclick="chkUserEdit('${sessionScope.user_id}','${ buy.user_id }')">수정</a>
+				<a href="#void" onclick="chkUserDelete('${sessionScope.user_id}','${ buy.user_id }')">삭제</a>
 			</div>
 		</div>
 	</div>

@@ -105,19 +105,6 @@ $(function () {
 </head>
 <body>
 <c:if test="${ empty param.title }">
-<%-- <%
-String sess_user_id=(String)session.getAttribute("sess_user_id");
-
-String sell_id=request.getParameter("sell_id");
-
-if(sell_id != null){
-	WantSellDAO wd=new WantSellDAO();
-	WantSellVO wv=wd.selEditSell(Integer.parseInt(sell_id),sess_user_id);
-	pageContext.setAttribute("wv", wv);
-}//end if
-
-pageContext.setAttribute("sell_id", sell_id);
-%> --%>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
@@ -140,34 +127,26 @@ pageContext.setAttribute("sell_id", sell_id);
 	<td>제목 : </td>
 	<td colspan="4">
 		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" value="${ wv.title }">
-<%-- 		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" <% 
-		if(sell_id != null){ %>value="${ wv.title }"<%}%>> --%>
 	</td>
 </tr>
 <tr>
 	<td>가격 : </td>
 	<td>
 		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ wv.price }"/>
-<%-- 		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" <% if(sell_id != null){ 
-		%>value="${ wv.price }"<% } else { %> value="0"<% } %>> --%>
 	</td>
 	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td>카테고리 : </td>
 	<td>
-	<%-- <%
-	List<CategoryVO> list=new WantSellDAO().selCategory();
-	%> --%>
 	<select id="category_id" name="category_id" class="form-control">
-	<%-- <% 
-	if(sell_id == null){ 
-	%> --%>
 	<option value="none"><c:out value="-------- 선택 --------"/></option>
-	<%-- <c:forEach var="list" items="${ list }">
+	<c:choose>
+	<c:when test="${ empty sell.sell_id }"><!-- 추가하는 경우 -->
+	<c:forEach var="list" items="${ categoryList }">
 	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
 	</c:forEach>
-	<%
-	} else {
-	%>
+	</c:when>
+	<c:otherwise><!-- 수정하는 경우 -->
+	<%--
 	<% String selected=""; %>
 	<c:forEach var="list" items="${ list }">
 	<c:choose>
@@ -181,10 +160,9 @@ pageContext.setAttribute("sell_id", sell_id);
 	<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/></option>
 	</c:forEach>
 	<% } //end else %> --%>
+	</c:otherwise>
+	</c:choose>
 	</select>
-	<%-- <c:if test="${ not empty e }">
-	문제발생
-	</c:if> --%>
 	</td>
 </tr>
 </table>
@@ -192,15 +170,6 @@ pageContext.setAttribute("sell_id", sell_id);
 <div class="note">
 	<textarea name="comments" id="summernote">${ wv.comments }</textarea>
 </div>
-<%-- <% if(sell_id == null){ %> --%>
-<input type="hidden" name="type" value="add"/>
-<%-- <% } else { %> --%>
-<input type="hidden" name="type" value="edit"/>
-<%-- <input type="hidden" name="sell_id" value="${ sell_id }"/> --%>
-<%-- <% } //end else %> --%>
-
-<%-- <input type="hidden" name="ip_addr" value="<%= ip_addr %>"/>
-<input type="hidden" name="user_id" value="${ sessionScope.sess_user_id }"/> --%>
 </form>
 
 	<div style="text-align: center">
@@ -209,10 +178,6 @@ pageContext.setAttribute("sell_id", sell_id);
 	</div><!-- /<div class="right_wrap"> -->
 </div><!-- /<div id="right"> -->
 </div><!-- /<div id="container"> -->
-	<!-- <script type="text/javascript">
-	alert("작성자만 수정할 수 있습니다.");
-	location.href="javascript:history.back()";
-	</script> -->
 
 <div style="clear:both;">
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
@@ -220,22 +185,10 @@ pageContext.setAttribute("sell_id", sell_id);
 </c:if>
 
 <c:if test="${ not empty param.title }">
-<%-- <%
-String url=commonUrl+"/view/want_sell/want_sell.jsp";
-if( "add".equals(request.getParameter("type")) ) {
-	wd.insertSell(wv);
-} else {
-	wd.updateSell(wv);
-	url=commonUrl+"/view/want_sell/want_sell_detail.jsp?sell_id="+wv.getSell_id();
-} //end else
-%> --%>
 <script type="text/javascript">
-alert("팔아요 글이 등록됐습니다.");
+alert("${ msg }");
 location.href="${ url }";
 </script>
-<%-- <c:if test="${ not empty e }">
-<c:redirect url="../../common/error/error.jsp"/>
-</c:if> --%>
 </c:if>
 
 </body>

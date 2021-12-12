@@ -189,8 +189,7 @@ public class WantBuyDAO {
 		int cnt=0;
 		
 		String update="update want_buy set title=?,comments=?,price=?,ip_addr=?,category_id=? where buy_id=?";
-		
-		jt.update(update, wv.getTitle(), wv.getComments(), wv.getPrice(), wv.getIp_addr(),wv.getCategory_id(), wv.getBuy_id() );
+		cnt=jt.update(update, wv.getTitle(), wv.getComments(), wv.getPrice(), wv.getIp_addr(),wv.getCategory_id(), wv.getBuy_id() );
 		
 		return cnt;
 	}//updateBuy
@@ -200,12 +199,11 @@ public class WantBuyDAO {
 	 * @param buy_id
 	 * @throws SQLException
 	 */
-	public int deleteBuy(int buy_id) throws SQLException {
+	public int deleteBuy(int buy_id, String user_id) throws SQLException {
 		int cnt=0;
 		
-		String delete="delete from want_buy where buy_id=?";
-		
-		jt.update(delete, buy_id);
+		String delete="delete from want_buy where buy_id=? and user_id=?";
+		cnt=jt.update(delete, buy_id, user_id);
 		
 		return cnt;
 	}//deleteBuy
