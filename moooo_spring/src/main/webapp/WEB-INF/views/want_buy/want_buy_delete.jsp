@@ -13,20 +13,8 @@
 
 <script type="text/javascript">
 if(confirm("삭제하시겠습니까?")){
-<%-- <%
-try{
-WantBuyDAO wd=new WantBuyDAO();
-wd.delBuy(Integer.parseInt(request.getParameter("buy_id")));
-%> --%>
 alert("삭제되었습니다.");
-location.href="<%= commonUrl %>/view/want_buy/want_buy.jsp";
-<%-- <%
-} catch (DataAccessException dae){
-%> --%>
-문제발생
-<%-- <%
-}//end catch
-%> --%>
+location.href="<%= commonUrl %>/want_buy/want_buy.do";
 }else{
 	location.href="javascript:history.back()";
 }

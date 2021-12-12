@@ -67,7 +67,7 @@ public class MemberController {
 			ss.setComplete(); //세션 삭제
 		}//end if
 		
-		return "/index";
+		return "redirect:/index.do";
 	} //logoutProc
 	
 	/**

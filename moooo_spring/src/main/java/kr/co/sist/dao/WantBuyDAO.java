@@ -198,9 +198,9 @@ public class WantBuyDAO {
 	/**
 	 * 사고싶어요 삭제
 	 * @param buy_id
-	 * @throws DataAccessException
+	 * @throws SQLException
 	 */
-	public int deleteBuy(int buy_id) throws DataAccessException {
+	public int deleteBuy(int buy_id) throws SQLException {
 		int cnt=0;
 		
 		String delete="delete from want_buy where buy_id=?";

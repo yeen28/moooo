@@ -184,13 +184,45 @@ public class WantService {
 		} //end else
 	} //updateBuy
 	
-//	public boolean deleteBuy(int) {
-//		
-//	}
-//
-//	public List<WantSellVO> searchSellList(int,int,int) {
-//		
-//	}
+	/**
+	 * '사고싶어요' 글 삭제
+	 * @param buy_id
+	 * @return true 성공 | false 실패
+	 * @throws SQLException
+	 */
+	public boolean deleteBuy(int buy_id) throws SQLException {
+		if( bDAO.deleteBuy(buy_id) != 0) { //삭제 성공
+			return true;
+		} else { //실패
+			return false;
+		} //end else
+	} //deleteBuy
+
+	public List<WantSellVO> searchSellList(int category, String page) {
+		List<WantSellVO> list=null;
+		
+		try {
+			int nowPage=nowPage(page); //현재 페이지
+			int numPerPage=numPerPage(); // 한 페이지 당 보여줄 게시물 수
+			int totData=searchAllCnt(category); //전체 게시물 수
+			int lastPage=totalPage(totData,numPerPage); //마지막 페이지번호
+			int blockPage=blockPage();
+			
+			int start=((nowPage-1)/blockPage)*10+1;
+			int end=endNum(start, blockPage);
+			if( end > lastPage ){
+				end=lastPage;
+			}//end if
+			
+			int rowBegin=startNum(nowPage,blockPage);
+			int rowEnd=nowPage*numPerPage;
+			list=sDAO.selectSellTitle(category, rowBegin, rowEnd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 //	
 //	public WantSellVO getWantSellDetail(int) {
 //		
