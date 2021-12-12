@@ -175,7 +175,7 @@ $(function () {
 <h2>공지사항 작성</h2>
 <br/>
 
-<form name="frm" id="frm" method="post" action="notice_edit_proc.do">
+<form name="frm" id="frm" method="post" action="notice_edit_proc.do?control=${ param.control }">
 <div>
 <table class="table" style="width: 1000px;">
 <tr>
@@ -189,13 +189,10 @@ $(function () {
 <div class="note">
 	<textarea name="comments" id="summernote">${ notice.comments }</textarea>
 </div>
-<input type="hidden" name="type" value="add"/>
-<input type="hidden" name="type" value="edit"/>
-<%-- <input type="hidden" name="sell_id" value="${ sell_id }"/> --%>
-
-<input type="hidden" name="admin_id" value="${ sessionScope.admin_id }"/>
+<c:if test="${ not empty param.notice_id }">
+<input type="hidden" value="${ param.notice_id }" name="notice_id"/>
+</c:if>
 </form>
-
 	<div style="text-align: center">
 		<input type="button" class="btn" value="작성 완료" id="add">
 	</div>

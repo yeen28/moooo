@@ -69,7 +69,7 @@ a{color: #333;}
 </form>
 </div>
 <br/>
-<a href="notice_edit_form.do">+추가</a>
+<a href="notice_edit_form.do?control=add">+추가</a>
 <table class="table table-hover">
 <thead>
 <tr>
@@ -96,5 +96,12 @@ a{color: #333;}
 </c:forEach>
 </table>
 </div>
+
+<c:if test="${ not empty requestScope.msg }">
+<script type="text/javascript">
+alert("${ requestScope.msg }");
+location.href="${ commonUrl }/admin/mgr_notice.do";
+</script>
+</c:if>
 </body>
 </html>

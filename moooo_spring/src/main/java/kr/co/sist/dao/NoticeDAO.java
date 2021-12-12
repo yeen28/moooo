@@ -176,8 +176,8 @@ public class NoticeDAO {
 	public void insertNoti(NoticeVO wv) throws SQLException {
 		StringBuilder insert=new StringBuilder();
 		insert
-		.append("	insert into notice(notice_id,title,comments,view_cnt,input_date,admin_id)	")
-		.append("	values(seq_notice.nextval,?,?,0,sysdate,?)");
+		.append("	insert into notice(title,comments,view_cnt,input_date,admin_id,notice_id)	")
+		.append("	values(?,?,0,sysdate,?,seq_notice.nextval)");
 		
 		jt.update(insert.toString(), new Object[] { wv.getTitle(), wv.getComments(), wv.getAdmin_id() });
 	}//insertNoti
@@ -191,11 +191,10 @@ public class NoticeDAO {
 		int cnt=0;
 		
 		String update="update notice set title=?,comments=? where notice_id=?";
-		
-		jt.update(update, wv.getTitle(), wv.getComments(), wv.getNotice_id() );
+		cnt=jt.update(update, wv.getTitle(), wv.getComments(), wv.getNotice_id() );
 		
 		return cnt;
-	}//updateSell
+	}//updateNoti
 	
 	/**
 	 * ±€ ªË¡¶

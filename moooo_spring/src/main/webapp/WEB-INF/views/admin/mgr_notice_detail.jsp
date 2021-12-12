@@ -68,6 +68,12 @@ function chkWriter(sessionId, writerId, control) {
 		location.href="javascript:history.back()";
 	} //end else
 } //chkWriter
+
+function chk() {
+	if( confirm("삭제하시겠습니까?") ){
+		location.href="<%= commonUrl %>/admin/mgr_notice_delete.do?notice_id=${ notice.getNotice_id() }&writer=${ notice.getAdmin_id() }";
+	}//end if
+}//chk
 </script>
 </head>
 
@@ -113,9 +119,16 @@ function chkWriter(sessionId, writerId, control) {
 				</table>
 			</div>
 				<a href="<%= commonUrl %>/admin/mgr_notice.do" class="noticeBtn">목록</a>
-				<a href="<%= commonUrl %>/admin/notice_edit_form.do?notice_id=${ notice.getNotice_id() }&control=edit" class="noticeBtn" onclick="chkWriter('${ sessionScope.admin_id }','${ notice.getAdmin_id() }','edit')">수정</a>
-				<a href="<%= commonUrl %>/admin/mgr_notice_delete.do?notice_id=${ notice.getNotice_id() }&writer=${ notice.getAdmin_id() }" class="noticeBtn">삭제</a>
+				<a href="<%= commonUrl %>/admin/notice_edit_form.do?notice_id=${ notice.getNotice_id() }&control=edit&writer=${ notice.getAdmin_id() }" class="noticeBtn" onclick="chkWriter('${ sessionScope.admin_id }','${ notice.getAdmin_id() }','edit')">수정</a>
+				<a href="#void" class="noticeBtn" onclick="chk()">삭제</a>
 			</div>
 		</div>
+
+<c:if test="${ not empty requestScope.msg }">
+<script type="text/javascript">
+alert("${ requestScope.msg }");
+location.href="${ requestScope.url }";
+</script>
+</c:if>
 </body>
 </html>

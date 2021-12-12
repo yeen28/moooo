@@ -143,20 +143,24 @@ public class MgrController {
 	 * 공지사항 추가 또는 수정 처리
 	 */
 	@RequestMapping(value="notice_edit_proc.do", method=POST)
-	public String noticeEditProc(NoticeVO nVO, String control, Model model) throws SQLException {
+	public String noticeEditProc(NoticeVO nVO, String control, HttpSession session, Model model) throws SQLException {
 		String jspPage="admin/mgr_notice_write";
 		
-		if( "edit".equals(control) ) { //수정하는 경우
-			if( ns.editNotice(nVO) ) { //성공
-				model.addAttribute("msg", "등록됐습니다.");
-				model.addAttribute("url", "mgr_notice_detail.do?notice_id="+nVO.getNotice_id());
-			} else {
-				jspPage="/error/error";
-			} //end else
-		} else { //추가하는 경우
+		nVO.setAdmin_id((String)session.getAttribute("admin_id"));
+		
+		if( "add".equals(control) ) { //추가하는 경우
 			ns.addNotice(nVO);
 			model.addAttribute("msg", "등록됐습니다.");
+			model.addAttribute("control", "add");
 			model.addAttribute("url", "mgr_notice.do");
+		} else { //수정하는 경우
+			if( ns.editNotice(nVO) ) { //성공
+				model.addAttribute("msg", "등록됐습니다.");
+				model.addAttribute("control", "edit");
+				model.addAttribute("url", "mgr_notice_detail.do?notice_id="+nVO.getNotice_id());
+			} else {
+				//jspPage="/error/error";
+			} //end else
 		} //end else
 		model.addAttribute("notice", ns.noticeDetail(nVO.getNotice_id(), "admin"));
 		
@@ -174,11 +178,12 @@ public class MgrController {
 		if( writer.equals((String)session.getAttribute("admin_id")) ){ //일치
 			if( ns.deleteNotice(notice_id, writer) ) { //성공
 				model.addAttribute("msg","삭제했습니다.");
-				jspPage="redirect:/admin/mgr_notice.do";
+				jspPage="admin/mgr_notice";
 			}
 		} else { //불일치
 			model.addAttribute("msg","작성자만 삭제 가능합니다.");
-			jspPage="redirect:/admin/mgr_notice_detail.do?notice_id="+notice_id;
+			model.addAttribute("url", "javascript:histroy.back()");
+			jspPage="admin/mgr_notice_detail";
 		} //end else
 		
 		return jspPage;
