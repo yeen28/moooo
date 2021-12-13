@@ -50,18 +50,14 @@
 </c:when>
 <c:otherwise>
 <div id="user">
-  <h3>${ sessionScope.user_id }</h3>
-  <a href="<%= commonUrl %>/user/mypage/mypage_form.do">내정보</a>
-  <a href="<%= commonUrl %>/user/login/logout_proc.do">로그아웃</a>
-  <br/><br/><br/>
+  <h3>${ requestScope.nickname }</h3>
   <table class="table table2">
   <tr>
-    <td class="t-label" style="padding-left: 0;">전화번호</td>
-    <td class="t-label">
-  <c:out value="${ requestScope.phone }"/><br/>
-	</td>
+    <td class="t-label"><a href="<%= commonUrl %>/user/mypage/mypage_form.do">내정보</a></td>
+    <td class="t-label"><a href="<%= commonUrl %>/user/login/logout_proc.do">로그아웃</a></td>
   </tr>
   </table>
+  <hr/>
 </div>
 </c:otherwise>
 </c:choose>

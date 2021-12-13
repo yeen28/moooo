@@ -94,6 +94,11 @@ float: right;
 
 <script type="text/javascript">
 $(function() {
+	<c:if test="${ not empty param.msg }">
+	alert("${ param.msg }");
+	location.href="${ commonUrl }"+"${ param.url }";
+	</c:if>
+	
 	$("#myInfo").click(function() {
 		/* $.ajax({
 			url: "ajax_sub/myInfo.do",
@@ -228,7 +233,7 @@ function upload() {
 </div>
 
 	<div id="view"><br/>
-	<form action="${ commonUrl }/user/mypage/proc/update_proc.do" id="frm" method="post" enctype="multipart/form-data">
+	<form action="${ commonUrl }/user/mypage/mypage_update.do" id="frm" method="post" enctype="multipart/form-data">
 		<div id="myImg">
 			<div style="text-align: left;">이미지</div>
 			<%-- <% if( uv.getImg() == null ) { %> --%>
@@ -238,7 +243,7 @@ function upload() {
 			</c:when>
 			<%-- <% } else { %> --%>
 			<c:otherwise>
-			<img id="viewImg" src="<%= commonUrl %>/common/images/upload/${ mVO.getImg() }" alt="image"><br/>
+			<img id="viewImg" src="<%= commonUrl %>/upload/${ mVO.getImg() }" alt="image"><br/>
 			<!-- 사진변경 버튼 / 클릭시 팝업? -->
 			</c:otherwise>
 			</c:choose>

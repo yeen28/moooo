@@ -54,8 +54,8 @@ public class MypageService {
 		boolean result=false;
 		
 		//1. 파일업로드 컴포넌트 생성. ( 파일이 업로드 된다. )
-		File uploadPath=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload");
-		//File uploadPath=new File("E:/moooo/common/images/upload"); //서버에서 경로
+		File uploadPath=new File("C:/Users/user/git/moooo/moooo_spring/src/main/webapp/upload");
+		//File uploadPath=new File("E:/moooo/upload"); //서버에서 경로
 		if( !uploadPath.exists() ){ //업로드 폴더가 존재하지 않으면
 			uploadPath.mkdirs();
 		}//end if
@@ -78,8 +78,8 @@ public class MypageService {
 		
 		//이전 파일은 삭제하기
 		String beforeFileName=mDAO.selectMypage(user_id).getImg();
-		File deleteImg=new File("C:/Users/user/git/moooo/moooo/src/main/webapp/common/images/upload/"+beforeFileName);
-		//File deleteImg=new File("E:/moooo/common/images/upload/"+beforeFileName);
+		File deleteImg=new File("C:/Users/user/git/moooo/moooo_spring/src/main/webapp/upload/"+beforeFileName);
+		//File deleteImg=new File("E:/moooo/upload/"+beforeFileName);
 		if(deleteImg.exists() && deleteImg.isFile()){ //이전 이미지가 존재한다면
 			if(deleteImg.delete()){ //사진 삭제
 				//System.out.println("삭제 : "+beforeFileName);

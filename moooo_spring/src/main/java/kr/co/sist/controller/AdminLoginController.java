@@ -31,31 +31,34 @@ public class AdminLoginController {
 	
 	/**
 	 * 로그인 화면 ( 관리자 접속시 첫 화면 )
-	 * @return
 	 */
 	@RequestMapping(value="login.do",method=GET)
-	public String loginForm() {
-		String jspPage="admin/login";
+	public String loginForm(HttpSession session) {
+		String jspPage="";
+		
+		if( session == null ) { //로그인 전
+			jspPage="admin/login";
+		} else {
+			jspPage="redirect:/admin/main.do";
+		} //end else
+		
 		return jspPage;
 	} //loginForm
 	
 	/**
 	 * 로그인 처리
-	 * @param aVO
-	 * @param model
-	 * @return
 	 */
 	@RequestMapping(value="login_proc.do",method=POST)
 	public String loginProc(AdminLoginVO aVO,Model model) {
-		String jspPage="";
+		String jspPage="admin/login";
 		
 		if( als.procLogin(aVO) ) {  //로그인 성공
 			model.addAttribute("admin_id", aVO.getAdmin_id());
-			jspPage="admin/main";
+//			jspPage="admin/main";
 			
 		} else { //로그인 실패
 			model.addAttribute("msg", "아이디, 비밀번호를 확인해주세요.");
-			jspPage="admin/login";
+//			jspPage="admin/login";
 		}//end else
 		
 		return jspPage;

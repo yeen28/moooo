@@ -27,18 +27,13 @@ public class MainController {
 	 * 사용자 메인화면
 	 */
 	@RequestMapping(value="/index.do",method=GET)
-	public String index(HttpSession session, Model model)  throws SQLException {
+	public String index(Model model)  throws SQLException {
 		
 		try {
 			model.addAttribute("listBuyTitle", ms.getWantBuyTitle());
 			model.addAttribute("listSellTitle", ms.getWantSellTitle());
 			model.addAttribute("howToUse", ms.getHowToUse());
 			
-			String user_id=(String)session.getAttribute("user_id");
-			if( !"".equals(user_id)) { //세션이 있으면(로그인 했으면)
-				model.addAttribute("phone", ms.getUserPhone(user_id));
-			} //end if
-		
 		}catch(DataAccessException dae) { }
 		
 		return "index";
@@ -48,8 +43,14 @@ public class MainController {
 	 * 왼쪽 메뉴 카테고리 보여주기
 	 */
 	@RequestMapping(value="/layout/side_left.do",method=GET)
-	public String sideLeft(Model model) throws SQLException {
+	public String sideLeft(HttpSession session, Model model) throws SQLException {
 		model.addAttribute("listCategory", ms.getCategory());
+		
+		String user_id=(String)session.getAttribute("user_id");
+		if( !"".equals(user_id)) { //세션이 있으면(로그인 했으면)
+			model.addAttribute("nickname", ms.getUserNickname(user_id));
+		} //end if
+		
 		return "layout/side_left";
 	} //sideLeft
 	

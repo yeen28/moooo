@@ -6,7 +6,7 @@
 <%@ include file="/common/jsp/common_code.jsp" %>    
 
 <c:if test="${ not empty sessionScope.admin_id }">
-<c:redirect url="${ commonUrl }/admin/main_form.do"/>
+<c:redirect url="${ commonUrl }/admin/main.do"/>
 </c:if>
 
 <!DOCTYPE html>

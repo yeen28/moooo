@@ -1,6 +1,5 @@
 package kr.co.sist.controller;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -17,9 +16,11 @@ import kr.co.sist.vo.WantSellVO;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -37,18 +38,23 @@ public class MypageController {
 		String jspPage="user/mypage/mypage";
 		
 		String user_id=(String)session.getAttribute("user_id");
-//		JSONObject json=new JSONObject();
-//		json.put("msg", name+"님 안녕하세요.");
-//		model.addAttribute("jsonData", json.toJSONString());
 		MemberVO mVO=ms.getMypageInfo(user_id);
 		model.addAttribute("mVO", mVO);
 		
 		return jspPage;
 	} //mypageForm
 
-	@RequestMapping(value="mypage_update.do",method=GET)
-	public String updateMypage(MemberVO mVO,Model model) {
-		String jspPage="";
+	/**
+	 * 마이페이지 업데이트 처리
+	 */
+	@RequestMapping(value="mypage_update.do",method= POST)
+	public String updateMypage(HttpServletRequest request, MemberVO mVO,Model model) throws IOException, SQLException {
+		String jspPage="redirect:/user/mypage/mypage_form.do";
+		
+		ms.updateMypage(request, mVO);
+		
+		model.addAttribute("msg", "정보변경했습니다.");
+		model.addAttribute("url", "/user/mypage/mypage_form.do");
 		
 		return jspPage;
 	} //updateMypage

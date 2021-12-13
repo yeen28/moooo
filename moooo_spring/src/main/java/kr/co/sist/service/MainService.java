@@ -73,9 +73,14 @@ public class MainService {
 		return comments;
 	} //getHowToUse
 	
-	public String getUserNickname(String user_id) {
-		String nickname="";
-		
+	/**
+	 * 사용자 닉네임 얻기
+	 * @param user_id
+	 * @return nickname
+	 * @throws SQLException 
+	 */
+	public String getUserNickname(String user_id) throws SQLException {
+		String nickname=mDAO.selectGetNickname(user_id);
 		return nickname;
 	} //getUserNickname
 	
