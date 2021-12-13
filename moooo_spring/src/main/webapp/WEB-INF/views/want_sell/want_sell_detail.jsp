@@ -145,6 +145,12 @@ function chkUserDelete( sessionId, writer ) {
       		</div>
       		</c:if>
 			</div>
+			<c:if test="${ isInterest eq false }">
+			<a href="interest.do?sell_id=${ sell.sell_id }&interest=n"><span style="font-size: 35px;font-weight: bold;">&star;</span></a>
+			</c:if>
+			<c:if test="${ isInterest eq true }">
+			<a href="interest.do?sell_id=${ sell.sell_id }&interest=y"><span style="font-size: 35px;font-weight: bold;">&starf;</span></a>
+			</c:if>
 			<a href="#" onclick="chkMe('${ sell.sell_id }', '${ sell.user_id }')">신고하기</a>
 		</div>
 			

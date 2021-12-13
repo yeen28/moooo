@@ -119,6 +119,8 @@ public class WantController {
 		return jspPage;
 	} //wantBuyDelete
 	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	/**
 	 * '팔아요' 글 목록
 	 */
@@ -143,10 +145,11 @@ public class WantController {
 	 * '팔아요' 상세페이지
 	 */
 	@RequestMapping(value="want_sell/want_sell_detail.do",method=GET)
-	public String wantSellDetail(int sell_id,Model model){
+	public String wantSellDetail(int sell_id, HttpSession session, Model model){
 		String jspPage="want_sell/want_sell_detail";
 		
 		model.addAttribute("sell",ws.getWantSellDetail(sell_id));
+		model.addAttribute( "isInterest", ws.isInterest(sell_id, (String)session.getAttribute("user_id")) );
 		
 		return jspPage;
 	} //wantSellDetail
@@ -248,6 +251,29 @@ public class WantController {
 		
 		return jspPage;
 	} //reportProc
+	
+	@RequestMapping(value="/want_sell/interest.do",method=GET)
+	public String interestProc(@RequestParam(value="sell_id",defaultValue = "0")String sell_id, HttpSession session, String interest) {
+		int code=0;
+		try {
+			code=Integer.parseInt(sell_id);
+		} catch(NumberFormatException nfe) {
+			code=0;
+		} //end catch
+		
+		String jspPage="redirect:/want_sell/want_sell_detail.do?sell_id="+sell_id;
+		
+		if( "y".equals(interest) ) { //관심글에서 해제하기
+			ws.updateInterest(code, (String)session.getAttribute("user_id"), "remove");
+			
+		} //end if
+		
+		if( "n".equals(interest) ) { //관심글로 설정하기
+			ws.updateInterest(code, (String)session.getAttribute("user_id"), "add");
+		} //end else
+		
+		return jspPage;
+	} //interestProc
 	
 	
 	/////////////////////// 예외 처리 ////////////////////////////

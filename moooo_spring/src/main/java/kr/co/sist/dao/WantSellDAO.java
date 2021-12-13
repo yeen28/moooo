@@ -182,7 +182,7 @@ public class WantSellDAO {
 	}//selectEditSell
 	
 	/**
-	 * 마이페이지에 보여줄 리스트
+	 * 마이페이지에 보여줄 글 List
 	 * @param user_id
 	 * @return
 	 * @throws SQLException
@@ -250,7 +250,6 @@ public class WantSellDAO {
 		List<CategoryVO> list=null;
 		
 		String select="select category_id,name from category";
-		
 		list=jt.query(select, new RowMapper<CategoryVO>() {
 			@Override
 			public CategoryVO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -264,4 +263,44 @@ public class WantSellDAO {
 		return list;
 	}//selectCategory
 
-}
+	/**
+	 * 관심글로 설정되어있는지 확인
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int selectIsInterest(int sell_id, String user_id) throws DataAccessException {
+		int code=0;
+		String select="select sell_id from interest_prod where sell_id=? and user_id=?";
+		code=jt.queryForObject(select, new Object[] { sell_id, user_id }, Integer.class);
+		
+		return code;
+	} //selectIsInterest
+	
+	/**
+	 * 관심글로 추가
+	 * @param user_id
+	 * @param sell_id
+	 * @throws DataAccessException
+	 */
+	public void insertInterest(String user_id, int sell_id) throws DataAccessException{
+		String insert="insert into interest_prod(user_id, sell_id) values(?, ?)";
+		jt.update(insert, user_id, sell_id);
+	} //insertInterest
+	
+	/**
+	 * 관심글 해제
+	 * @param user_id
+	 * @param sell_id
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int deleteInterest(String user_id, int sell_id) throws DataAccessException{
+		int cnt=0;
+		
+		String delete="delete from interest_prod where user_id=? and sell_id=?";
+		cnt=jt.update(delete, user_id, sell_id);
+		
+		return cnt;
+	} //deleteInterest
+	
+} //class

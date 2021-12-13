@@ -337,8 +337,42 @@ public class WantService {
 //		
 //	}
 //
-//	public boolean addInterest(int,String) {
-//		
-//	}
 	
-}
+	/**
+	 * 관심글로 설정되어 있는지 확인
+	 * @param sell_id
+	 * @param user_id
+	 * @return
+	 * @throws DataAccessException 
+	 */
+	public boolean isInterest(int sell_id ,String user_id) {
+		try {
+			if( sDAO.selectIsInterest(sell_id, user_id) != 0 ) {
+				return true;
+			} else {
+				return false;
+			} //end else
+		} catch(DataAccessException dae) {
+			return false;
+		} //end catch
+	} //isInterest
+	
+	/**
+	 * 관심글로 추가/삭제
+	 * @param sell_id
+	 * @param user_id
+	 * @param control
+	 * @return
+	 * @throws DataAccessException 
+	 */
+	public void updateInterest(int sell_id ,String user_id, String control) throws DataAccessException {
+		if( "add".equals(control) ) { //관심글로 추가
+			sDAO.insertInterest(user_id, sell_id);
+		} //end if
+		
+		if( "remove".equals(control) ) { //관심글에서 해제
+			sDAO.deleteInterest(user_id, sell_id);
+		} //end if
+	} //updateInterest
+	
+} //class
