@@ -25,7 +25,7 @@
 	</c:if>
 		<c:forEach var="list" items="${ interestList }">
 			<tr>
-				<td style="font-size: 14px"><a href="<%= commonUrl %>/view/want_sell_detail.do?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
+				<td style="font-size: 14px"><a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
 				<td style="font-size: 14px"><c:out value="${ requestScope.input_date }"/></td>
 			</tr>
 		</c:forEach>

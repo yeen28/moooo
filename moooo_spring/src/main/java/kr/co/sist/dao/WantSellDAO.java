@@ -285,6 +285,8 @@ public class WantSellDAO {
 	public void insertInterest(String user_id, int sell_id) throws DataAccessException{
 		String insert="insert into interest_prod(user_id, sell_id) values(?, ?)";
 		jt.update(insert, user_id, sell_id);
+		
+		updateInterestCnt(sell_id, "insert");
 	} //insertInterest
 	
 	/**
@@ -300,7 +302,25 @@ public class WantSellDAO {
 		String delete="delete from interest_prod where user_id=? and sell_id=?";
 		cnt=jt.update(delete, user_id, sell_id);
 		
+		updateInterestCnt(sell_id, "delete");
+		
 		return cnt;
 	} //deleteInterest
+	
+	public int updateInterestCnt(int sell_id, String control) throws DataAccessException {
+		int cnt=0;
+		
+		String op="";
+		if( "insert".equals(control) ){
+			op="+";
+		}
+		if( "delete".equals(control) ){
+			op="-";
+		}
+		String update="update want_sell set interest_cnt=(interest_cnt" + op + "1) where sell_id=?";
+		cnt=jt.update(update, sell_id);
+		
+		return cnt;
+	} //updateInterestCnt
 	
 } //class
