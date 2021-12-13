@@ -22,7 +22,6 @@ body{
 }
 </style>
 
-
 <div id="header">
 <div id="navibar">
 <ul class="nav nav-pills nav_right" role="tablist">

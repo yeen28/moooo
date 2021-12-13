@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.dao.NoticeDAO;
 import kr.co.sist.vo.NoticeVO;
+import kr.co.sist.vo.PaginationVO;
 
 @Component
 public class NoticeService {
@@ -19,22 +20,10 @@ public class NoticeService {
 	public List<NoticeVO> searchNoticeList(String page) {
 		List<NoticeVO> list=null;
 		
+		PaginationVO pVO=getPagination(page);
+		
 		try {
-			int nowPage=nowPage(page); //현재 페이지
-			int numPerPage=numPerPage(); // 한 페이지 당 보여줄 게시물 수
-			int totData=searchAllCnt(); //전체 게시물 수
-			int lastPage=totalPage(totData,numPerPage); //마지막 페이지번호
-			int blockPage=blockPage();
-			
-			int start=((nowPage-1)/blockPage)*10+1;
-			int end=endNum(start, blockPage);
-			if( end > lastPage ){
-				end=lastPage;
-			}//end if
-			
-			int rowBegin=startNum(nowPage,blockPage);
-			int rowEnd=nowPage*numPerPage;
-			list=nDAO.selectNotiTitle(rowBegin, rowEnd);
+			list=nDAO.selectNotiTitle(pVO.getRowBegin(), pVO.getRowEnd());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,21 +32,41 @@ public class NoticeService {
 	} //searchNoticeList
 	
 	/**
-	 * 현재 페이지를 숫자로 변환
-	 * @param page 현재 페이지
-	 * @return 숫자로 변환된 현재 페이지
+	 * 페이지네이션 얻기
+	 * @param page
+	 * @return
 	 */
-	public int nowPage(String page) {
-		int nowPage=0;
+	public PaginationVO getPagination(String page) {
+		PaginationVO pVO=new PaginationVO();
 		
-		try {
+		int numPerPage=numPerPage(); //한 페이지 당 보여줄 게시물의 수
+		int totData=searchAllCnt(); //전체 게시물 수
+		int lastPage=totalPage(totData,numPerPage); //마지막 페이지번호
+		int blockPage=blockPage();
+		int nowPage=1; //현재 페이지
+		try{
 			nowPage=Integer.parseInt(page);
-		} catch(NumberFormatException nfe) {
+		} catch (NumberFormatException nfe){
 			nowPage=1;
-		} //end catch
+		}
+		int start=((nowPage-1)/blockPage)*10+1;
+		int end=start+blockPage-1;
+		if( end > lastPage ){
+			end=lastPage;
+		} //end if
 		
-		return nowPage;
-	} //nowPage
+		int rowBegin=(nowPage-1)*numPerPage+1;
+		int rowEnd=nowPage*numPerPage;
+		
+		pVO.setNowPage(nowPage);
+		pVO.setStart(start);
+		pVO.setEnd(end);
+		pVO.setRowBegin(rowBegin);
+		pVO.setRowEnd(rowEnd);
+		pVO.setLastPage(lastPage);
+		
+		return pVO;
+	} //getPagination
 	
 	/**
 	 * 전체 게시물의 수

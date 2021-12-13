@@ -38,7 +38,6 @@ public class WantController {
 	@RequestMapping(value="want_buy/want_buy.do",method=GET)
 	public String wantBuy(String category,String page,Model model) {
 		String jspPage="want_buy/want_buy";
-		//int nowPage=ws.nowPage(page);
 		
 		int categoryNum=0;
 		try {
@@ -49,6 +48,7 @@ public class WantController {
 		
 		ws.searchBuyList(categoryNum, page);
 		model.addAttribute("list",ws.searchBuyList(categoryNum, page));
+		model.addAttribute("pagination", ws.getPagination(category, page));
 		
 		return jspPage;
 	} //wantBuy
@@ -137,6 +137,7 @@ public class WantController {
 		
 		ws.searchSellList(categoryNum, page);
 		model.addAttribute("list",ws.searchSellList(categoryNum, page));
+		model.addAttribute("pagination", ws.getPagination(category, page));
 		
 		return jspPage;
 	} //wantSell

@@ -100,17 +100,8 @@ public class MgrController {
 	public String noticeForm(String page, Model model) {
 		String jspPage="admin/mgr_notice";
 		
-		int nowPage=ns.nowPage(page);
-//			int totalCount=ns.searchAllCnt();
-//			int blockPage=ns.blockPage();
-//			int start=ns.startNum(nowPage, blockPage);
-//			int end=ns.endNum(start, blockPage);
-		
 		model.addAttribute("noticeList", ns.searchNoticeList(page));
-		model.addAttribute("nowPage", nowPage);
-		model.addAttribute("LastPage", nowPage);
-		model.addAttribute("start", nowPage);
-		model.addAttribute("end", nowPage);
+		model.addAttribute("pagination", ns.getPagination(page));
 		
 		return jspPage;
 	} //noticeForm

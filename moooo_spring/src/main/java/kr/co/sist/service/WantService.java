@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.dao.ReportDAO;
 import kr.co.sist.dao.WantBuyDAO;
 import kr.co.sist.dao.WantSellDAO;
+import kr.co.sist.vo.PaginationVO;
 import kr.co.sist.vo.ReportReasonVO;
 import kr.co.sist.vo.ReportVO;
 import kr.co.sist.vo.WantBuyVO;
@@ -34,22 +35,10 @@ public class WantService {
 	public List<WantBuyVO> searchBuyList(int category, String page){
 		List<WantBuyVO> list=null;
 		
+		PaginationVO pVO=getPagination(String.valueOf(category), page);
+		
 		try {
-			int nowPage=nowPage(page); //현재 페이지
-			int numPerPage=numPerPage(); // 한 페이지 당 보여줄 게시물 수
-			int totData=searchAllCnt(category); //전체 게시물 수
-			int lastPage=totalPage(totData,numPerPage); //마지막 페이지번호
-			int blockPage=blockPage();
-			
-			int start=((nowPage-1)/blockPage)*10+1;
-			int end=endNum(start, blockPage);
-			if( end > lastPage ){
-				end=lastPage;
-			}//end if
-			
-			int rowBegin=startNum(nowPage,blockPage);
-			int rowEnd=nowPage*numPerPage;
-			list=bDAO.selectBuyTitle(category, rowBegin, rowEnd);
+			list=bDAO.selectBuyTitle(category, pVO.getRowBegin(), pVO.getRowEnd());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} //end catch
@@ -58,21 +47,57 @@ public class WantService {
 	} //searchNoticeList
 	
 	/**
-	 * 현재 페이지를 숫자로 변환
-	 * @param page 현재 페이지
-	 * @return 숫자로 변환된 현재 페이지
+	 * 페이지네이션 얻기
+	 * @param category
+	 * @param page
+	 * @return
 	 */
-	public int nowPage(String page) {
-		int nowPage=0;
+	public PaginationVO getPagination(String paramCategory, String page) {
 		
-		try {
+		
+		PaginationVO pVO=new PaginationVO();
+		
+		int category=0;
+		try{
+			category=Integer.parseInt(paramCategory);
+		} catch (NumberFormatException nfe){
+			category=0;
+		}//end catch
+		
+		int numPerPage=numPerPage(); //한 페이지 당 보여줄 게시물의 수
+		int totData=searchAllCnt(category); //전체 게시물 수
+		int lastPage=totalPage(totData,numPerPage); //마지막 페이지번호
+//		int lastPage=totData/numPerPage; //마지막 페이지번호
+//		if(totData % numPerPage > 0){
+//			++lastPage;
+//		}
+		int blockPage=blockPage();
+		int nowPage=1; //현재 페이지
+		try{
 			nowPage=Integer.parseInt(page);
-		} catch(NumberFormatException nfe) {
+		} catch (NumberFormatException nfe){
 			nowPage=1;
-		} //end catch
+		}
+		int start=((nowPage-1)/blockPage)*10+1;
+		int end=start+blockPage-1;
+//		int end=endNum(start, blockPage);
+		if( end > lastPage ){
+			end=lastPage;
+		} //end if
+
+		int rowBegin=(nowPage-1)*numPerPage+1;
+//		int rowBegin=startNum(nowPage,blockPage);
+		int rowEnd=nowPage*numPerPage;
 		
-		return nowPage;
-	} //nowPage
+		pVO.setNowPage(nowPage);
+		pVO.setStart(start);
+		pVO.setEnd(end);
+		pVO.setRowBegin(rowBegin);
+		pVO.setRowEnd(rowEnd);
+		pVO.setLastPage(lastPage);
+		
+		return pVO;
+	} //getPagination
 	
 	/**
 	 * 전체 게시물의 수
@@ -85,6 +110,7 @@ public class WantService {
 			cnt = bDAO.selectBuyCnt(category);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
+			cnt=0;
 		}
 		
 		return cnt;
@@ -216,22 +242,10 @@ public class WantService {
 	public List<WantSellVO> searchSellList(int category, String page) {
 		List<WantSellVO> list=null;
 		
+		PaginationVO pVO=getPagination(String.valueOf(category), page);
+		
 		try {
-			int nowPage=nowPage(page); //현재 페이지
-			int numPerPage=numPerPage(); // 한 페이지 당 보여줄 게시물 수
-			int totData=searchAllCnt(category); //전체 게시물 수
-			int lastPage=totalPage(totData,numPerPage); //마지막 페이지번호
-			int blockPage=blockPage();
-			
-			int start=((nowPage-1)/blockPage)*10+1;
-			int end=endNum(start, blockPage);
-			if( end > lastPage ){
-				end=lastPage;
-			}//end if
-			
-			int rowBegin=startNum(nowPage,blockPage);
-			int rowEnd=nowPage*numPerPage;
-			list=sDAO.selectSellTitle(category, rowBegin, rowEnd);
+			list=sDAO.selectSellTitle(category, pVO.getRowBegin(), pVO.getRowEnd());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

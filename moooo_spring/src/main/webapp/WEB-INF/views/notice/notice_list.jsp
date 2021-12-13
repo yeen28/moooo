@@ -45,37 +45,6 @@
 </script>
 </head>
 <body>
-<%-- <%
-NoticeDAO nDAO = new NoticeDAO();
-
-int numPerPage=10;
-int totData=nDAO.selectNotiCnt();
-int LastPage=totData/numPerPage;
-if(totData % numPerPage > 0){
-	++LastPage;
-}
-int blockPage=10;
-int nowPage=1; //현재 페이지
-try{
-	nowPage=Integer.parseInt(request.getParameter("page"));
-} catch (NumberFormatException nfe){
-	nowPage=1;
-}
-int start=((nowPage-1)/blockPage)*10+1;
-int end=start+blockPage-1;
-if( end > LastPage ){
-	end=LastPage;
-}
-
-int rowBegin=(nowPage-1)*numPerPage+1;
-int rowEnd=nowPage*numPerPage;
-List<NotiInsertVO> list=nDAO.selectNotiTitle(rowBegin, rowEnd);
-
-pageContext.setAttribute("start", start);
-pageContext.setAttribute("end", end);
-pageContext.setAttribute("nowPage", nowPage);
-pageContext.setAttribute("selectedNotice", list);
-%> --%>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
@@ -120,23 +89,21 @@ pageContext.setAttribute("selectedNotice", list);
 		<nav id="pagination">
 					<ul class="pagination">
 						<li>
-						<c:if test="${ nowPage ne 1 }">
+						<c:if test="${ pagination.nowPage ne 1 and param.page ne null }">
 							<a href="<%= commonUrl %>/notice/notice_list.do?page=${ nowPage-1 }" aria-label="Previous">
 								<span aria-hidden="true">&laquo;</span>
 							</a>
 						</c:if>
 						</li>
 						<c:set var="num" value="${ selectedNotice }"/>
-						<c:forEach var="i" begin="${ start }" end="${ end }">
+						<c:forEach var="i" begin="${ pagination.start }" end="${ pagination.end }">
 						<li><a href="<%= commonUrl %>/notice/notice_list.do?page=${ i }"><c:out value="${ i }"/></a></li>
 						</c:forEach>
 						<li>
-						<%-- <% if(LastPage != 0 && nowPage != LastPage){ %> --%>
-						<c:if test="${ LastPage ne 0 and nowPage ne LastPage }">
+						<c:if test="${ pagination.lastPage ne 0 and pagination.nowPage ne pagination.lastPage }">
 							<a href="<%= commonUrl %>/notice/notice_list.do?page=${ nowPage+1 }" aria-label="Next">
 								<span aria-hidden="true">&raquo;</span>
 							</a>
-							<%-- <% } %> --%>
 						</c:if>
 						</li>
 					</ul>

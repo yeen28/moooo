@@ -32,46 +32,6 @@
 </head>
 
 <body>
-<%-- <%
-//category가 있는 경우, 해당 카테고리의 글만 얻기
-int category=0;
-try{
-	category=Integer.parseInt(request.getParameter("category"));
-} catch (NumberFormatException nfe){
-	category=0;
-}//end catch
-
-//페이지네이션 처리
-WantSellDAO nDAO = new WantSellDAO();
-
-int numPerPage=10;
-int totData=nDAO.selectSellCnt(category);
-int LastPage=totData/numPerPage;
-if(totData % numPerPage > 0){
-	++LastPage;
-}
-int blockPage=10;
-int nowPage=1; //현재 페이지
-try{
-	nowPage=Integer.parseInt(request.getParameter("page"));
-} catch (NumberFormatException nfe){
-	nowPage=1;
-}
-int start=((nowPage-1)/blockPage)*10+1;
-int end=start+blockPage-1;
-if( end > LastPage ){
-	end=LastPage;
-}
-
-int rowBegin=(nowPage-1)*numPerPage+1;
-int rowEnd=nowPage*numPerPage;
-List<WantSellVO> list=nDAO.selectSellTitle(category, rowBegin, rowEnd);
-
-pageContext.setAttribute("start", start);
-pageContext.setAttribute("end", end);
-pageContext.setAttribute("nowPage", nowPage);
-pageContext.setAttribute("list", list);
-%> --%>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	
@@ -130,20 +90,20 @@ pageContext.setAttribute("list", list);
 			<ul class="pagination">
 	<li>
 		<c:if test="${ nowPage ne 1 and param.page ne null }">
-			<a href="<%=  commonUrl %>/want_sell/want_sell.do?page=${ nowPage-1 }" aria-label="Previous">
+			<a href="<%=  commonUrl %>/want_sell/want_sell.do?page=${ pagination.nowPage-1 }" aria-label="Previous">
 			<span aria-hidden="true">&laquo;</span>
 			</a>
 		</c:if>
 	</li>
-	<c:forEach var="i" begin="${ start }" end="${ end }">
+	<c:forEach var="i" begin="${ pagination.start }" end="${ pagination.end }">
 		<li><a href="<%=  commonUrl %>/want_sell/want_sell.do?page=${ i }"><c:out value="${ i }"/></a></li>
 	</c:forEach>
 	<li>
-	<%-- <% if(LastPage != 0 && nowPage != LastPage){ %> --%>
-		<a href="<%=  commonUrl %>/want_sell/want_sell.do?page=${ nowPage+1 }" aria-label="Next">
+	<c:if test="${ pagination.lastPage ne 0 and pagination.nowPage ne pagination.lastPage }">
+		<a href="<%=  commonUrl %>/want_sell/want_sell.do?page=${ pagination.nowPage+1 }" aria-label="Next">
 			<span aria-hidden="true">&raquo;</span>
 		</a>
-	<%-- <% } %> --%>
+	</c:if>
 	</li>
 </ul>
 </nav>
