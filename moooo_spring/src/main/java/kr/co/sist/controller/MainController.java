@@ -29,12 +29,9 @@ public class MainController {
 	@RequestMapping(value="/index.do",method=GET)
 	public String index(Model model)  throws SQLException {
 		
-		try {
-			model.addAttribute("listBuyTitle", ms.getWantBuyTitle());
-			model.addAttribute("listSellTitle", ms.getWantSellTitle());
-			model.addAttribute("howToUse", ms.getHowToUse());
-			
-		}catch(DataAccessException dae) { }
+		model.addAttribute("listBuyTitle", ms.getWantBuyTitle());
+		model.addAttribute("listSellTitle", ms.getWantSellTitle());
+		model.addAttribute("howToUse", ms.getHowToUse());
 		
 		return "index";
 	} //index
@@ -48,7 +45,9 @@ public class MainController {
 		
 		String user_id=(String)session.getAttribute("user_id");
 		if( !"".equals(user_id)) { //세션이 있으면(로그인 했으면)
-			model.addAttribute("nickname", ms.getUserNickname(user_id));
+			try {
+				model.addAttribute("nickname", ms.getUserNickname(user_id));
+			}catch(DataAccessException dae) { }
 		} //end if
 		
 		return "layout/side_left";
