@@ -46,14 +46,28 @@ public class ReportDAO {
 	 */
 	public void insertReport(ReportVO rv) throws DataAccessException {
 		String insert="insert into report(reported_user_id, reason_id, user_id) values(?,?,?)";
-		
 		jt.update(insert, rv.getReported_user_id(), rv.getReason_id(), rv.getUser_id());
 	} //insertReport
 	
 	/**
+	 * 신고당한 유저의 신고누적횟수 증가
+	 * @param reported_user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public int updateReport(String reported_user_id) throws SQLException {
+		int cnt=0;
+		
+		String update="update users set reported_cnt=(reported_cnt+1) where user_id=?";
+		cnt=jt.update(update, reported_user_id);
+		
+		return cnt;
+	} //updateReport
+	
+	/**
 	 * 화면에 보여줄 신고이유
 	 * @return 신고코드번호,이유 List
-	 * @throws DataAccessException
+	 * @throws SQLException
 	 */
 	public List<ReportReasonVO> selectReport() throws SQLException {
 		List<ReportReasonVO> result=null;
@@ -70,6 +84,6 @@ public class ReportDAO {
 		});
 		
 		return result;
-	} //selectBuyCnt
+	} //selectReport
 	
-}
+} //class

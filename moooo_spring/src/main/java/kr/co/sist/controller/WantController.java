@@ -4,10 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.sist.service.MainService;
 import kr.co.sist.service.WantService;
+import kr.co.sist.vo.ReportVO;
 import kr.co.sist.vo.WantBuyVO;
 import kr.co.sist.vo.WantSellVO;
 
@@ -195,10 +197,17 @@ public class WantController {
 	 * 글 삭제
 	 */
 	@RequestMapping(value="want_sell/want_sell_delete.do",method=GET)
-	public String wantSellDelete(int sell_id, HttpSession session, Model model) throws SQLException {
+	public String wantSellDelete(@RequestParam(value="sell_id", defaultValue = "0")String sell_id, HttpSession session, Model model) throws SQLException {
 		String jspPage="want_sell/want_sell_delete";
 		
-		ws.deleteSell(sell_id, (String)session.getAttribute("user_id"));
+		int code=0;
+		try {
+			code=Integer.parseInt(sell_id);
+		} catch(NumberFormatException nfe) {
+			code=0;
+		} //end catch
+		
+		ws.deleteSell(code, (String)session.getAttribute("user_id"));
 		
 		return jspPage;
 	} //wantSellDelete
@@ -219,10 +228,23 @@ public class WantController {
 	 * 신고처리
 	 */
 	@RequestMapping(value="want_sell/report_proc.do",method=GET)
-	public String reportProc(Model model) throws SQLException {
-		String jspPage="redirect:/want_sell/want_sell.do";
+	public String reportProc(ReportVO rVO, HttpSession session, String sell_id, Model model) throws SQLException {
+		String jspPage="redirect:/want_sell/want_sell_detail.do?sell_id="+sell_id;
 		
-		model.addAttribute("msg", "신고되었습니다.");
+		rVO.setUser_id((String)session.getAttribute("user_id"));
+		
+		model.addAttribute("url", "/want_sell/want_sell_detail.do?sell_id=");
+		if( 	ws.chkBeforeReport(rVO) ) { //신고할 수 없음
+			model.addAttribute("msg", "이미 신고했습니다.");
+			return jspPage;
+		} //end if
+		
+		if( ws.reportProc(rVO) ) { //성공
+			model.addAttribute("msg", "신고되었습니다.");
+		} else { //실패
+			model.addAttribute("msg", "실패.");
+			//jspPage="error/error";
+		} //end else
 		
 		return jspPage;
 	} //reportProc

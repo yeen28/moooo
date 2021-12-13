@@ -26,18 +26,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-.notice_wrap {
-	position: absolute;
-	top: 0px;
-	width: 70%;
-	font-size: 14px;
-	list-style: disc;
-	margin-left: 10px;
-}
-.notice_head {
-	border-bottom: 1px solid;
-	margin-bottom: 10px;
-}
+.notice_wrap { position: absolute; top: 0px; width: 70%; font-size: 14px; list-style: disc; margin-left: 10px; }
+.notice_head { border-bottom: 1px solid; margin-bottom: 10px; }
 </style>
 </head>
 

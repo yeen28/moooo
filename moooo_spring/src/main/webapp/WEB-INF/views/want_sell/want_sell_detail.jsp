@@ -59,6 +59,11 @@
 
 <script type="text/javascript">
 $(function() {
+	<c:if test="${ not empty param.msg }">
+	alert("${ param.msg }");
+	location.href="${ commonUrl }" + "${ param.url }"+${ sell.sell_id };
+	</c:if>
+	
 	$("#reportBtn").click(function() {
 		let radioNode=document.frm.reason;
 		let reasonChk="";
@@ -74,11 +79,8 @@ $(function() {
 		}//end if
 		
 		if( confirm("신고 후 취소할 수 없습니다.\n신고하시겠습니까?") ){
-			//신고는 한 유저에 대해 한 번만 가능하도록 하기
 			//alert(reasonChk);
-			alert("신고되었습니다.");
 			$("#frm").submit();
-			<%-- location.href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id="+${ sell.sell_id }; --%>
 		} //end if
 	}); //click
 	
@@ -136,6 +138,8 @@ function chkUserDelete( sessionId, writer ) {
 			<c:if test="${ not empty param.report_id }">
 			<div id="writeFrm">
 			<form id="frm" name="frm" action="report_proc.do" method="get">
+				<input type="hidden" name="reported_user_id" value="${ sell.user_id }"/>
+				<input type="hidden" name="sell_id" value="${ sell.sell_id }"/>
       			<c:import url="${ commonUrl }/report.do"/>
       		</form>
       		</div>

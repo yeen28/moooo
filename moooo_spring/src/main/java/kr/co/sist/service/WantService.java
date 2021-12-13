@@ -11,6 +11,7 @@ import kr.co.sist.dao.ReportDAO;
 import kr.co.sist.dao.WantBuyDAO;
 import kr.co.sist.dao.WantSellDAO;
 import kr.co.sist.vo.ReportReasonVO;
+import kr.co.sist.vo.ReportVO;
 import kr.co.sist.vo.WantBuyVO;
 import kr.co.sist.vo.WantSellVO;
 
@@ -24,6 +25,12 @@ public class WantService {
 	@Autowired(required = false)
 	private ReportDAO rDAO;
 	
+	/**
+	 * 글 목록 얻기
+	 * @param category
+	 * @param page
+	 * @return
+	 */
 	public List<WantBuyVO> searchBuyList(int category, String page){
 		List<WantBuyVO> list=null;
 		
@@ -45,7 +52,7 @@ public class WantService {
 			list=bDAO.selectBuyTitle(category, rowBegin, rowEnd);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} //end catch
 		
 		return list;
 	} //searchNoticeList
@@ -135,9 +142,7 @@ public class WantService {
 	 * @return
 	 */
 	public int endNum(int start, int blockPage) {
-		int end=0;
-		end=start+blockPage-1;
-		
+		int end=start+blockPage-1;
 		return end;
 	} //endNum
 	
@@ -288,9 +293,45 @@ public class WantService {
 		} //end else
 	} //deleteSell
 	
+	/**
+	 * 신고이유 얻기
+	 * @return ReportReasonVO List
+	 * @throws SQLException
+	 */
 	public List<ReportReasonVO> getReportReasonList() throws SQLException{
 		return rDAO.selectReport();
 	} //getReportReasonList
+	
+	/**
+	 * 이전에 같은 사용자를 신고한 이력이 있는지 확인
+	 * @param rVO
+	 * @return true 있음 | false 없음
+	 * @throws SQLException
+	 */
+	public boolean chkBeforeReport(ReportVO rVO) throws SQLException {
+		if( 	rDAO.selectBeforeReport(rVO) != "" ) { // 신고한 적 있음
+			return true;
+		} else { //없음
+			return false;
+		} //end else
+	} //chkBeforeReport
+	
+	/**
+	 * 신고처리 업무로직
+	 * @return true 성공 | false 실패
+	 * @throws SQLException 
+	 */
+	public boolean reportProc(ReportVO rVO) throws SQLException {
+		try {
+			rDAO.insertReport(rVO);
+			if( 	rDAO.updateReport(rVO.getReported_user_id()) != 0) {
+				return true;
+			} //end if
+			return false;
+		} catch(DataAccessException dae) { 
+			return false;
+		} //end catch
+	} //reportProc
 	
 //	public boolean isWriter(String,String){
 //		
