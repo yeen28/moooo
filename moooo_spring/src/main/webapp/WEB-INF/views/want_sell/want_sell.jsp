@@ -82,28 +82,28 @@ pageContext.setAttribute("list", list);
 	<jsp:include page="/layout/side_left.do"/>
 	
 	<div id="right">
-		<div class="notice_wrap">
-			<div class="notice_head">
-				<h2 style="font-weight: bold;">팔아요</h2>
+	<div class="notice_wrap">
+	<div class="notice_head">
+	<h2 style="font-weight: bold;">팔아요</h2>
 				
-			<div>
-			<a href="<%= commonUrl %>/want_sell/ws_write.do">+추가</a>
+	<div>
+		<a href="<%= commonUrl %>/want_sell/ws_write.do">+추가</a>
 		<a href="<%= commonUrl %>/want_sell/want_sell.do">전체 글 보기</a>
-			</div>
+	</div>
 				
-			</div>
-			<div>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">번호</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">제목</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">가격</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성자</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성일</td>
-							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">조회</td>
-						</tr>
-					</thead>
+	</div>
+	<div>
+	<table class="table table-hover" style="background-color: rgba( 255, 255, 255, 0.7 );">
+	<thead>
+	<tr>
+		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">번호</td>
+		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">제목</td>
+		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">가격</td>
+		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성자</td>
+		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성일</td>
+		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">조회</td>
+	</tr>
+	</thead>
   <tbody>
   <c:if test="${ empty list }">
 		<tr>

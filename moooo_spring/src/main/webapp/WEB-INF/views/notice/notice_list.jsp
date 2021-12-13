@@ -91,7 +91,7 @@ pageContext.setAttribute("selectedNotice", list);
 				<h2 style="font-weight: bold;">공지사항</h2>
 			</div>
 			<div>
-				<table class="table table-hover">
+				<table class="table table-hover" style="background-color: rgba( 255, 255, 255, 0.7 );">
 					<thead>
 						<tr>
 							<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">번호</td>

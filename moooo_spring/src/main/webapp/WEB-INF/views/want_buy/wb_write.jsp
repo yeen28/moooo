@@ -122,7 +122,7 @@ $(function () {
 
 <form name="frm" id="frm" method="post" action="wb_write_proc.do">
 <div>
-<table class="table" style="width: 1000px;">
+<table class="table" style="width: 1000px;background-color: rgba( 255, 255, 255, 0.7 );">
 <tr>
 	<td>제목 : </td>
 	<td colspan="4">

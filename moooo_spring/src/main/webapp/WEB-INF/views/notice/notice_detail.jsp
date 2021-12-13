@@ -59,7 +59,7 @@ function notice(){
 			</div>
 			<div class="notice_border">
 				<div class="notice_content">
-					<table class="table">
+					<table class="table" style="background-color: rgba( 255, 255, 255, 0.7 );">
 						<tbody>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>

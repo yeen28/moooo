@@ -25,14 +25,7 @@
 .note {margin: 20px auto; }
 .title{ font-weight: bold; font-size: 25px;}
 
-.right_wrap {
-	position: absolute;
-	top: 0px;
-	width: 70%;
-	font-size: 14px;
-	list-style: disc;
-	margin-left: 10px;
-}
+.right_wrap { position: absolute; top: 0px; width: 70%; font-size: 14px; list-style: disc; margin-left: 10px; }
 #price{width:150px;}
 </style>
 
@@ -122,7 +115,7 @@ $(function () {
 
 <form name="frm" id="frm" method="post">
 <div>
-<table class="table" style="width: 1000px;">
+<table class="table" style="width: 1000px;background-color: rgba( 255, 255, 255, 0.7 );">
 <tr>
 	<td>제목 : </td>
 	<td colspan="4">

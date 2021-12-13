@@ -25,36 +25,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-.notice_wrap {
-	position: absolute;
-	top: 0px;
-	width: 70%;
-	font-size: 14px;
-	list-style: disc;
-	margin-left: 10px;
-}
-.notice_head {
-	/* border-bottom: 1px solid; */
-	margin-bottom: 10px;
-}
-.notice_border {
-	margin-top: 40px;
-	margin-bottom: 40px;
-	margin-left: 10px;
-	margin-right: 10px;
-	padding: 10px;
-}
-.noticeBtn {
-	font-size: 20px; 
-	background-color: #494949; 
-	color: #FFFFFF;
-	border: 1px solid #494949; 
-	border-radius: 5px; 
-	width: 90px;
-	margin-top: 40px;
-}
+.notice_wrap { position: absolute; top: 0px; width: 70%; font-size: 14px; list-style: disc; margin-left: 10px; }
+.notice_head { margin-bottom: 10px; }
+.notice_border { margin-top: 40px; margin-bottom: 40px; margin-left: 10px; margin-right: 10px; padding: 10px; }
+.noticeBtn { font-size: 20px; 	background-color: #494949; color: #FFFFFF; border: 1px solid #494949; border-radius: 5px; 
+	width: 90px; margin-top: 40px; }
 #writeFrm{border:1px solid #333; background-color: #FFFFFF; padding:50px; width:400px;height: 300px;}
 #formArea{position: absolute;top:100px;left:250px;}
+a:hover{ text-decoration: none; }
 </style>
 
 <script type="text/javascript">
@@ -156,7 +134,7 @@ function chkUserDelete( sessionId, writer ) {
 			
 			<div class="notice_border">
 				<div class="notice_content">
-					<table class="table">
+					<table class="table" style="background-color: rgba( 255, 255, 255, 0.7 );">
 						<tbody>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
