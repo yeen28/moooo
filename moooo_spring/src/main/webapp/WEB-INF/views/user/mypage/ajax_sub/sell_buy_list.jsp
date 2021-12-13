@@ -13,24 +13,12 @@ pageContext.setAttribute("sess_user_id", sess_id);
 %>
 
 <style type="text/css">
-.list{margin-top:30px;}
+.list{ margin-top:30px; }
 </style>
 
-<%-- <% 
-try{
-	WantBuyDAO wbd=new WantBuyDAO();
-	WantSellDAO wsd=new WantSellDAO();
-	
-	List<WantBuyVO> buyList=wbd.selectMypageBuy(sess_id);
-	pageContext.setAttribute("buyList", buyList);
-	
-	List<WantSellVO> sellList=wsd.selectMypageSell(sess_id);
-	pageContext.setAttribute("sellList", sellList);
-%> --%>
-
 <div class="right_wrap">
-	 <div class="list">
-		<h3>사고 싶어요</h3>
+	<div class="list">
+	<h3>사고 싶어요</h3>
 	<table class="table">
 	<thead>
 	<tr>
@@ -41,25 +29,21 @@ try{
 	</thead>
 	<tbody>
 	<c:if test="${ empty buyList }">
-	<tr>
-	<td>작성한 글이 존재하지 않습니다.</td>
-	</tr>
+	<tr><td colspan=3>작성한 글이 존재하지 않습니다.</td>	</tr>
 	</c:if>
-		<c:forEach var="list" items="${ buyList }">
-			<tr>
-				<td style="font-size: 14px"><input type="checkbox"/></td>
-				<td style="font-size: 14px">
-					<a href="<%= commonUrl %>/view/want_buy/want_buy_detail.jsp?buy_id=${ list.buy_id }"><c:out value="${ list.title }"/></a>
-				</td>
-				<td style="font-size: 14px"><c:out value="${ list.input_date }"/></td>
-			</tr>
-		</c:forEach>
+	<c:forEach var="list" items="${ buyList }">
+	<tr>
+	<td style="font-size: 14px"><input type="checkbox"/></td>
+	<td style="font-size: 14px"><a href="<%= commonUrl %>/want_buy/want_buy_detail.do?buy_id=${ list.buy_id }"><c:out value="${ list.title }"/></a></td>
+	<td style="font-size: 14px"><c:out value="${ list.input_date }"/></td>
+	</tr>
+	</c:forEach>
 	</tbody>
 	</table>
 	</div>
 	
-	 <div class="list">
-		<h3>팔아요</h3>
+	<div class="list">
+	<h3>팔아요</h3>
 	<table class="table">
 	<thead>
 	<tr>
@@ -70,23 +54,16 @@ try{
 	</thead>
 	<tbody>
 	<c:if test="${ empty sellList }">
-	<tr>
-	<td>작성한 글이 존재하지 않습니다.</td>
-	</tr>
+	<tr><td colspan=3>작성한 글이 존재하지 않습니다.</td></tr>
 	</c:if>
-		<c:forEach var="list" items="${ sellList }">
-			<tr>
-				<td style="font-size: 14px"><input type="checkbox"/></td>
-				<td style="font-size: 14px"><a href="<%= commonUrl %>/view/want_sell/want_sell_detail.jsp?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
-				<td style="font-size: 14px"><c:out value="${ list.input_date }"/></td>
-			</tr>
-		</c:forEach>
+	<c:forEach var="list" items="${ sellList }">
+	<tr>
+	<td style="font-size: 14px"><input type="checkbox"/></td>
+	<td style="font-size: 14px"><a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
+	<td style="font-size: 14px"><c:out value="${ list.input_date }"/></td>
+	</tr>
+	</c:forEach>
 	</tbody>
 	</table>
 	</div>
 </div><!-- /<div class="right_wrap"> -->
-<%-- <%
-} catch(DataAccessException dae){
-	out.println("문제발생");
-}//end catch
-%> --%>

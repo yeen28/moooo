@@ -110,6 +110,8 @@ public class MypageController {
 		return jspPage;
 	}
 	
+	
+	//////////////////////////////////////////////////////////////////////////////////
 	@ExceptionHandler(SQLException.class)
 	public ModelAndView sqlErr(SQLException se) {
 		ModelAndView mav=new ModelAndView();

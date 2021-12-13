@@ -53,6 +53,10 @@ public class MainController {
 		return "layout/side_left";
 	} //sideLeft
 	
+	@RequestMapping(value="/about/about.do", method=GET)
+	public void about() {
+	}
+	
 	
 	////////////////////// 예외처리 /////////////////////////////
 	@ExceptionHandler(SQLException.class)

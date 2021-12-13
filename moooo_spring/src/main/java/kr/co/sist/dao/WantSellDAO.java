@@ -202,10 +202,9 @@ public class WantSellDAO {
 				unv.setSell_id(rs.getInt("sell_id"));
 				unv.setTitle(rs.getString("title"));
 				unv.setPrice(rs.getInt("price"));
+				unv.setInput_date(rs.getString("input_date"));
 				unv.setView_cnt(rs.getInt("view_cnt"));
 				unv.setInterest_cnt(rs.getInt("interest_cnt"));
-				unv.setInput_date(rs.getString("input_date"));
-				unv.setUser_id(rs.getString("user_id"));
 				return unv;
 			}//mapRow
 		});

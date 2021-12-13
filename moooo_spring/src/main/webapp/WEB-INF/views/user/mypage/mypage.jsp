@@ -19,72 +19,20 @@
 
 <style type="text/css">
 #container{	margin: 80px auto; }
-.right_wrap {
-	position: absolute;
-	top: 0px;
-	width: 70%;
-	font-size: 14px;
-	list-style: disc;
-	margin-left: 10px;
-}
-#Logo{
-	width: 1400px;
-	height: 130px;
-	text-align:left;
-}
-#view{
-	height: 1000px; 
-	margin: auto;
-	position: relative;
-	background-color: #D2ECBF;background-color: rgba( 255, 255, 255, 0.8 );
-}
-#passCh{
-float: right;
-}
-#leave{
-float: right;
-}
-#myImg{
-	top: 80px;
-	left: 30px;
-	position: absolute;
-}
-#viewImg{
-	border: none;
-	width: 100px;
-	height: 100px;
-	top: 30px;
-	left: 5px;
-	position: absolute;
-}
-#img{
-	top: 130px;
-	left: 5px;
-	position: absolute;
-}
-#id1{
-	top: 350px;
-	left: 30px;
-	position: absolute;
-}
-#phone1{
-	top: 500px;
-	left: 30px;
-	position: absolute;
-}
-#save{
-	top: 600px;
-	left: 600px;
-	position: absolute;
-}
-.list {
-	width : 135%;
-	height: 600px;
-	margin: 30px auto;
-	padding: 20px;
-	overflow: scroll;
-}
+.right_wrap { position: absolute; top: 0px; width: 70%; font-size: 14px; list-style: disc; margin-left: 10px; }
+#Logo{ width: 1400px; height: 130px; text-align:left; }
+#view{ height: 1000px; margin: auto; position: relative; background-color: #D2ECBF;background-color: rgba( 255, 255, 255, 0.8 ); }
+#passCh{ float: right; }
+#leave{ float: right; }
+#myImg{ top: 80px; left: 30px; position: absolute; }
+#viewImg{ border: none; width: 100px; height: 100px; top: 30px; left: 5px; position: absolute; }
+#img{ top: 130px; left: 5px; position: absolute; }
+#id1{ top: 350px; left: 30px; position: absolute; }
+#phone1{ top: 500px; left: 30px; position: absolute; }
+#save{ top: 600px; left: 600px; position: absolute; }
+.list { width : 135%; height: 450px; margin: 30px auto; padding: 20px; overflow: scroll; }
 </style>
+
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- Bootstrap CDN -->

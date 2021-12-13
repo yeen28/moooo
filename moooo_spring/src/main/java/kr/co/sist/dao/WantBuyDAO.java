@@ -250,7 +250,6 @@ public class WantBuyDAO {
 				unv.setPrice(rs.getInt("price"));
 				unv.setView_cnt(rs.getInt("view_cnt"));
 				unv.setInput_date(rs.getString("input_date"));
-				unv.setUser_id(rs.getString("user_id"));
 				return unv;
 			}//mapRow
 		});
