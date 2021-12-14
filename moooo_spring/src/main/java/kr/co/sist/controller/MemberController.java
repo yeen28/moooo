@@ -26,7 +26,6 @@ import org.springframework.dao.DataAccessException;
 
 @Controller
 @RequestMapping("user/login/")
-@SessionAttributes("user_id")
 public class MemberController {
 
 	@Autowired
@@ -45,11 +44,11 @@ public class MemberController {
 	 * 로그인 처리
 	 */
 	@RequestMapping(value="login_proc.do",method=POST)
-	public String loginProc(MemberVO mVO, Model model) {
+	public String loginProc(MemberVO mVO, HttpSession session, Model model) {
 		String page="user/login/process/login_process";
 		
 		if( ms.loginProc(mVO) ) { //로그인 성공
-			model.addAttribute("user_id",mVO.getUser_id());
+			session.setAttribute("user_id", mVO.getUser_id());
 			
 		} else { //로그인 실패
 			model.addAttribute("msg", "아이디, 비밀번호를 확인해주세요.");
