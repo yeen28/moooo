@@ -45,6 +45,7 @@ public class WantService {
 			for( WantBuyVO wVO : list ) {
 				wVO.setStringPrice(df.format(wVO.getPrice()));
 			} //end for
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} //end catch
@@ -246,7 +247,11 @@ public class WantService {
 	 * @throws SQLException
 	 */
 	public List<WantBuyVO> searchWordBuyList(String searchWord) throws SQLException {
+		DecimalFormat df=new DecimalFormat("#,###,###");
 		List<WantBuyVO> list=bDAO.selectSearch(searchWord);
+		for( WantBuyVO wVO : list ) {
+			wVO.setStringPrice(df.format(wVO.getPrice()));
+		} //end for
 		return list;
 	} //searchWordBuyList
 
@@ -263,8 +268,14 @@ public class WantService {
 		
 		PaginationVO pVO=getPagination(String.valueOf(category), page);
 		
+		DecimalFormat df=new DecimalFormat("#,###,###");
+		
 		try {
 			list=sDAO.selectSellTitle(category, pVO.getRowBegin(), pVO.getRowEnd());
+			for( WantSellVO sVO : list ) {
+				sVO.setString_price(df.format(sVO.getPrice()));
+			} //end for
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -407,5 +418,20 @@ public class WantService {
 			sDAO.deleteInterest(user_id, sell_id);
 		} //end if
 	} //updateInterest
+	
+	/**
+	 * 글 검색 처리 업무로직
+	 * @param searchWord
+	 * @return WantBuyVO List
+	 * @throws SQLException
+	 */
+	public List<WantSellVO> searchWordSellList(String searchWord) throws SQLException {
+		DecimalFormat df=new DecimalFormat("#,###,###");
+		List<WantSellVO> list=sDAO.selectSearch(searchWord);
+		for( WantSellVO wVO : list ) {
+			wVO.setString_price(df.format(wVO.getPrice()));
+		} //end for
+		return list;
+	} //searchWordBuyList
 	
 } //class

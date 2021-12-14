@@ -322,4 +322,30 @@ public class WantSellDAO {
 		return cnt;
 	} //updateInterestCnt
 	
+	/**
+	 * °Ë»ö
+	 * @param searchWord
+	 * @return WantSellVO List
+	 * @throws SQLException
+	 */
+	public List<WantSellVO> selectSearch(String searchWord) throws SQLException {
+		List<WantSellVO> list=null;
+		
+		String select="select * from want_sell where title like '%'||?||'%'";
+		list=jt.query(select, new Object[] { searchWord }, new RowMapper<WantSellVO>() {
+			public WantSellVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				WantSellVO wVO=new WantSellVO();
+				wVO.setSell_id(rs.getInt("sell_id"));
+				wVO.setTitle(rs.getString("title"));
+				wVO.setPrice(rs.getInt("price"));
+				wVO.setView_cnt(rs.getInt("view_cnt"));
+				wVO.setInput_date(rs.getString("input_date"));
+				wVO.setInterest_cnt(rs.getInt("interest_cnt"));
+				return wVO;
+			}//mapRow
+		});
+		
+		return list;
+	} //selectSearch
+	
 } //class

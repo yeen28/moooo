@@ -58,7 +58,7 @@ public class WantController {
 	 * ( 검색된 글이 많을 때 페이지네이션으로 넘어가게 구현하기 )
 	 */
 	@RequestMapping(value="want_buy/search.do", method=GET)
-	public String search(String searchWord, Model model) throws SQLException {
+	public String searchBuy(String searchWord, Model model) throws SQLException {
 		String jspPage="want_buy/want_buy";
 		
 		model.addAttribute("list", ws.searchWordBuyList(searchWord));
@@ -82,7 +82,7 @@ public class WantController {
 	/**
 	 * '사고싶어요' 글 추가 또는 수정 폼
 	 */
-	@RequestMapping(value="want_buy/wb_write.do",method=GET)
+	@RequestMapping(value="want_buy/wb_write.do",method={ GET, POST })
 	public String wantBuyWriteForm(HttpServletRequest request,HttpSession session,WantBuyVO wVO,Model model) throws DataAccessException, SQLException {
 		String jspPage="want_buy/wb_write";
 		
@@ -106,16 +106,16 @@ public class WantController {
 		wVO.setIp_addr(ip_addr);
 		wVO.setUser_id(session_id);
 		
-		if(wVO.getBuy_id() == 0) { // 추가하는 경우
-			ws.addBuy(wVO); // 예외가 발생하지 않으면 밑으로 흘러감.
-			model.addAttribute("url", "want_buy.do");
-		} else { // 수정하는 경우
+		if(wVO.getBuy_id() != 0) { // 추가하는 경우
 			if( ws.updateBuy(wVO) ) { // 글 수정 성공
 				model.addAttribute("url", "want_buy.do?buy_id="+wVO.getBuy_id());
 			} else { //글 수정 실패
 				System.out.println("글 수정 실패");
 			}//end else
-		}
+		} else { // 수정하는 경우
+			ws.addBuy(wVO); // 예외가 발생하지 않으면 밑으로 흘러감.
+			model.addAttribute("url", "want_buy.do");
+		}//end else
 		model.addAttribute("msg", "팔아요 글이 등록됐습니다.");
 		
 		return jspPage;
@@ -157,6 +157,20 @@ public class WantController {
 	} //wantSell
 	
 	/**
+	 * 글 검색
+	 * ( 검색된 글이 많을 때 페이지네이션으로 넘어가게 구현하기 )
+	 */
+	@RequestMapping(value="want_sell/search.do", method=GET)
+	public String searchSell(String searchWord, Model model) throws SQLException {
+		String jspPage="want_sell/want_sell";
+		
+		model.addAttribute("list", ws.searchWordSellList(searchWord));
+//		model.addAttribute("pagination", ws.getPagination(0, page));
+		
+		return jspPage;
+	} //search
+	
+	/**
 	 * '팔아요' 상세페이지
 	 */
 	@RequestMapping(value="want_sell/want_sell_detail.do",method=GET)
@@ -172,8 +186,9 @@ public class WantController {
 	/**
 	 * '팔아요' 글 추가 또는 수정 폼
 	 */
-	@RequestMapping(value="want_sell/ws_write.do",method=GET)
-	public String wantSellWriteForm(HttpServletRequest request,HttpSession session,WantSellVO wVO,Model model) throws DataAccessException, SQLException {
+	@RequestMapping(value="want_sell/ws_write.do",method= { GET, POST })
+	public String wantSellWriteForm(HttpServletRequest request,HttpSession session,WantSellVO wVO,Model model) 
+				throws DataAccessException, SQLException {
 		String jspPage="want_sell/ws_write";
 		
 		if(wVO.getSell_id() != 0) { // 수정하는 경우
@@ -196,15 +211,15 @@ public class WantController {
 		wVO.setIp_addr(ip_addr);
 		wVO.setUser_id(session_id);
 		
-		if(wVO.getSell_id() == 0) { // 추가하는 경우
-			ws.addSell(wVO); // 예외가 발생하지 않으면 밑으로 흘러감.
-			model.addAttribute("url", "want_sell.do");
-		} else { // 수정하는 경우
+		if(wVO.getSell_id() != 0) { // 수정하는 경우
 			if( ws.updateSell(wVO) ) { // 글 수정 성공
 				model.addAttribute("url", "want_sell.do?sell_id="+wVO.getSell_id());
 			} else { //글 수정 실패
 				System.out.println("글 수정 실패");
 			}//end else
+		} else { // 추가하는 경우
+			ws.addSell(wVO); // 예외가 발생하지 않으면 밑으로 흘러감.
+			model.addAttribute("url", "want_sell.do");
 		}
 		model.addAttribute("msg", "팔아요 글이 등록됐습니다.");
 		

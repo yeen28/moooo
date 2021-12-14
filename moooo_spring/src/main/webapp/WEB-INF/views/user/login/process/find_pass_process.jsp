@@ -28,6 +28,7 @@
 
 <div class="find_container">
 
+<div style="background-color: rgba( 255, 255, 255, 0.7 );">
 <div class="find_img">
 <img alt="find" src="<%= commonUrl %>/common/images/find.png">
 </div>
@@ -54,6 +55,8 @@
 </div>
 </c:otherwise>
 </c:choose>
+</div>
+</div>
 
 <!-- footer -->
 <jsp:include page="/WEB-INF/views/layout/footer.jsp"/>

@@ -43,15 +43,15 @@
 	
 	<div id="right">
 	<div class="notice_wrap">
-	<form class="navbar-form navbar-right">
-		<input type="text" class="form-control" placeholder="Search...">
+	<form class="navbar-form navbar-right" action="search.do">
+		<input type="text" class="form-control" placeholder="Search..." name="searchWord">
 	</form>
 	
 	<div class="notice_head">
 	<h2 style="font-weight: bold;">팔아요</h2>
 				
 	<div>
-		<a href="<%= commonUrl %>/want_sell/ws_write.do">+추가</a>
+		<a href="<%= commonUrl %>/want_sell/ws_write.do?control=add">+추가</a>
 		<a href="<%= commonUrl %>/want_sell/want_sell.do">전체 글 보기</a>
 	</div>
 				
@@ -80,7 +80,7 @@
           <td style="font-size: 16px; text-align: center; color: #333;">
               <a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ sell.sell_id }">${ sell.title }</a>
           </td>
-          <td style="font-size: 16px; text-align: center; color: #333;">${ sell.price }원</td>
+          <td style="font-size: 16px; text-align: center; color: #333;">${ sell.string_price }원</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ sell.user_id }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ sell.input_date }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ sell.view_cnt }</td>

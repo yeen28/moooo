@@ -27,11 +27,13 @@
 
 <div class="find_container">
 
-<c:choose>
-<c:when test="${ not empty mVO }">
+<div style="background-color: rgba( 255, 255, 255, 0.7 );">
 <div class="find_img">
 <img alt="find" src="<%= commonUrl %><%= common_images %>/find.png">
 </div>
+
+<c:choose>
+<c:when test="${ not empty mVO }">
 <div class="container-mid result-mid">
 <span><strong><c:out value="${ mVO.getNickname() }"/></strong>님의 아이디입니다.<br/>
 아이디 : <strong><c:out value="${ mVO.getUser_id() }"/></strong></span>
@@ -43,9 +45,6 @@
 </c:when>
 
 <c:otherwise>
-<div class="find_img">
-<img alt="find" src="<%= commonUrl %>/common/images/find.png">
-</div>
 <div class="container-mid result-mid">
 <span>이름과 이메일을 확인해주세요.</span>
 </div>
@@ -55,6 +54,7 @@
 </div>
 </c:otherwise>
 </c:choose>
+</div>
 </div>
 
 <!-- footer -->

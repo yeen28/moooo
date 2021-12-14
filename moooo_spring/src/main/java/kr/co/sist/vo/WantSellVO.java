@@ -4,6 +4,7 @@ public class WantSellVO {
 
 	private int sell_id, price, view_cnt, interest_cnt, category_id;
 	private String title, comments, input_date, ip_addr, user_id;
+	private String string_price;
 	
 	public int getSell_id() {
 		return sell_id;
@@ -64,6 +65,12 @@ public class WantSellVO {
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
+	}
+	public String getString_price() {
+		return string_price;
+	}
+	public void setString_price(String string_price) {
+		this.string_price = string_price;
 	}
 	
 }//class

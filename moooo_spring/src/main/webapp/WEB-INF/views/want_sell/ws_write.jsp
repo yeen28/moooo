@@ -113,19 +113,23 @@ $(function () {
 		<h3 class="title2">팔아요 작성</h3>
 	</div>
 
-<form name="frm" id="frm" method="post">
+<!-- javascript에서 action바꾸는 걸로 하기 -->
+<form name="frm" id="frm" method="post" action="ws_write_proc.do">
+<c:if test="${ not empty param.sell_id }">
+<input type="hidden" name="sell_id" value="${ param.sell_id }"/>
+</c:if>
 <div>
-<table class="table" style="width: 1000px;background-color: rgba( 255, 255, 255, 0.7 );">
+<table class="table" style="width: 1000px; background-color: rgba( 255, 255, 255, 0.7 );">
 <tr>
 	<td>제목 : </td>
 	<td colspan="4">
-		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" value="${ wv.title }">
+		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" value="${ sell.title }">
 	</td>
 </tr>
 <tr>
 	<td>가격 : </td>
 	<td>
-		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ wv.price }"/>
+		<input type="number" min="0" max="10000000000000000000" class="form-control" name="price" id="price" value="${ sell.price }"/>
 	</td>
 	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td>카테고리 : </td>
@@ -139,6 +143,9 @@ $(function () {
 	</c:forEach>
 	</c:when>
 	<c:otherwise><!-- 수정하는 경우 -->
+	<c:forEach var="list" items="${ categoryList }">
+	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
+	</c:forEach>
 	<%--
 	<% String selected=""; %>
 	<c:forEach var="list" items="${ list }">
@@ -161,7 +168,7 @@ $(function () {
 </table>
 </div>
 <div class="note">
-	<textarea name="comments" id="summernote">${ wv.comments }</textarea>
+	<textarea name="comments" id="summernote">${ sell.comments }</textarea>
 </div>
 </form>
 
