@@ -1,6 +1,7 @@
 package kr.co.sist.service;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,13 @@ public class WantService {
 		
 		PaginationVO pVO=getPagination(String.valueOf(category), page);
 		
+		DecimalFormat df=new DecimalFormat("#,###,###");
+		
 		try {
 			list=bDAO.selectBuyTitle(category, pVO.getRowBegin(), pVO.getRowEnd());
+			for( WantBuyVO wVO : list ) {
+				wVO.setStringPrice(df.format(wVO.getPrice()));
+			} //end for
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} //end catch
@@ -232,7 +238,20 @@ public class WantService {
 			return false;
 		} //end else
 	} //deleteBuy
+	
+	/**
+	 * 글 검색 처리 업무로직
+	 * @param searchWord
+	 * @return WantBuyVO List
+	 * @throws SQLException
+	 */
+	public List<WantBuyVO> searchWordBuyList(String searchWord) throws SQLException {
+		List<WantBuyVO> list=bDAO.selectSearch(searchWord);
+		return list;
+	} //searchWordBuyList
 
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	/**
 	 * '팔아요' 글 목록 얻기
 	 * @param category

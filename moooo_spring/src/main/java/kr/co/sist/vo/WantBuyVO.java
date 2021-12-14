@@ -4,6 +4,7 @@ public class WantBuyVO {
 
 	private int buy_id, price, view_cnt, interest_cnt, category_id;
 	private String title, comments, input_date, ip_addr, user_id;
+	private String stringPrice;
 	
 	public int getBuy_id() {
 		return buy_id;
@@ -65,5 +66,12 @@ public class WantBuyVO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+	public String getStringPrice() {
+		return stringPrice;
+	}
+	public void setStringPrice(String stringPrice) {
+		this.stringPrice = stringPrice;
+	}
+	
 	
 }//class

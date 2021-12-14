@@ -52,6 +52,20 @@ public class WantController {
 		
 		return jspPage;
 	} //wantBuy
+	
+	/**
+	 * 글 검색
+	 * ( 검색된 글이 많을 때 페이지네이션으로 넘어가게 구현하기 )
+	 */
+	@RequestMapping(value="want_buy/search.do", method=GET)
+	public String search(String searchWord, Model model) throws SQLException {
+		String jspPage="want_buy/want_buy";
+		
+		model.addAttribute("list", ws.searchWordBuyList(searchWord));
+//		model.addAttribute("pagination", ws.getPagination(0, page));
+		
+		return jspPage;
+	} //search
 
 	/**
 	 * '사고싶어요' 상세페이지

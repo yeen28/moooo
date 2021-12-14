@@ -44,6 +44,8 @@ public class MemberController {
 	 * 로그인 처리
 	 */
 	@RequestMapping(value="login_proc.do",method=POST)
+	// 로그아웃할 때 url뒤에 아이디가 붙지 않도록 HttpSession으로 값을 넣음.
+	// Model로 세션을 넣게 되면, 세션삭제 후 redirect로 메인화면으로 넘어갔을 때 뒤에 아이디가 붙게 됨.
 	public String loginProc(MemberVO mVO, HttpSession session, Model model) {
 		String page="user/login/process/login_process";
 		
@@ -61,10 +63,14 @@ public class MemberController {
 	 * 로그아웃 (세션 삭제)
 	 */
 	@RequestMapping(value="logout_proc.do",method=GET)
-	public String logoutProc(SessionStatus ss, Model model) {
-		if( !ss.isComplete() ) {
-			ss.setComplete(); //세션 삭제
-		}//end if
+//	public String logoutProc(SessionStatus ss, Model model) {
+	public String logoutProc(HttpSession session, Model model) {
+//		if( !ss.isComplete() ) {
+//			ss.setComplete(); //세션 삭제
+//		}//end if
+		
+//		session.removeAttribute("user_id");
+		session.invalidate();
 		
 		return "redirect:/index.do";
 	} //logoutProc

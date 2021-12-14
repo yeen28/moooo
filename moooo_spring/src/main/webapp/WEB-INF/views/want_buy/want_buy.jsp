@@ -53,6 +53,10 @@
 	
 <div id="right">
 	<div class="notice_wrap">
+	<form class="navbar-form navbar-right" action="search.do">
+		<input type="text" class="form-control" placeholder="Search..." name="searchWord">
+	</form>
+	
 		<div class="notice_head">
 		<h2 style="font-weight: bold;">사고싶어요</h2>
 		
@@ -87,7 +91,7 @@
           <td style="font-size: 16px; text-align: center; color: #333;">
               <a href="<%= commonUrl %>/want_buy/want_buy_detail.do?buy_id=${ buy.buy_id }"><c:out value="${ buy.title }"/></a>
           </td>
-          <td style="font-size: 16px; text-align: center; color: #333;">${ buy.price }원</td>
+          <td style="font-size: 16px; text-align: center; color: #333;">${ buy.stringPrice }원</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.user_id }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.input_date }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ buy.view_cnt }</td>

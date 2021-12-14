@@ -238,11 +238,11 @@ public class WantBuyDAO {
 	 * @throws SQLException
 	 */
 	public List<WantBuyVO> selectMypageBuy(String user_id) throws SQLException {
-		List<WantBuyVO> unv=null;
+		List<WantBuyVO> list=null;
 		
 		String select="select buy_id,title,price,to_char(input_date,'yyyy-MM-dd')input_date,view_cnt from want_buy where user_id=?";
 		
-		unv=jt.query(select, new Object[] { user_id }, new RowMapper<WantBuyVO>() {
+		list=jt.query(select, new Object[] { user_id }, new RowMapper<WantBuyVO>() {
 			public WantBuyVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				WantBuyVO unv=new WantBuyVO();
 				unv.setBuy_id(rs.getInt("buy_id"));
@@ -254,6 +254,32 @@ public class WantBuyDAO {
 			}//mapRow
 		});
 		
-		return unv;
+		return list;
 	}//selectMypageBuy
-}
+	
+	/**
+	 * °Ë»ö
+	 * @param searchWord
+	 * @return WantBuyVO List
+	 * @throws SQLException
+	 */
+	public List<WantBuyVO> selectSearch(String searchWord) throws SQLException {
+		List<WantBuyVO> list=null;
+		
+		String select="select * from want_buy where title like '%'||?||'%'";
+		list=jt.query(select, new Object[] { searchWord }, new RowMapper<WantBuyVO>() {
+			public WantBuyVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				WantBuyVO unv=new WantBuyVO();
+				unv.setBuy_id(rs.getInt("buy_id"));
+				unv.setTitle(rs.getString("title"));
+				unv.setPrice(rs.getInt("price"));
+				unv.setView_cnt(rs.getInt("view_cnt"));
+				unv.setInput_date(rs.getString("input_date"));
+				return unv;
+			}//mapRow
+		});
+		
+		return list;
+	} //selectSearch
+	
+} //class

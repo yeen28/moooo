@@ -43,6 +43,10 @@
 	
 	<div id="right">
 	<div class="notice_wrap">
+	<form class="navbar-form navbar-right">
+		<input type="text" class="form-control" placeholder="Search...">
+	</form>
+	
 	<div class="notice_head">
 	<h2 style="font-weight: bold;">팔아요</h2>
 				

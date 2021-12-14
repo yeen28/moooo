@@ -26,7 +26,7 @@ body{
 <div id="navibar">
 <ul class="nav nav-pills nav_right" role="tablist">
   <li role="presentation"><a href="<%= commonUrl %>/about/about.do">About</a></li>
-<% if((String)session.getAttribute("sess_user_id") != null){ %>
+<% if((String)session.getAttribute("user_id") != null){ %>
   <li role="presentation"><a href="<%= commonUrl %>/user/login/logout.do"><span class="glyphicon glyphicon-log-out"></span></a></li>
   <li role="presentation"><a href="<%= commonUrl %>/user/mypage/mypage.do">MyPage</a></li>
   <%} else { %>

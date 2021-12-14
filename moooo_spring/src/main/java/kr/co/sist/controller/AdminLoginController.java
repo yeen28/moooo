@@ -36,11 +36,17 @@ public class AdminLoginController {
 	public String loginForm(HttpSession session) {
 		String jspPage="";
 		
-		if( session == null ) { //로그인 전
+		if( session == null || session.getAttribute("admin_id") == null || session.getAttribute("admin_id").equals("")) { //로그인 전
 			jspPage="admin/login";
 		} else {
-			jspPage="redirect:/admin/main.do";
+			jspPage="redirect:/admin/main.do"; //주소가 바뀌게하기 위해서 redirect로 이동함.
 		} //end else
+		
+//		if( session == null ) { //로그인 전
+//			jspPage="admin/login";
+//		} else {
+//			jspPage="redirect:/admin/main.do";
+//		} //end else
 		
 		return jspPage;
 	} //loginForm
@@ -88,7 +94,7 @@ public class AdminLoginController {
 			jspPage="admin/main";
 		} else {
 			// session이 없으면 login페이지로 이동
-			jspPage="admin/login";
+			jspPage="redirect:/admin/login.do";
 		} //end else
 		
 		return jspPage;
