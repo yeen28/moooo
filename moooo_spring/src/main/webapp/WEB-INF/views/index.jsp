@@ -61,7 +61,7 @@
 <div class="panel-body">
 	<ul id="ul-list">
 		<c:forEach var="buy" items="${ listBuyTitle }">
-			<li><a href="<%= commonUrl %>/want_buy/want_buy.do"><c:out value="${ buy.title }"/></a></li>
+			<li><a href="<%= commonUrl %>/want_buy/want_buy_detail.do?buy_id=${ buy.buy_id }"><c:out value="${ buy.title }"/></a></li>
 		</c:forEach>
 	</ul>
 </div>
@@ -80,7 +80,7 @@
 <div class="panel-body">
 	<ul id="ul-list">
 		<c:forEach var="sell" items="${ listSellTitle }">
-			<li><a href="<%= commonUrl %>/want_sell/want_sell.do"><c:out value="${ sell.title }"/></a></li>
+			<li><a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ sell.sell_id }"><c:out value="${ sell.title }"/></a></li>
 		</c:forEach>
 	</ul>
 </div>

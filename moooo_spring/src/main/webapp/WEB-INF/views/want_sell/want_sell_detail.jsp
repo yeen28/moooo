@@ -146,7 +146,7 @@ function chkUserDelete( sessionId, writer ) {
 								<td style="font-weight: bold; font-size: 16px; color: #333;">작성일</td>
 								<td style="font-size: 16px; color: #333;">${ sell.input_date }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">가격</td>
-								<td style="font-size: 16px; color: #333;">${ sell.price }원</td>
+								<td style="font-size: 16px; color: #333;">${ sell.string_price }원</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">조회수</td>
 								<td style="font-size: 16px; color: #333;">${ sell.view_cnt }</td>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">관심수</td>

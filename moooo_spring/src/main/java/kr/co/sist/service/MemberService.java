@@ -141,14 +141,24 @@ public class MemberService {
 	 * @return true 성공 | false 실패
 	 * @throws SQLException
 	 */
-	public boolean changePass(UpdateUserPassVO uVO) throws SQLException {
+	public boolean changePass(UpdateUserPassVO uVO, String new_pass2) throws SQLException {
+		uVO.setNew_pass( encryptPass(uVO.getNew_pass()) );
 		if( mDAO.updatePass(uVO) != 0) { //비밀번호 변경 성공
 			return true;
-			
 		} else { //실패
 			return false;
 		} //end else
 	} //changePass
+	
+	/**
+	 * 아이디에 맞는 비밀번호 얻기
+	 * @param user_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public String getPassword(String user_id) throws SQLException {
+		return mDAO.selectPw(user_id);
+	} //getPassword
 
 	/**
 	 * 회원 탈퇴 폼에서 보여줄 닉네임 얻기

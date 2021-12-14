@@ -187,8 +187,11 @@ public class WantService {
 	public WantBuyVO getWantBuyDetail(int buy_id) {
 		WantBuyVO wVO=null;
 		
+		DecimalFormat df=new DecimalFormat("#,###,###");
+		
 		try {
 			wVO=bDAO.selectBuy(buy_id);
+			wVO.setStringPrice(df.format(wVO.getPrice()));
 		} catch(SQLException se) {
 			se.printStackTrace();
 		}
@@ -291,8 +294,11 @@ public class WantService {
 	public WantSellVO getWantSellDetail(int sell_id) {
 		WantSellVO wVO=null;
 		
+		DecimalFormat df=new DecimalFormat("#,###,###");
+		
 		try {
 			wVO=sDAO.selectSell(sell_id);
+			wVO.setString_price(df.format(wVO.getPrice()));
 		} catch(SQLException se) {
 			se.printStackTrace();
 		}

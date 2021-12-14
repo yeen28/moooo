@@ -125,7 +125,7 @@ public class MemberDAO {
 		.append("	update users	")
 		.append("	set pass=?	")
 		.append("	where user_id=?");
-		jt.update(updateMember.toString(), uVO.getNew_pass(), uVO.getUser_id());
+		cnt=jt.update(updateMember.toString(), uVO.getNew_pass(), uVO.getUser_id());
 		
 		return cnt;
 	}//insertMember
@@ -192,9 +192,9 @@ public class MemberDAO {
 	}//selectGetNickname
 	
 	/**
-	 * 회원탈퇴<br/>
-	 * 회원의 아이디와 비밀번호가 일치하는지 확인
-	 * @param mVO
+	 * 아이디로 비밀번호 얻기
+	 * (회원탈퇴, 비밀번호 변경)
+	 * @param 아이디
 	 * @return 비밀번호
 	 * @throws SQLException
 	 */

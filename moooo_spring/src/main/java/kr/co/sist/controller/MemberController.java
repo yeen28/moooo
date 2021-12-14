@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.sist.dao.MemberDAO;
 import kr.co.sist.service.MemberService;
+import kr.co.sist.util.cipher.DataEncrypt;
 import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.UpdateUserPassVO;
 
@@ -173,7 +175,7 @@ public class MemberController {
 	/**
 	 * 비밀번호 변경 폼
 	 */
-	@RequestMapping(value="change_pass_form.do",method=GET)
+	@RequestMapping(value="change_pass_form.do",method= {GET,POST})
 	public String changePassForm() {
 		String page="user/login/change_password";
 		return page;
@@ -182,13 +184,24 @@ public class MemberController {
 	/**
 	 * 비밀번호 변경 처리
 	 */
-	@RequestMapping(value="change_pass_proc.do",method=GET)
-	public String changePassProc(UpdateUserPassVO uVO, Model model) throws SQLException {
-		String page="user/login/process/change_pass_process";
+	@RequestMapping(value="change_pass_proc.do",method=POST)
+	public String changePassProc(UpdateUserPassVO uVO, String new_pass2, Model model) throws SQLException {
+		String page="user/login/change_password";
 		
-		if( ms.changePass(uVO) ) { //비밀번호 변경 성공
-			model.addAttribute("msg", "비밀번호를 변경했습니다.");
-		}
+		uVO.setBefore_pass(ms.encryptPass(uVO.getBefore_pass()));
+		String dbPw=ms.getPassword( uVO.getUser_id() );
+		if( dbPw.equals(uVO.getBefore_pass()) && uVO.getNew_pass().equals(new_pass2) ){
+		
+			if( ms.changePass(uVO, new_pass2) ) { //비밀번호 변경 성공
+				model.addAttribute("msg", "비밀번호를 변경했습니다.");
+				model.addAttribute("url", "/user/mypage/mypage_form.do");
+			} else {
+				page="error/error";
+			} //end else
+		} else {
+			model.addAttribute("msg", "비밀번호를 다시 확인해주세요.");
+			model.addAttribute("url", "/user/login/change_pass_form.do");
+		} //end else
 		
 		return page;
 	} //changePassProc
