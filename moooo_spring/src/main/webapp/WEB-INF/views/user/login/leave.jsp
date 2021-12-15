@@ -60,28 +60,28 @@ function deleteMember() {
   <p>서비스 이용 기록이 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다.<br/>
   필요한 데이터는 미리 백업을 해두시기 바랍니다.</p>
 <hr/>
-<h4>등록한 게시글 삭제 안내</h4>
-  <p>회원탈퇴 후 모든 게시글은 삭제되니 미리 백업하시기 바랍니다.<br/>
-  탈퇴 후에는 게시글을 복구해드릴 수 없습니다.</p>
+<h4>등록한 게시글 삭제 불가 안내</h4>
+  <p>회원탈퇴 후 게시글 삭제는 불가능하므로 회원탈퇴 전 미리 삭제하시기 바랍니다.<br/>
+  탈퇴 후에는 게시글을 삭제해드릴 수 없습니다.</p>
 </div>
 
-<form action="${ commonUrl }/user/login/process/leave_proc.do" method="post" id="leaveFrm" name="leaveFrm">
+<form action="${ commonUrl }/user/login/leave_proc.do" method="post" id="leaveFrm" name="leaveFrm">
 <div id=bottom>
 <table class="table">
 <tr>
   <td class="th"><label for="exampleInputEmail1">아이디</label></td>
   <%-- <td><%= id %><input type="hidden" value="<%=id%>" name="user_id"/></td> --%>
-  <td><c:out value="${ sessionScope.user_id }"/><input type="hidden" value="${ sessionScope.user_id }" name="user_id"/></td>
+  <td><c:out value="${ sessionScope.user_id }"/></td>
 </tr>
 <tr>
   <td class="th"><label for="exampleInputEmail1">닉네임</label></td>
-  <td>${ nickname }</td>
+  <td><c:out value="${ requestScope.nickname }"/></td>
 </tr>
 <tr>
   <td class="th"><label for="exampleInputPassword1">비밀번호 확인</label></td>
   <td>
   <div class="form-group">
-    <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="비밀번호" required>
+    <input value="123qwe" type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="비밀번호" required>
   </div>
 </tr>
 </table>

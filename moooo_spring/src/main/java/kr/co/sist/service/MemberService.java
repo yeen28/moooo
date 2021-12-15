@@ -89,9 +89,7 @@ public class MemberService {
 	 * @throws DataAccessException
 	 */
 	public String findIdProc(MemberVO mVO) throws DataAccessException {
-		String id="";
-		
-		id=mDAO.selectFindId(mVO.getNickname(), mVO.getPhone());
+		String id=mDAO.selectFindId(mVO.getNickname(), mVO.getPhone());
 		
 		return id;
 	} //findIdProc
@@ -167,19 +165,24 @@ public class MemberService {
 	 * @throws SQLException
 	 */
 	public String getUserNickname(String user_id) throws SQLException {
-		String result="";
-		
-		result=mDAO.selectGetNickname(user_id);
-		
+		String result=mDAO.selectGetNickname(user_id);
 		return result;
 	} //getUserNickname
 	
+	/**
+	 * 雀盔呕硼 贸府 诀公肺流
+	 * @param dVO
+	 * @return
+	 */
 	public boolean deleteMember(DeleteMemberVO dVO) {
 		boolean result=false;
 		
 		try {
-			mDAO.deleteMember(dVO.getUser_id());
-		} catch(SQLException se) {}
+			mDAO.updateMember(dVO.getUser_id());
+			result=true;
+		} catch(DataAccessException dae) { 
+			result=false;
+		} //end catch
 		
 		return result;
 	} //deleteMember

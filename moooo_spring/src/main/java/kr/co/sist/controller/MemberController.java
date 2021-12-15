@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.sist.dao.MemberDAO;
 import kr.co.sist.service.MemberService;
 import kr.co.sist.util.cipher.DataEncrypt;
+import kr.co.sist.vo.DeleteMemberVO;
 import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.UpdateUserPassVO;
 
@@ -227,9 +228,18 @@ public class MemberController {
 	/**
 	 * È¸¿øÅ»Åð Ã³¸®
 	 */
-	@RequestMapping(value="leave_proc.do",method=GET)
-	public String leaveProc() {
+	@RequestMapping(value="leave_proc.do",method=POST)
+	public String leaveProc(DeleteMemberVO dVO, HttpSession session, Model model) {
 		String page="user/login/process/leave_process";
+		
+		dVO.setUser_id((String)session.getAttribute("user_id"));
+		if( ms.deleteMember(dVO) ) { //Å»Åð ¼º°ø
+			session.invalidate(); //¼¼¼Ç»èÁ¦
+			model.addAttribute("flag", true);
+		} else { //½ÇÆÐ
+			model.addAttribute("flag", false);
+		} //end else
+		
 		return page;
 	} //leaveProc
 	

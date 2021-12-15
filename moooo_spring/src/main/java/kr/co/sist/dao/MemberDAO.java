@@ -49,7 +49,7 @@ public class MemberDAO {
 		selectMember
 		.append("	select user_id	")
 		.append("	from users	")
-		.append("	where user_id=? and pass=? ");
+		.append("	where user_id=? and pass=? and leave_flag='n'  ");
 		result=jt.queryForObject(selectMember.toString(), new Object[] { id, pw }, String.class);
 		
 		return result;
@@ -69,7 +69,7 @@ public class MemberDAO {
 		selectId
 		.append("	select user_id	")
 		.append("	from users	")
-		.append("	where nickname=? and phone=?	");
+		.append("	where nickname=? and phone=? and leave_flag='n'	");
 		id=jt.queryForObject(selectId.toString(), new Object[] { nickname, phone }, String.class);
 		
 		return id;
@@ -90,7 +90,7 @@ public class MemberDAO {
 		selectId
 		.append("	select pass ")
 		.append("	from users	")
-		.append("	where user_id=? and phone=?	");
+		.append("	where user_id=? and phone=?	and leave_flag='n'	");
 		pw=jt.queryForObject(selectId.toString(), new Object[] { user_id, phone }, String.class);
 		
 		return pw;
@@ -108,7 +108,7 @@ public class MemberDAO {
 		selectPw
 		.append("	select pass	")
 		.append("	from users	")
-		.append("	where user_id=?	");
+		.append("	where user_id=? and leave_flag='n'	");
 		pw=jt.queryForObject(selectPw.toString(), new Object[] { id }, String.class);
 		
 		return pw;
@@ -127,7 +127,7 @@ public class MemberDAO {
 		updateMember
 		.append("	update users	")
 		.append("	set pass=?	")
-		.append("	where user_id=?");
+		.append("	where user_id=? and leave_flag='n'	");
 		cnt=jt.update(updateMember.toString(), uVO.getNew_pass(), uVO.getUser_id());
 		
 		return cnt;
@@ -188,7 +188,7 @@ public class MemberDAO {
 		select
 		.append("	select nickname	")
 		.append("	from users	")
-		.append("	where user_id=?	");
+		.append("	where user_id=? and leave_flag='n'	");
 		result=jt.queryForObject(select.toString(), new Object[] { user_id }, String.class);
 		
 		return result;
@@ -202,23 +202,23 @@ public class MemberDAO {
 	 * @throws SQLException
 	 */
 	public String selectPw(String id) throws SQLException {
-		String pw="";
+		String pass="";
 		
 		StringBuilder selectPw=new StringBuilder();
 		selectPw
 		.append("	select pass	")
 		.append("	from users	")
-		.append("	where user_id=?	");
-		pw=jt.queryForObject(selectPw.toString(), new Object[] { id }, String.class);
+		.append("	where user_id=? and leave_flag='n'	");
+		pass=jt.queryForObject(selectPw.toString(), new Object[] { id }, String.class);
 		
-		return pw;
+		return pass;
 	}//selectPw
 	
 	/**
 	 * È¸¿øÅ»Åð ( È¸¿øÀÌ Å»ÅðÇÏ¸é ¸ðµç ±â·Ï »èÁ¦ )
-	 * @throws SQLException
+	 * @throws DataAccessException
 	 */
-	public int updateMember(String user_id) throws SQLException{
+	public int updateMember(String user_id) throws DataAccessException{
 		int cnt=0;
 		
 		String update="update users set pass=' ',nickname=' ',phone=' ',reported_cnt=0,leave_flag='y' where user_id=?";
@@ -226,7 +226,7 @@ public class MemberDAO {
 		
 		return cnt;
 	}//updateMember
-//	public int deleteMember(String id) throws SQLException{
+//	public int deleteMember(String id) throws DataAccessException{
 //		int cnt=0;
 //		
 //		String deleteMember="delete from users where user_id=?";
@@ -248,7 +248,7 @@ public class MemberDAO {
 		select
 		.append("	select phone	")
 		.append("	from users ")
-		.append("	where user_id=?	");
+		.append("	where user_id=? and leave_flag='n'	");
 		result=jt.queryForObject(select.toString(), new Object[] { id }, String.class);
 		
 		return result;
@@ -290,7 +290,7 @@ public class MemberDAO {
 	public int selectUserCnt() throws SQLException {
 		int cnt=0;
 		
-		String select="select count(*) from users";
+		String select="select count(*) from users where leave_flag='n'";
 		cnt=jt.queryForObject(select, Integer.class);
 		
 		return cnt;

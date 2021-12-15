@@ -21,7 +21,7 @@
 
 <body>
 <c:choose>
-<c:when test="${ flag }">
+<c:when test="${ requestScope.flag }">
 <div id=wrap>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
