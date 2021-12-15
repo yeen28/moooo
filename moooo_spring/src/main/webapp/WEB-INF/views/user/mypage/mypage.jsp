@@ -155,6 +155,25 @@ function upload() {
 	//let output="<input type='file' id='img' name='img' accept='image/gif, image/jpeg, image/png, image/jpg' onchange='readURL(this);'/>"
 	//$("#view").html(output);
 } //upload
+
+/* function selectAll(sc) {
+	let checkboxes=document.getElementsByName("interest"); //name이 interest이 체크박스들을 checkboxes로 정함.
+	checkboxes.forEach((checkbox) => { //interest 체크박스를 하나씩 돌면서 체크.
+		checkbox.checked=sc.checked;
+	})
+} //selectAll
+
+function rmInterest() {
+	let checkVal=document.getElementsByName("interest");
+	$("input[name=interest]:checked").each(function() {
+		var chk=$(this).val();
+		if( chk != "none" ) {
+			alert(chk);
+			document.frm_interest.action="${ commonUrl }/user/mypage/interest_cancel.do?sell_id="+chk;
+			document.frm_interest.submit();
+		} //end if
+	}); //each
+} //rmInterest */
 </script>
 </head>
 

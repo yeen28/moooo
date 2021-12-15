@@ -7,11 +7,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<% 
-String sess_id=(String)session.getAttribute("sess_user_id"); 
-pageContext.setAttribute("sess_user_id", sess_id);
-%>
-
 <style type="text/css">
 .list{ margin-top:30px; }
 </style>
@@ -22,18 +17,18 @@ pageContext.setAttribute("sess_user_id", sess_id);
 	<table class="table">
 	<thead>
 	<tr>
-	<th><input type="checkbox"/></th>
+	<!-- <th><input type="checkbox"/></th> -->
 	<th>제목</th>
 	<th>작성일</th>
 	</tr>
 	</thead>
 	<tbody>
-	<c:if test="${ empty buyList }">
+	<c:if test="${ empty requestScope.buyList }">
 	<tr><td colspan=3>작성한 글이 존재하지 않습니다.</td>	</tr>
 	</c:if>
-	<c:forEach var="list" items="${ buyList }">
+	<c:forEach var="list" items="${ requestScope.buyList }">
 	<tr>
-	<td style="font-size: 14px"><input type="checkbox"/></td>
+	<!-- <td style="font-size: 14px"><input type="checkbox"/></td> -->
 	<td style="font-size: 14px"><a href="<%= commonUrl %>/want_buy/want_buy_detail.do?buy_id=${ list.buy_id }"><c:out value="${ list.title }"/></a></td>
 	<td style="font-size: 14px"><c:out value="${ list.input_date }"/></td>
 	</tr>
@@ -47,18 +42,18 @@ pageContext.setAttribute("sess_user_id", sess_id);
 	<table class="table">
 	<thead>
 	<tr>
-	<th><input type="checkbox"/></th>
+	<!-- <th><input type="checkbox"/></th> -->
 	<th>제목</th>
 	<th>작성일</th>
 	</tr>
 	</thead>
 	<tbody>
-	<c:if test="${ empty sellList }">
+	<c:if test="${ empty requestScope.sellList }">
 	<tr><td colspan=3>작성한 글이 존재하지 않습니다.</td></tr>
 	</c:if>
-	<c:forEach var="list" items="${ sellList }">
+	<c:forEach var="list" items="${ requestScope.sellList }">
 	<tr>
-	<td style="font-size: 14px"><input type="checkbox"/></td>
+	<!-- <td style="font-size: 14px"><input type="checkbox"/></td> -->
 	<td style="font-size: 14px"><a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
 	<td style="font-size: 14px"><c:out value="${ list.input_date }"/></td>
 	</tr>

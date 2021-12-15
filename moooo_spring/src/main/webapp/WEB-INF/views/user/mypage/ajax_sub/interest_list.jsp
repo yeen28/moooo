@@ -10,26 +10,31 @@
 <div class="right_wrap">
 	 <div class="list">
 		<h3>관심글 목록</h3>
+		
+	<!-- <form name="frm_interest">
+		<input type="button" value="관심글 해제" onclick="rmInterest()"/> -->
 	<table class="table">
 	<thead>
 	<tr>
+	<!-- <th><input type="checkbox" name="interest" onclick="selectAll(this)" value="none"/></th> -->
 	<th>제목</th>
 	<th>작성일</th>
 	</tr>
 	</thead>
 	<tbody>
-	<c:if test="${ empty interestList }">
-	<tr>
-	<td>관심있는 글이 존재하지 않습니다.</td>
-	</tr>
+	<c:if test="${ empty requestScope.interestList }">
+	<tr><td>관심있는 글이 존재하지 않습니다.</td></tr>
 	</c:if>
-		<c:forEach var="list" items="${ interestList }">
+		<c:forEach var="list" items="${ requestScope.interestList }">
 			<tr>
+				<%-- <td style="font-size: 14px"><input type="checkbox" name="interest" value="${ list.sell_id }"/></td> --%>
 				<td style="font-size: 14px"><a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
 				<td style="font-size: 14px"><c:out value="${ requestScope.input_date }"/></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 	</table>
+	<!-- </form> -->
+	
 	</div>
 </div><!-- /<div class="right_wrap"> -->

@@ -32,6 +32,24 @@ public class MgrController {
 	@Autowired
 	private NoticeService ns;
 	
+	
+	/**
+	 * 관리자 메인화면 폼
+	 */
+	@RequestMapping(value="main.do",method=GET)
+	public String mainForm(HttpSession session, Model model) throws SQLException {
+		String jspPage="admin/main";
+		
+		if(session.getAttribute("admin_id") == null) {
+			// session이 없으면 login페이지로 이동
+			return "redirect:/admin/login.do";
+		} //end if
+		
+		model.addAttribute( "memList", ms.searchReportedMember() );
+		
+		return jspPage;
+	} //mainForm
+	
 	/**
 	 * 회원관리 폼
 	 */
@@ -179,6 +197,7 @@ public class MgrController {
 		
 		return jspPage;
 	} //noticeDelete
+	
 	
 	///////////////////// 예외처리 /////////////////////////////
 	@ExceptionHandler(SQLException.class)

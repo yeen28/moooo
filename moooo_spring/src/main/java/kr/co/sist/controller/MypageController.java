@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.sist.service.MypageService;
+import kr.co.sist.service.WantService;
 import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.WantBuyVO;
 import kr.co.sist.vo.WantSellVO;
@@ -29,6 +31,8 @@ public class MypageController {
 
 	@Autowired
 	private MypageService ms;
+	@Autowired
+	private WantService ws;
 	
 	/**
 	 * 정보변경
@@ -38,6 +42,11 @@ public class MypageController {
 		String jspPage="user/mypage/mypage";
 		
 		String user_id=(String)session.getAttribute("user_id");
+
+		if(user_id == null || user_id =="") {
+			return "user/login/login";
+		} //end if
+		
 		MemberVO mVO=ms.getMypageInfo(user_id);
 		model.addAttribute("mVO", mVO);
 		
@@ -67,6 +76,11 @@ public class MypageController {
 		String jspPage="user/mypage/ajax_sub/sell_buy_list";
 
 		String user_id=(String)session.getAttribute("user_id");
+		
+		if(user_id == null || user_id =="") {
+			return "user/login/login";
+		} //end if
+		
 		List<WantBuyVO> buyList=ms.getWriteListBuy(user_id);
 		model.addAttribute("buyList", buyList);
 		List<WantSellVO> sellList=ms.getWriteListSell(user_id);
@@ -103,12 +117,25 @@ public class MypageController {
 		return jspPage;
 	} //interestList
 
-	@RequestMapping(value="interest_cancel.do",method=GET)
-	public String interestCancel(List<Integer> listInterest,Model model) {
-		String jspPage="";
-		
-		return jspPage;
-	}
+//	/**
+//	 * 관심글 해제
+//	 */
+//	@RequestMapping(value="/interest_cancel.do",method=GET)
+//	public String interestProc(@RequestParam(value="sell_id",defaultValue = "0")String sell_id, HttpSession session) {
+//		int code=0;
+//		try {
+//			code=Integer.parseInt(sell_id);
+//		} catch(NumberFormatException nfe) {
+//			code=0;
+//		} //end catch
+//		
+//		String jspPage="redirect:/user/mypage/mypage_form.do";
+//		
+//		//관심글에서 해제하기
+//		ws.updateInterest(code, (String)session.getAttribute("user_id"), "remove");
+//		
+//		return jspPage;
+//	} //interestProc
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////

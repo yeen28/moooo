@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.ReportReasonVO;
 import kr.co.sist.vo.ReportVO;
 
@@ -45,7 +46,7 @@ public class ReportDAO {
 	 * @throws DataAccessException
 	 */
 	public void insertReport(ReportVO rv) throws DataAccessException {
-		String insert="insert into report(reported_user_id, reason_id, user_id) values(?,?,?)";
+		String insert="insert into report(reported_user_id, reason_id, user_id, reported_date) values(?,?,?,sysdate)";
 		jt.update(insert, rv.getReported_user_id(), rv.getReason_id(), rv.getUser_id());
 	} //insertReport
 	
@@ -85,5 +86,34 @@ public class ReportDAO {
 		
 		return result;
 	} //selectReport
+	
+	/**
+	 * 신고된 회원정보 얻기
+	 * @return MemberVO List
+	 * @throws SQLException
+	 */
+	public List<MemberVO> selectReportedUser() throws SQLException {
+		List<MemberVO> list=null;
+		
+		String select="select * from users where reported_cnt > 0";
+		try {
+			list=jt.query(select, new RowMapper<MemberVO>() {
+				@Override
+				public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+					MemberVO mVO=new MemberVO();
+					mVO.setUser_id(rs.getString("user_id"));
+					mVO.setNickname(rs.getString("nickname"));
+					mVO.setPhone(rs.getString("phone"));
+					mVO.setReported_cnt(rs.getInt("reported_cnt"));
+					mVO.setInput_date(rs.getString("input_date"));
+					return mVO;
+				}
+			});
+		} catch(DataAccessException dae) {
+			list=null;
+		} //end catch
+		
+		return list;
+	} //selectReportedUser
 	
 } //class

@@ -83,24 +83,6 @@ public class AdminLoginController {
 	} //logoutProc
 
 	/**
-	 * 관리자 메인화면 폼
-	 */
-	@RequestMapping(value="main.do",method=GET)
-	public String mainForm(HttpSession session, Model model) {
-		String jspPage="";
-		
-		// session이 있으면 메인화면을 보여주고
-		if(session.getAttribute("admin_id") != null) {
-			jspPage="admin/main";
-		} else {
-			// session이 없으면 login페이지로 이동
-			jspPage="redirect:/admin/login.do";
-		} //end else
-		
-		return jspPage;
-	} //mainForm
-
-	/**
 	 * 비밀번호 변경 폼
 	 */
 	@RequestMapping(value="change_pass.do",method=GET)
