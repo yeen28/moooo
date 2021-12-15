@@ -56,9 +56,9 @@ public class WantSellDAO {
 		
 		if(category == 0) {
 			select
-			.append("	select sell_id, title, price, input_date, user_id, view_cnt	" )
-			.append("	from (select rownum r_num, sell_id, title, price, input_date, user_id, view_cnt	")
-			.append("	from (select sell_id, title, price, to_char(input_date,'yyyy-MM-dd') input_date, user_id, view_cnt	")
+			.append("	select sell_id, title, price, input_date, user_id, view_cnt, interest_cnt	" )
+			.append("	from (select rownum r_num, sell_id, title, price, input_date, user_id, view_cnt, interest_cnt	")
+			.append("	from (select sell_id, title, price, to_char(input_date,'yyyy-MM-dd') input_date, user_id, view_cnt, interest_cnt	")
 			.append("	from want_sell	")
 			.append("	order by sell_id desc))	")
 			.append("	where r_num between ? and ?	");
@@ -67,9 +67,9 @@ public class WantSellDAO {
 			
 		} else {
 			select
-			.append("	select sell_id, title, price, input_date, user_id, view_cnt	" )
-			.append("	from (select rownum r_num, sell_id, title, price, input_date, user_id, view_cnt	")
-			.append("	from (select sell_id, title, price, to_char(input_date,'yyyy-MM-dd') input_date, user_id, view_cnt	")
+			.append("	select sell_id, title, price, input_date, user_id, view_cnt, interest_cnt	" )
+			.append("	from (select rownum r_num, sell_id, title, price, input_date, user_id, view_cnt, interest_cnt	")
+			.append("	from (select sell_id, title, price, to_char(input_date,'yyyy-MM-dd') input_date, user_id, view_cnt, interest_cnt	")
 			.append("	from want_sell	")
 			.append("	where category_id=?	")
 			.append("	order by sell_id desc))	")
@@ -90,6 +90,7 @@ public class WantSellDAO {
 			wVO.setPrice(rs.getInt("price"));
 			wVO.setInput_date(rs.getString("input_date"));
 			wVO.setUser_id(rs.getString("user_id"));
+			wVO.setInterest_cnt(rs.getInt("interest_cnt"));
 			wVO.setView_cnt(rs.getInt("view_cnt"));
 
 			return wVO;

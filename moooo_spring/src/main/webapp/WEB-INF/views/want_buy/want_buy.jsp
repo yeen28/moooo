@@ -71,7 +71,7 @@
 		<table class="table table-hover" style="background-color: rgba( 255, 255, 255, 0.7 );">
 		<thead>
 		<tr>
-			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">번호</td>
+			<!-- <td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">번호</td> -->
 			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">제목</td>
 			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">가격</td>
 			<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성자</td>
@@ -87,7 +87,8 @@
 		</c:if>
 		<c:forEach var="buy" items="${ list }"> 
 		<tr>
-          <td style="font-size: 16px; text-align: center; color: #333;">${ buy.buy_id }</td>
+		  <%-- <c:set var="i" value="${ i+1 }"/>
+          <td style="font-size: 16px; text-align: center; color: #333;">${ i }</td> --%>
           <td style="font-size: 16px; text-align: center; color: #333;">
               <a href="<%= commonUrl %>/want_buy/want_buy_detail.do?buy_id=${ buy.buy_id }"><c:out value="${ buy.title }"/></a>
           </td>

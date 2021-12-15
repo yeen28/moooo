@@ -1,7 +1,7 @@
 package kr.co.sist.vo;
 
 public class MemberVO {
-	private String user_id, pass, nickname, phone, img, input_date;
+	private String user_id, pass, nickname, phone, img, input_date, leave_flag;
 	private int reported_cnt;
 
 	public String getUser_id() {
@@ -58,6 +58,14 @@ public class MemberVO {
 
 	public void setImg(String img) {
 		this.img = img;
+	}
+
+	public String getLeave_flag() {
+		return leave_flag;
+	}
+
+	public void setLeave_flag(String leave_flag) {
+		this.leave_flag = leave_flag;
 	}
 
 }

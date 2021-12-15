@@ -27,8 +27,8 @@ body{
 <ul class="nav nav-pills nav_right" role="tablist">
   <li role="presentation"><a href="<%= commonUrl %>/about/about.do">About</a></li>
 <% if((String)session.getAttribute("user_id") != null){ %>
-  <li role="presentation"><a href="<%= commonUrl %>/user/login/logout.do"><span class="glyphicon glyphicon-log-out"></span></a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/user/mypage/mypage.do">MyPage</a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/user/login/logout_proc.do"><span class="glyphicon glyphicon-log-out"></span></a></li>
+  <li role="presentation"><a href="<%= commonUrl %>/user/mypage/mypage_form.do">MyPage</a></li>
   <%} else { %>
   <li role="presentation"><a href="<%= commonUrl %>/user/login/login.do"><span class="glyphicon glyphicon-log-in"></span></a></li>
   <!-- <li role="presentation"><a href="#">Login <span class="badge">42</span></a></li> -->

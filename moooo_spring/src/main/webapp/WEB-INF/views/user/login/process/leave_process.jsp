@@ -39,7 +39,7 @@
 </div>
 
 <div id="container_bottom">
-<a href="<%= commonUrl %>/index.jsp" id="home">첫화면</a>
+<a href="<%= commonUrl %>/index.do" id="home">첫화면</a>
 </div>
 </div>
 

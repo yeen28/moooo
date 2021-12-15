@@ -60,12 +60,12 @@
 	<table class="table table-hover" style="background-color: rgba( 255, 255, 255, 0.7 );">
 	<thead>
 	<tr>
-		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">번호</td>
 		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">제목</td>
 		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">가격</td>
 		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성자</td>
 		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">작성일</td>
-		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">조회</td>
+		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">관심수</td>
+		<td style="font-size: 18px; font-weight: bold; text-align: center; color: #333;">조회수</td>
 	</tr>
 	</thead>
   <tbody>
@@ -76,13 +76,13 @@
 		</c:if>
      <c:forEach var="sell" items="${ list }"> 
        <tr>
-          <td style="font-size: 16px; text-align: center; color: #333;">${ sell.sell_id }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">
               <a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ sell.sell_id }">${ sell.title }</a>
           </td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ sell.string_price }원</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ sell.user_id }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ sell.input_date }</td>
+          <td style="font-size: 16px; text-align: center; color: #333;">${ sell.interest_cnt }</td>
           <td style="font-size: 16px; text-align: center; color: #333;">${ sell.view_cnt }</td>
        </tr> 
      </c:forEach>

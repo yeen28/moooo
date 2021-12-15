@@ -282,6 +282,9 @@ public class WantController {
 		return jspPage;
 	} //reportProc
 	
+	/**
+	 * 관심글로 설정 | 해제
+	 */
 	@RequestMapping(value="/want_sell/interest.do",method=GET)
 	public String interestProc(@RequestParam(value="sell_id",defaultValue = "0")String sell_id, HttpSession session, String interest) {
 		int code=0;

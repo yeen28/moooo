@@ -27,8 +27,11 @@ public class MemberDAO {
 	 */
 	public void insertMember( MemberVO uVO ) throws DataAccessException {
 		
-		String insertMember="insert into users(user_id, pass, nickname, phone, reported_cnt, input_date) values(?,?,?,?,0,sysdate)";
-		jt.update(insertMember, uVO.getUser_id(), uVO.getPass(), uVO.getNickname(), uVO.getPhone());
+		StringBuilder insertMember=new StringBuilder();
+		insertMember
+		.append("	insert into users(user_id, pass, nickname, phone, reported_cnt, input_date, leave_flag)	")
+		.append("	values(?,?,?,?,0,sysdate,'n')	");
+		jt.update(insertMember.toString(), uVO.getUser_id(), uVO.getPass(), uVO.getNickname(), uVO.getPhone());
 		
 	}//insertMember
 	
@@ -215,14 +218,22 @@ public class MemberDAO {
 	 * È¸¿øÅ»Åğ ( È¸¿øÀÌ Å»ÅğÇÏ¸é ¸ğµç ±â·Ï »èÁ¦ )
 	 * @throws SQLException
 	 */
-	public int deleteMember(String id) throws SQLException{ //dae
+	public int updateMember(String user_id) throws SQLException{
 		int cnt=0;
 		
-		String deleteMember="delete from users where user_id=?";
-		jt.update(deleteMember, id);
+		String update="update users set pass=' ',nickname=' ',phone=' ',reported_cnt=0,leave_flag='y' where user_id=?";
+		cnt=jt.update(update, user_id);
 		
 		return cnt;
-	}//deleteMember
+	}//updateMember
+//	public int deleteMember(String id) throws SQLException{
+//		int cnt=0;
+//		
+//		String deleteMember="delete from users where user_id=?";
+//		cnt=jt.update(deleteMember, id);
+//		
+//		return cnt;
+//	}//deleteMember
 	
 	/**
 	 * ÈŞ´ëÆù¹øÈ£ ¾ò±â
