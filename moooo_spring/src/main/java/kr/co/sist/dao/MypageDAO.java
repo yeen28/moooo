@@ -93,7 +93,7 @@ public class MypageDAO {
 		List<WantSellVO> list = new ArrayList<WantSellVO>();
 		
 		for(int val : sellIdList) {
-		String select = "select sell_id,title,input_date from want_sell where sell_id=?";
+		String select = "select sell_id,title,to_char(input_date,'yyyy-MM-dd')input_date from want_sell where sell_id=?";
 		list.add( jt.queryForObject(select, new Object[] { val }, new RowMapper<WantSellVO>() {
 			public WantSellVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				WantSellVO wv=new WantSellVO();

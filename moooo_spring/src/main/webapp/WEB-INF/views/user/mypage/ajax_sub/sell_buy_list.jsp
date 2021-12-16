@@ -7,18 +7,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<style type="text/css">
-.list{ margin-top:30px; }
-</style>
-
-<div class="right_wrap">
-	<div class="list">
+	<div class="list" style="width: 100%; margin: 0px auto;">
 	<h3>사고 싶어요</h3>
 	<table class="table">
 	<thead>
 	<tr>
 	<!-- <th><input type="checkbox"/></th> -->
 	<th>제목</th>
+	<th>조회수</th>
 	<th>작성일</th>
 	</tr>
 	</thead>
@@ -37,28 +33,31 @@
 	</table>
 	</div>
 	
-	<div class="list">
+	<div class="list" style="width: 100%; margin: 50px auto;">
 	<h3>팔아요</h3>
 	<table class="table">
 	<thead>
 	<tr>
 	<!-- <th><input type="checkbox"/></th> -->
 	<th>제목</th>
+	<th>조회수</th>
+	<th>관심수</th>
 	<th>작성일</th>
 	</tr>
 	</thead>
 	<tbody>
 	<c:if test="${ empty requestScope.sellList }">
-	<tr><td colspan=3>작성한 글이 존재하지 않습니다.</td></tr>
+	<tr><td colspan="4">작성한 글이 존재하지 않습니다.</td></tr>
 	</c:if>
 	<c:forEach var="list" items="${ requestScope.sellList }">
 	<tr>
 	<!-- <td style="font-size: 14px"><input type="checkbox"/></td> -->
 	<td style="font-size: 14px"><a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
+	<td style="font-size: 14px"><c:out value="${ list.view_cnt }"/></td>
+	<td style="font-size: 14px"><c:out value="${ list.interest_cnt }"/></td>
 	<td style="font-size: 14px"><c:out value="${ list.input_date }"/></td>
 	</tr>
 	</c:forEach>
 	</tbody>
 	</table>
 	</div>
-</div><!-- /<div class="right_wrap"> -->

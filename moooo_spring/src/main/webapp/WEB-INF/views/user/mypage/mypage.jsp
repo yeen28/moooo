@@ -19,18 +19,26 @@
 
 <style type="text/css">
 #container{	margin: 80px auto; }
-.right_wrap { position: absolute; top: 0px; width: 70%; font-size: 14px; list-style: disc; margin-left: 10px; }
+.right_wrap { 
+	position: absolute;
+	top: 0px;
+	width: 70%;
+	font-size: 14px;
+	list-style: disc;
+	margin-left: 10px;
+}
+/* 
 #Logo{ width: 1400px; height: 130px; text-align:left; }
-#view{ height: 1000px; margin: auto; position: relative; background-color: #D2ECBF;background-color: rgba( 255, 255, 255, 0.8 ); }
 #passCh{ float: right; }
 #leave{ float: right; }
 #myImg{ top: 80px; left: 30px; position: absolute; }
-#viewImg{ border: none; width: 100px; height: 100px; top: 30px; left: 5px; position: absolute; }
 #img{ top: 130px; left: 5px; position: absolute; }
-#id1{ top: 350px; left: 30px; position: absolute; }
-#phone1{ top: 500px; left: 30px; position: absolute; }
-#save{ top: 600px; left: 600px; position: absolute; }
-.list { width : 135%; height: 450px; margin: 30px auto; padding: 20px; overflow: scroll; }
+*/
+#saveBtn{ width: 150px; margin: 0px auto; }
+.list { width : 135%; height: 450px; margin: 0px auto; padding: 20px; overflow: scroll; }
+#view{ position: relative; width: 100%; height: 1000px; margin: auto; background-color: rgba( 255, 255, 255, 0.8 ); }
+#viewImg{ border: none; width: 150px; }
+#td{ padding-top: 50px; }
 </style>
 
 <!-- jQuery CDN -->
@@ -46,20 +54,6 @@ $(function() {
 	alert("${ param.msg }");
 	location.href="${ commonUrl }"+"${ param.url }";
 	</c:if>
-	
-	$("#myInfo").click(function() {
-		/* $.ajax({
-			url: "ajax_sub/myInfo.do",
-			type: "post",
-			dataType: "html",
-			error: function( xhr ) {
-				console.log( xhr.status + " / " + xhr.statusText );
-			},
-			success: function( htmlData ) {
-				$("#view").html( htmlData );
-			}
-		}); //ajax */
-	});
 	
 	$("#sell_buy").click(function() {
 		$.ajax({
@@ -201,50 +195,61 @@ function rmInterest() {
 
 	<div id="view"><br/>
 	<form action="${ commonUrl }/user/mypage/mypage_update.do" id="frm" method="post" enctype="multipart/form-data">
-		<div id="myImg">
-			<div style="text-align: left;">이미지</div>
-			<%-- <% if( uv.getImg() == null ) { %> --%>
-			<c:choose>
-			<c:when test="${ empty mVO.getImg() }">
-			<img id="viewImg" src="<%= commonUrl %>/common/images/defaultImg.png" alt="image" width="100" height="100"><br/>
-			</c:when>
-			<%-- <% } else { %> --%>
-			<c:otherwise>
-			<img id="viewImg" src="<%= commonUrl %>/upload/${ mVO.getImg() }" alt="image"><br/>
-			<!-- 사진변경 버튼 / 클릭시 팝업? -->
-			</c:otherwise>
-			</c:choose>
-			<%-- <% } %> --%>
-			<!-- <img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="100" height="100"> -->
-			<!-- <br/><br/><br/><br/><br/><br/>
-			 <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진등록</b></label> -->
-			 <!-- <label onclick="upload()">사진등록</label> -->
-			<input type="file" id="img" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);"/><br/><br/>
-			<!-- <input type="file" name="img" accept="image/*" id="img" onchange="readURL(this);"/> -->
-			<%-- <c:if test="">
-			<input type="hidden" name="img" value="${ uv.img }"/>
-			</c:if> --%>
-		</div>
-
-	<div id="id1">
-		<div style="text-align: left;">*닉네임</div>
-		<input type="text" value="${ mVO.nickname }" name="nickname" id="nickname" class="form-control" style="width: 150px; height: 40px; font-size: 15px;"/>		
-		<!-- <input type="button" value="중복확인" class="check_btn" id="chk_nickname_dup"/> -->
-		<input type="hidden" name="user_id" value="${ sessionScope.user_id }"/> 
+	<div class=".table-responsive">
+	<table class="table" style="width: 80%; margin: 50px auto;">
+	<tr>
+		<th id="td">프로필 사진</th>
+		<td id="td">
+			<div id="myImg">
+				<%-- <% if( uv.getImg() == null ) { %> --%>
+				<c:choose>
+				<c:when test="${ empty mVO.getImg() }">
+				<img id="viewImg" src="<%= commonUrl %>/common/images/defaultImg.png" alt="image"><br/>
+				</c:when>
+				<%-- <% } else { %> --%>
+				<c:otherwise>
+				<img id="viewImg" src="<%= commonUrl %>/upload/${ mVO.getImg() }" alt="image"><br/>
+				<!-- 사진변경 버튼 / 클릭시 팝업? -->
+				</c:otherwise>
+				</c:choose>
+				<%-- <% } %> --%>
+				<!-- <img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="100" height="100"> -->
+				<!-- <br/><br/><br/><br/><br/><br/>
+				 <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진등록</b></label> -->
+				 <!-- <label onclick="upload()">사진등록</label> -->
+				<input type="file" id="img" name="img" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);"/><br/><br/>
+				<!-- <input type="file" name="img" accept="image/*" id="img" onchange="readURL(this);"/> -->
+				<%-- <c:if test="">
+				<input type="hidden" name="img" value="${ uv.img }"/>
+				</c:if> --%>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>아이디</th>
+		<td>
+			<input type="text" value="${ sessionScope.user_id }" name="user_id" class="form-control" readonly="readonly" style="width: 150px; height: 40px; font-size: 15px;"/>		
+		</td>
+	</tr>
+	<tr>
+		<th>닉네임</th>
+		<td>
+			<input type="text" value="${ mVO.nickname }" name="nickname" id="nickname" class="form-control" style="width: 150px; height: 40px; font-size: 15px;"/>		
+			<!-- <input type="button" value="중복확인" class="check_btn" id="chk_nickname_dup"/> -->
+		</td>
+	</tr>
+	<tr>
+		<th>휴대폰 번호</th>
+		<td>
+			<input type="text" name="phone" id="phone" class="form-control" Placeholder="핸드폰 번호" value="${ mVO.phone }" style="width: 300px; height: 40px; font-size: 15px;"/>		
+		</td>
+	</tr>
+	</table>
 	</div>
-	
-	<div id="phone1">
-		<div style="text-align: left;">*휴대폰 번호</div>
-		<input type="text" name="phone" id="phone" class="form-control" Placeholder="핸드폰 번호" value="${ mVO.phone }" style="width: 300px; height: 40px; font-size: 15px;"/>		
-	</div>
-	
-	<div>
-		<p id="save">
-			<button type="button" class="btn btn-primary btn-lg" id="addSave" style="width: 150px;">수정</button>
-		</p>
-	</div>
-	
 	</form>
+	<div id="saveBtn">
+		<button type="button" class="btn btn-default" id="addSave">적용</button>
+	</div>
 	</div>
 </div><!-- /<div class="right_wrap"> -->
 	

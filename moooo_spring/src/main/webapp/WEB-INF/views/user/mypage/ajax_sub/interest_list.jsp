@@ -5,10 +5,10 @@
     info="마이페이지-관심글 목록"
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<div class="right_wrap">
-	 <div class="list">
+	 <div class="list" style="width: 100%; margin: 0px auto;">
 		<h3>관심글 목록</h3>
 		
 	<!-- <form name="frm_interest">
@@ -23,13 +23,13 @@
 	</thead>
 	<tbody>
 	<c:if test="${ empty requestScope.interestList }">
-	<tr><td>관심있는 글이 존재하지 않습니다.</td></tr>
+	<tr><td colspan="3">관심있는 글이 존재하지 않습니다.</td></tr>
 	</c:if>
 		<c:forEach var="list" items="${ requestScope.interestList }">
 			<tr>
 				<%-- <td style="font-size: 14px"><input type="checkbox" name="interest" value="${ list.sell_id }"/></td> --%>
 				<td style="font-size: 14px"><a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ list.sell_id }"><c:out value="${ list.title }"/></a></td>
-				<td style="font-size: 14px"><c:out value="${ requestScope.input_date }"/></td>
+				<td style="font-size: 14px"><c:out value="${ list.input_date }"/></td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -37,4 +37,3 @@
 	<!-- </form> -->
 	
 	</div>
-</div><!-- /<div class="right_wrap"> -->

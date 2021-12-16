@@ -6,7 +6,7 @@
 <%@ include file="/common/jsp/common_code.jsp" %> 
 
 <style type="text/css">
-#header{background-color: #D2ECBF;background-color: rgba( 255, 255, 255, 0.5 ); width: 100%; height: 300px;}
+#header{background-color: rgba( 255, 255, 255, 0.5 ); width: 100%; height: 300px;}
 #header>h1{text-align: center;}
 #title{ width: 300px; text-align: center; margin: 0px auto; padding: 150px 30px 0 30px; }
 #title>img{float:left;}
@@ -15,10 +15,22 @@ a{ color:#333; }
 .nav_right>li{float: right;}
 
 body{
-	height: 100vh;
-	background-image: url(<%= commonUrl %>/common/images/backgroundImg.jpg);
+	width:100%;
+	height:100%;
+    position: relative;
+}
+body::after {
+	width: 100%;
+	height: 100%;
+	content: "";
+	background-image: url(${ commonUrl }/common/images/backgroundImg.jpg);
     background-repeat: no-repeat;
     background-size : cover;
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: -1; /* z-index 설정으로 가상요소를 원본의 뒤로 밀어줍니다. */
+    opacity: 0.5; /* 가상요소의 opacity를 설정 */
 }
 </style>
 
