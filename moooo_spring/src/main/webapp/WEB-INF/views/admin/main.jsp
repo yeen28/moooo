@@ -62,7 +62,7 @@ a{color: #333;}
 <div>
 <h3 class="sub-header">신고된 회원</h3>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" style="width: 100%">
               <thead>
                 <tr>
                   <th>아이디</th>

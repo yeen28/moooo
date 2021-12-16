@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.vo.CategoryVO;
+import kr.co.sist.vo.SellImgVO;
 import kr.co.sist.vo.WantSellVO;
 
 @Component
@@ -99,7 +100,7 @@ public class WantSellDAO {
 	/////////////// inner class : 정보를 저장할 목적의 클래스 끝 /////////////////
 	
 	/**
-	 * 조회수 세기
+	 * 조회수 세기, 상세정보 얻기
 	 * @param sell_id
 	 * @return
 	 */
@@ -111,7 +112,7 @@ public class WantSellDAO {
 
 		StringBuilder select = new StringBuilder();
 		select
-		.append("	select sell_id, title, comments, price, to_char(input_date,'yyyy-MM-dd')input_date, view_cnt, interest_cnt, user_id ")
+		.append("	select sell_id, title, comments, price, category_id, to_char(input_date,'yyyy-MM-dd')input_date, view_cnt, interest_cnt, user_id ")
 		.append("	from want_sell	")
 		.append("	where sell_id = ?	");
 		nVO = jt.queryForObject(select.toString(), new Object[] { Long.valueOf(sell_id) }, new RowMapper<WantSellVO>() {
@@ -124,6 +125,7 @@ public class WantSellDAO {
 				nVO.setTitle(rs.getString("title"));
 				nVO.setComments(rs.getString("comments"));
 				nVO.setPrice(rs.getInt("price"));
+				nVO.setCategory_id(rs.getInt("category_id"));
 				nVO.setInput_date(rs.getString("input_date"));
 				nVO.setView_cnt(rs.getInt("view_cnt"));
 				nVO.setInterest_cnt(rs.getInt("interest_cnt"));
@@ -226,6 +228,21 @@ public class WantSellDAO {
 		
 		return cnt;
 	}//updateSell
+	
+	/**
+	 * 이미지 수정
+	 * @param sVO
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int updateSellImg(SellImgVO sVO) throws DataAccessException {
+		int cnt=0;
+		
+		String update="update sell_img set sell_img=? where sell_id=?";
+		cnt=jt.update(update, sVO.getSell_img(), sVO.getSell_id() );
+		
+		return cnt;
+	}//updateSellImg
 	
 	/**
 	 * 글 삭제
@@ -348,5 +365,26 @@ public class WantSellDAO {
 		
 		return list;
 	} //selectSearch
+	
+	/**
+	 * 여러 이미지 이름 얻기
+	 * @param sell_id
+	 * @return
+	 */
+	public List<SellImgVO> selectSellImg(int sell_id) throws SQLException {
+		List<SellImgVO> list=null;
+		
+		String select="select * from sell_img where sell_id=?";
+		list=jt.query(select, new Object[] { sell_id }, new RowMapper<SellImgVO>() {
+			public SellImgVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SellImgVO wVO=new SellImgVO();
+				wVO.setSell_id(rs.getInt("sell_id"));
+				wVO.setSell_img(rs.getString("sell_img"));
+				return wVO;
+			}//mapRow
+		});
+		
+		return list;
+	} //selectSellImg
 	
 } //class

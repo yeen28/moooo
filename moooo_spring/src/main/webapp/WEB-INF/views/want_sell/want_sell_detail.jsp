@@ -33,6 +33,8 @@
 #writeFrm{border:1px solid #333; background-color: #FFFFFF; padding:50px; width:400px;height: 300px;}
 #formArea{position: absolute;top:100px;left:250px;}
 a:hover{ text-decoration: none; }
+.btnArea{ width: 200px; margin: 0px auto; }
+.sell_content{ background-color: rgba( 255, 255, 255, 0.7 ); }
 </style>
 
 <script type="text/javascript">
@@ -65,6 +67,10 @@ $(function() {
 	$("#closeBtn").click(function() {
 		location.href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id="+${ sell.sell_id };
 	}); //click
+	
+	$("#listBtn").click(function() {
+		location.href="<%= commonUrl %>/want_sell/want_sell.do";
+	}); //click
 }); //ready
 
 function chkMe( sell_id, write_user_id ) {
@@ -92,6 +98,16 @@ function chkUserDelete( sessionId, writer ) {
 	}
 } //chkUserDelete
 
+//이미지 업로드한 거 보이기
+function readURL(input) {
+	if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	        $('#viewImg').attr('src', e.target.result);
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	}//end if
+}//readURL
 </script>
 </head>
 
@@ -133,8 +149,8 @@ function chkUserDelete( sessionId, writer ) {
 		</div>
 			
 			<div class="notice_border">
-				<div class="notice_content">
-					<table class="table" style="background-color: rgba( 255, 255, 255, 0.7 );">
+				<div class="sell_content">
+					<table class="table">
 						<tbody>
 							<tr>
 								<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
@@ -157,10 +173,19 @@ function chkUserDelete( sessionId, writer ) {
 							</tr>
 						</tbody>
 					</table>
+					<div>
+					<c:if test="${ not empty requestScope.sell_img }">
+					<c:forEach var="img" items="${ requestScope.sell_img }">
+					<img id="viewImg" src="<%= commonUrl %>/upload/${ img }" width="300px;">
+					</c:forEach>
+					</c:if>
+					</div>
 				</div>
-				<a href="<%= commonUrl %>/want_sell/want_sell.do">목록</a>
-				<a href="#void" onclick="chkUserEdit('${sessionScope.user_id}','${ sell.user_id }')">수정</a>
-				<a href="#void" onclick="chkUserDelete('${sessionScope.user_id}','${ sell.user_id }')">삭제</a>
+				<div class="btnArea">
+				<button type="button" class="btn btn-default" id="listBtn">목록</button>
+				<button type="button" class="btn btn-primary" onclick="chkUserEdit('${sessionScope.user_id}','${ sell.user_id }')">수정</button>
+				<button type="button" class="btn btn-danger" onclick="chkUserDelete('${sessionScope.user_id}','${ sell.user_id }')">삭제</button>
+				</div>
 			</div>
 		</div>
 	</div>

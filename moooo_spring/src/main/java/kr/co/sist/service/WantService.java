@@ -14,6 +14,7 @@ import kr.co.sist.dao.WantSellDAO;
 import kr.co.sist.vo.PaginationVO;
 import kr.co.sist.vo.ReportReasonVO;
 import kr.co.sist.vo.ReportVO;
+import kr.co.sist.vo.SellImgVO;
 import kr.co.sist.vo.WantBuyVO;
 import kr.co.sist.vo.WantSellVO;
 
@@ -307,6 +308,23 @@ public class WantService {
 	} //getWantSellDetail
 	
 	/**
+	 * 팔아요 상세페이지 이미지 얻기
+	 * @param sell_id
+	 * @return
+	 */
+	public List<SellImgVO> getWantSellDetailImg(int sell_id) {
+		List<SellImgVO> list=null;
+		
+		try {
+			list=sDAO.selectSellImg(sell_id);
+		} catch(SQLException se) {
+			se.printStackTrace();
+		}
+		
+		return list;
+	} //getWantSellDetailImg
+	
+	/**
 	 * 글 추가 처리
 	 * @throws DataAccessException
 	 */
@@ -320,9 +338,10 @@ public class WantService {
 	 * @return true 성공 | false 실패
 	 * @throws DataAccessException
 	 */
-	public boolean updateSell(WantSellVO wVO) throws DataAccessException {
+	public boolean updateSell(WantSellVO wVO, SellImgVO sVO) throws DataAccessException {
 		int cnt=sDAO.updateSell(wVO);
-		if(cnt == 0) {
+		int cntImg=sDAO.updateSellImg(sVO);
+		if(cnt == 0 || cntImg == 0) {
 			return false;
 		} else {
 			return true;
@@ -439,5 +458,9 @@ public class WantService {
 		} //end for
 		return list;
 	} //searchWordBuyList
+	
+//	public String getSelected() {
+//		return "selected='selected'";
+//	} //getSelected
 	
 } //class

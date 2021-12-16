@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.sist.service.MainService;
 import kr.co.sist.service.WantService;
 import kr.co.sist.vo.ReportVO;
+import kr.co.sist.vo.SellImgVO;
 import kr.co.sist.vo.WantBuyVO;
 import kr.co.sist.vo.WantSellVO;
 
@@ -193,6 +194,8 @@ public class WantController {
 		
 		if(wVO.getSell_id() != 0) { // 수정하는 경우
 			model.addAttribute("sell",ws.getWantSellDetail(wVO.getSell_id()));
+			model.addAttribute("sell_img",ws.getWantSellDetailImg(wVO.getSell_id()));
+//			model.addAttribute("isSelected", ws.getSelected());
 		} //end if
 		model.addAttribute("categoryList", ms.getCategory());
 		
@@ -203,16 +206,18 @@ public class WantController {
 	 * 글 추가 또는 수정 처리
 	 */
 	@RequestMapping(value="want_sell/ws_write_proc.do",method=POST)
-	public String wantSellWriteProc(HttpServletRequest request,HttpSession session,WantSellVO wVO,Model model) throws DataAccessException {
+	public String wantSellWriteProc(HttpServletRequest request,HttpSession session,WantSellVO wVO, SellImgVO sVO, Model model) 
+							throws DataAccessException {
 		String jspPage="want_sell/ws_write";
 		
 		String ip_addr=request.getRemoteAddr();
 		String session_id=(String)session.getAttribute("user_id");
 		wVO.setIp_addr(ip_addr);
 		wVO.setUser_id(session_id);
+		sVO.setSell_id(wVO.getSell_id());
 		
 		if(wVO.getSell_id() != 0) { // 수정하는 경우
-			if( ws.updateSell(wVO) ) { // 글 수정 성공
+			if( ws.updateSell(wVO, sVO) ) { // 글 수정 성공
 				model.addAttribute("url", "want_sell.do?sell_id="+wVO.getSell_id());
 			} else { //글 수정 실패
 				System.out.println("글 수정 실패");

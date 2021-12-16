@@ -94,6 +94,17 @@ $(function () {
 		$("#frm").submit();
 	}); //click
 }); //ready
+
+//이미지 업로드한 거 보이기
+function readURL(input) {
+	if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	        $('#viewImg').attr('src', e.target.result);
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	}//end if
+}//readURL
 </script>
 </head>
 <body>
@@ -113,7 +124,6 @@ $(function () {
 		<h3 class="title2">팔아요 작성</h3>
 	</div>
 
-<!-- javascript에서 action바꾸는 걸로 하기 -->
 <form name="frm" id="frm" method="post" action="ws_write_proc.do">
 <c:if test="${ not empty param.sell_id }">
 <input type="hidden" name="sell_id" value="${ param.sell_id }"/>
@@ -136,39 +146,37 @@ $(function () {
 	<td>
 	<select id="category_id" name="category_id" class="form-control">
 	<option value="none"><c:out value="-------- 선택 --------"/></option>
-	<c:choose>
-	<c:when test="${ empty sell.sell_id }"><!-- 추가하는 경우 -->
-	<c:forEach var="list" items="${ categoryList }">
-	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
+	<c:forEach var="list" items="${ requestScope.categoryList }">
+			<% String selected=""; %>
+		<c:if test="${ not empty sell.sell_id }"><!-- 수정하는 경우 -->
+			<c:choose>
+			<c:when test="${ list.category_id eq sell.category_id }">
+			<% selected="selected='selected'"; %>
+			</c:when>
+			<c:otherwise>
+			<% selected=""; %>
+			</c:otherwise>
+			</c:choose>
+		</c:if>
+			<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/></option>
 	</c:forEach>
-	</c:when>
-	<c:otherwise><!-- 수정하는 경우 -->
-	<c:forEach var="list" items="${ categoryList }">
-	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
-	</c:forEach>
-	<%--
-	<% String selected=""; %>
-	<c:forEach var="list" items="${ list }">
-	<c:choose>
-	<c:when test="${ list.category_id eq wv.category_id }">
-	<% selected="selected='selected'"; %>
-	</c:when>
-	<c:otherwise>
-	<% selected=""; %>
-	</c:otherwise>
-	</c:choose>
-	<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/></option>
-	</c:forEach>
-	<% } //end else %> --%>
-	</c:otherwise>
-	</c:choose>
 	</select>
 	</td>
 </tr>
 </table>
 </div>
+
+<!-- 여러 이미지 업로드할 수 있게 구현하기 -->
+<%-- <div class="uploadImg">
+<c:if test="${ not empty sell_img.sell_img }">
+<img id="viewImg" src="<%= commonUrl %>/upload/${ sell_img.sell_img }" alt="image" width="300px;">
+</c:if>
+<input type="file" id="img" name="sell_img" accept="image/gif, image/jpeg, image/png, image/jpg" onchange="readURL(this);"/>
+</div> --%>
+
 <div class="note">
-	<textarea name="comments" id="summernote">${ sell.comments }</textarea>
+	<%-- <textarea name="comments" id="summernote">${ sell.comments }</textarea> --%>
+	<textarea rows="40" cols="130" name="comments">${ sell.comments }</textarea>
 </div>
 </form>
 

@@ -53,15 +53,16 @@
 	
 <div id="right">
 	<div class="notice_wrap">
+	
 	<form class="navbar-form navbar-right" action="search.do">
 		<input type="text" class="form-control" placeholder="Search..." name="searchWord">
 	</form>
-	
+		<a class="btn btn-success navbar-right" href="<%= commonUrl %>/want_buy/wb_write.do" role="button">글쓰기</a>
+		
 		<div class="notice_head">
 		<h2 style="font-weight: bold;">사고싶어요</h2>
 		
 		<div>
-		<a href="<%= commonUrl %>/want_buy/wb_write.do">+추가</a>
 		<a href="<%= commonUrl %>/want_buy/want_buy.do">전체 글 보기</a>
 		</div>
 			

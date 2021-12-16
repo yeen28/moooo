@@ -52,6 +52,8 @@
 	width: 90px;
 	margin-top: 40px;
 }
+.btnArea{ width: 200px; margin: 0px auto; }
+.buy_content{ background-color: rgba( 255, 255, 255, 0.7 ); }
 </style>
 
 <script type="text/javascript">
@@ -74,6 +76,12 @@ function chkUserDelete( sessionId, writer ) {
 		alert("작성자만 삭제할 수 있습니다.");
 	}
 } //chkUserDelete
+
+$(function() {
+	$("#listBtn").click(function() {
+		location.href="<%= commonUrl %>/want_buy/want_buy.do";
+	});
+}); //ready
 </script>
 </head>
 
@@ -93,7 +101,7 @@ function chkUserDelete( sessionId, writer ) {
 				<h2 style="font-weight: bold;">사고싶어요</h2>
 			</div>
 			<div class="notice_border">
-				<div class="notice_content">
+				<div class="buy_content">
 					<table class="table">
 						<tbody>
 							<tr>
@@ -116,9 +124,11 @@ function chkUserDelete( sessionId, writer ) {
 						</tbody>
 					</table>
 				</div>
-				<a href="<%= commonUrl %>/want_buy/want_buy.do">목록</a>
-				<a href="#void" onclick="chkUserEdit('${sessionScope.user_id}','${ buy.user_id }')">수정</a>
-				<a href="#void" onclick="chkUserDelete('${sessionScope.user_id}','${ buy.user_id }')">삭제</a>
+				<div class="btnArea">
+				<button type="button" class="btn btn-default" id="listBtn">목록</button>
+				<button type="button" class="btn btn-primary" onclick="chkUserEdit('${sessionScope.user_id}','${ buy.user_id }')">수정</button>
+				<button type="button" class="btn btn-danger" onclick="chkUserDelete('${sessionScope.user_id}','${ buy.user_id }')">삭제</button>
+				</div>
 			</div>
 		</div>
 	</div>

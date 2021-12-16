@@ -25,15 +25,8 @@
 .note {margin: 20px auto; }
 .title{ font-weight: bold; font-size: 25px;}
 
-.right_wrap {
-	position: absolute;
-	top: 0px;
-	width: 70%;
-	font-size: 14px;
-	list-style: disc;
-	margin-left: 10px;
-}
-#price{width:150px;}
+.right_wrap { position: absolute; top: 0px; width: 70%; font-size: 14px; list-style: disc; margin-left: 10px; }
+#price{ width:150px; }
 </style>
 
 <!-- jQuery CDN -->
@@ -146,33 +139,21 @@ $(function () {
 	<td>
 	<select id="category_id" name="category_id" class="form-control">
 	<option value="none"><c:out value="-------- 선택 --------"/></option>
-	<c:choose>
-	<c:when test="${ empty buy.buy_id }"><!-- 추가하는 경우 -->
-	<c:forEach var="list" items="${ categoryList }">
-	<option value="${ list.category_id }"><c:out value="${ list.name }"/></option>
+	<c:forEach var="list" items="${ requestScope.categoryList }">
+		<% String selected=""; %>
+		<c:if test="${ not empty buy.buy_id }"><!-- 수정하는 경우 -->
+			<c:choose>
+			<c:when test="${ list.category_id eq buy.category_id }">
+			<% selected="selected='selected'"; %>
+			</c:when>
+			<c:otherwise>
+			<% selected=""; %>
+			</c:otherwise>
+			</c:choose>
+		</c:if>
+		<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/>
 	</c:forEach>
-	</c:when>
-	<c:otherwise><!-- 수정하는 경우 -->
-	<%--
-	<% String selected=""; %>
-	<c:forEach var="list" items="${ list }">
-	<c:choose>
-	<c:when test="${ list.category_id eq wv.category_id }">
-	<% selected="selected='selected'"; %>
-	</c:when>
-	<c:otherwise>
-	<% selected=""; %>
-	</c:otherwise>
-	</c:choose>
-	<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/></option>
-	</c:forEach>
-	<% } //end else %> --%>
-	</c:otherwise>
-	</c:choose>
 	</select>
-	<%-- <c:if test="${ not empty e }">
-	문제발생
-	</c:if> --%>
 	</td>
 </tr>
 </table>

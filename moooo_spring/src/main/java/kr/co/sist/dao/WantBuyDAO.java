@@ -110,7 +110,7 @@ public class WantBuyDAO {
 
 		StringBuilder select=new StringBuilder();
 		select
-		.append("	select buy_id,title,comments,price,to_char(input_date,'yyyy-MM-dd')input_date,view_cnt,user_id	")
+		.append("	select buy_id,title,comments,price,category_id,to_char(input_date,'yyyy-MM-dd')input_date,view_cnt,user_id	")
 		.append("	from want_buy	")
 		.append("	where buy_id = ?	");
 
@@ -124,6 +124,7 @@ public class WantBuyDAO {
 				nVO.setTitle(rs.getString("title"));
 				nVO.setComments(rs.getString("comments"));
 				nVO.setPrice(rs.getInt("price"));
+				nVO.setCategory_id(rs.getInt("category_id"));
 				nVO.setInput_date(rs.getString("input_date"));
 				nVO.setView_cnt(rs.getInt("view_cnt"));
 				nVO.setUser_id(rs.getString("user_id"));
