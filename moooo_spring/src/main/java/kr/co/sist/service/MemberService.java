@@ -73,7 +73,7 @@ public class MemberService {
 		boolean result=false;
 		
 		String encryptPass=encryptPass(mVO.getPass()); //비밀번호 암호화
-		String encryptPhone=encryptPhone(mVO.getPhone()); //전화번호 암호화(AES)
+		String encryptPhone=encryptPhone(mVO.getPhone(), "AbcdeFgHijklmnOpq"); //전화번호 암호화(AES)
 		
 		try {
 			mVO.setPass(encryptPass);
@@ -95,7 +95,7 @@ public class MemberService {
 	 * @throws DataAccessException
 	 */
 	public String findIdProc(MemberVO mVO) throws DataAccessException {
-		String encryptPhone=encryptPhone(mVO.getPhone());
+		String encryptPhone=encryptPhone(mVO.getPhone(), "AbcdeFgHijklmnOpq");
 		String id=mDAO.selectFindId(mVO.getNickname(), encryptPhone);
 		
 		return id;
@@ -109,7 +109,7 @@ public class MemberService {
 	 * @throws SQLException
 	 */
 	public String findPassProc(MemberVO mVO) throws DataAccessException, SQLException {
-		String encryptPhone=encryptPhone(mVO.getPhone());
+		String encryptPhone=encryptPhone(mVO.getPhone(), "AbcdeFgHijklmnOpq");
 		// 회원정보가 일치하지 않으면 예외를 던짐
 		mDAO.selectFindPass(mVO.getUser_id(), encryptPhone); //암호화되어있는 비밀번호가 리턴됨
 		
@@ -217,13 +217,13 @@ public class MemberService {
 	 * @param phone
 	 * @return
 	 */
-	public String encryptPhone(String phone) {
+	public String encryptPhone(String phone, String key) {
 		String encryption="";
 		
 		DataEncrypt de;
 		try {
 			//암호화
-			de = new DataEncrypt("AbcdeFgHijklmnOpq");
+			de = new DataEncrypt(key);
 			encryption=de.encryption(phone);
 
 		} catch (UnsupportedEncodingException e) {
@@ -240,14 +240,14 @@ public class MemberService {
 	 * @param encryption
 	 * @return
 	 */
-	public String decryptPhone(String encryption) {
+	public String decryptPhone(String encryptPhone, String key) {
 		String decryption="";
 		
 		DataDecrypt dd;
 		try {
 			//복호화
-			dd=new DataDecrypt("AbcdeFgHijklmnOpq");
-			decryption=dd.decryption(encryption);
+			dd=new DataDecrypt(key);
+			decryption=dd.decryption(encryptPhone);
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
