@@ -128,7 +128,7 @@ public class MemberController {
 		if( ms.signUpProc(mVO) ) { //회원가입 성공
 			model.addAttribute("nickname",mVO.getNickname());
 		} else { //회원가입 실패
-			page="redirect:/common/error/error.jsp";
+			return "error/error";
 		}//end else
 		
 		return page;

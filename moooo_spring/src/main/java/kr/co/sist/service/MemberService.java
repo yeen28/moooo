@@ -1,5 +1,7 @@
 package kr.co.sist.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
@@ -8,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.dao.MemberDAO;
+import kr.co.sist.util.cipher.DataDecrypt;
 import kr.co.sist.util.cipher.DataEncrypt;
 import kr.co.sist.vo.DeleteMemberVO;
 import kr.co.sist.vo.MemberVO;
@@ -70,8 +73,11 @@ public class MemberService {
 		boolean result=false;
 		
 		String encryptPass=encryptPass(mVO.getPass()); //비밀번호 암호화
+		String encryptPhone=encryptPhone(mVO.getPhone()); //전화번호 암호화(AES)
+		
 		try {
 			mVO.setPass(encryptPass);
+			mVO.setPhone(encryptPhone);
 			
 			mDAO.insertMember(mVO);
 			result=true;
@@ -89,7 +95,8 @@ public class MemberService {
 	 * @throws DataAccessException
 	 */
 	public String findIdProc(MemberVO mVO) throws DataAccessException {
-		String id=mDAO.selectFindId(mVO.getNickname(), mVO.getPhone());
+		String encryptPhone=encryptPhone(mVO.getPhone());
+		String id=mDAO.selectFindId(mVO.getNickname(), encryptPhone);
 		
 		return id;
 	} //findIdProc
@@ -102,8 +109,9 @@ public class MemberService {
 	 * @throws SQLException
 	 */
 	public String findPassProc(MemberVO mVO) throws DataAccessException, SQLException {
+		String encryptPhone=encryptPhone(mVO.getPhone());
 		// 회원정보가 일치하지 않으면 예외를 던짐
-		mDAO.selectFindPass(mVO.getUser_id(), mVO.getPhone()); //암호화되어있는 비밀번호가 리턴됨
+		mDAO.selectFindPass(mVO.getUser_id(), encryptPhone); //암호화되어있는 비밀번호가 리턴됨
 		
 		return tempPass(mVO.getUser_id()); //임시비밀번호 생성 후 리턴
 	} //findPassProc
@@ -203,5 +211,51 @@ public class MemberService {
 		
 		return encryptPass;
 	} //encryptPass
+	
+	/**
+	 * 복호화할 수 있는 AES 방식의 암호화
+	 * @param phone
+	 * @return
+	 */
+	public String encryptPhone(String phone) {
+		String encryption="";
+		
+		DataEncrypt de;
+		try {
+			//암호화
+			de = new DataEncrypt("AbcdeFgHijklmnOpq");
+			encryption=de.encryption(phone);
+
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (GeneralSecurityException gse) {
+			gse.printStackTrace();
+		}
+		
+		return encryption;
+	} //encryptPhone
+	
+	/**
+	 * key로 복호화진행
+	 * @param encryption
+	 * @return
+	 */
+	public String decryptPhone(String encryption) {
+		String decryption="";
+		
+		DataDecrypt dd;
+		try {
+			//복호화
+			dd=new DataDecrypt("AbcdeFgHijklmnOpq");
+			decryption=dd.decryption(encryption);
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (GeneralSecurityException gse) {
+			gse.printStackTrace();
+		}
+		
+		return decryption;
+	} //decryptPhone
 	
 } //class

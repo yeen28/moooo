@@ -49,6 +49,12 @@ $(function() {
 			return;
 		}
 		
+		if( $("#phone").val().search(/[0-9]/g) < 0 || $("#phone").val().search(/[a-z]/g) > 0 || $("#phone").val().length != 11 ) {
+			alert("휴대폰번호는 숫자 11자리만 입력해주세요.");
+			$("#phone").focus();
+			return;
+		}
+		
 		/* if( email == "" ){
 			alert("이메일을 입력해주세요.");
 			frm.email.focus();
