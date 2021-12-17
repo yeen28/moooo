@@ -36,7 +36,7 @@ a{color: #333;}
 </style>
 
 </head>
-<body style="background-color: #DFDFDF;">
+<body>
 <jsp:include page="layout/header.jsp"/>
 
 <!-- 왼쪽 메뉴바 -->
@@ -53,16 +53,10 @@ a{color: #333;}
 <!-- /왼쪽 메뉴바 -->
 
 <div class="right">
-<h2>대시보드</h2>
-<br/>
-<div>
-오늘 새로 가입한 회원 수
-</div>
-<br/>
 <div>
 <h3 class="sub-header">신고된 회원</h3>
           <div class="table-responsive">
-            <table class="table table-striped" style="width: 100%">
+            <table class="table table-striped" style="width: 80%">
               <thead>
                 <tr>
                   <th>아이디</th>
@@ -78,8 +72,8 @@ a{color: #333;}
               </c:if>
               <c:forEach var="list" items="${ requestScope.memList }">
                 <tr>
-                  <td><a href="#void"><c:out value="${ list.user_id }"/></a></td>
-                  <td><c:out value="${ list.nickname }"/></td>
+                  <td><a href="${ commonUrl }/admin/mgr_user_detail.do?user_id=${ list.user_id }"><c:out value="${ list.user_id }"/></a></td>
+                  <td><a href="${ commonUrl }/admin/mgr_user_detail.do?user_id=${ list.user_id }"><c:out value="${ list.nickname }"/></a></td>
                   <td><c:out value="${ list.phone }"/></td>
                   <td><c:out value="${ list.reported_cnt }"/></td>
                   <td><c:out value="${ list.input_date }"/></td>

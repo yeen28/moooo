@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    info="관리자 회원관리"
+    info="관리자 회원관리 상세페이지"
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
@@ -34,10 +34,22 @@ body{height:100%;}
 .left-nav>ul{list-style: none;padding-top:30px;}
 a{color: #333;}
 .menu{border:1px solid #CFCFCF;}
+
+th{ background-color: #dfdfdf; width: 200px; font-size: 15px; text-align: center; }
 </style>
 
 <script type="text/javascript">
-
+$(function() {
+	$("#deleteBtn").click(function() {
+		if( confirm("정말 ${ member.user_id } 회원을 삭제하시겠습니까?") ){
+			location.href="${ commonUrl }/admin/delete_member.do?user_id=${ member.user_id }";
+		} //end if
+	}); //click
+	
+	$("#listBtn").click(function() {
+		location.href="${ commonUrl }/admin/mgr_user.do";
+	}); //click
+})
 </script>
 </head>
 <body>
@@ -59,45 +71,51 @@ a{color: #333;}
 <div class="right">
 <h2>회원관리</h2>
 <br/>
-<div class="search">
-<form class="navbar-form navbar-left" role="search">
-  <div class="form-group">
-    <label>아이디 : </label>
-    <input type="text" class="form-control" placeholder="Search" style="height: 28px;">
-  </div>
-  <button type="submit" class="btn btn-default" style="height: 28px;font-size:13px;"><span class="glyphicon glyphicon-search"></span></button>
-</form>
-</div>
 <br/>
-<table class="table table-hover" style="width: 80%;">
+<div>
+<table class="table table-striped" style="width: 80%;">
 <thead>
 <tr>
-<th>이미지</th>
-<th>아이디</th>
-<th>닉네임</th>
-<th>휴대폰번호</th>
-<th>신고누적수</th>
-<th>최초가입일</th>
+	<th>이미지</th>
+	<td>
+		<c:choose>
+		<c:when test="${ empty member.img }">
+			<img src="<%= commonUrl %>/common/images/defaultImg.png" alt="image" height="100"><br/>
+		</c:when>
+		<c:otherwise>
+			<img src="<%= commonUrl %>/upload/${ member.img }" alt="image" height="100"><br/>
+		</c:otherwise>
+		</c:choose>
+	</td>
+</tr>
+<tr>
+	<th>아이디</th>
+	<td><c:out value="${ member.user_id }"/></td>
+</tr>
+<tr>
+	<th>닉네임</th>
+	<td><c:out value="${ member.nickname }"/></td>
+</tr>
+<tr>
+	<th>휴대폰번호</th>
+	<td><c:out value="${ member.phone }"/></td>
+</tr>
+<tr>
+	<th>신고누적수</th>
+	<td><c:out value="${ member.reported_cnt }"/></td>
+</tr>
+<tr>
+	<th>최초가입일</th>
+	<td><c:out value="${ member.input_date }"/></td>
 </tr>
 </thead>
 <tbody>
-<c:if test="${ empty memberList }">
-<tr>
-<td>조회된 목록이 없습니다.</td>
-</tr>
-</c:if>
-<c:forEach var="list" items="${ memberList }">
-<tr>
-<td><c:out value="${ list.img }"/></td>
-<td><a href="${ commonUrl }/admin/mgr_user_detail.do?user_id=${ list.user_id }"><c:out value="${ list.user_id }"/></a></td>
-<td><c:out value="${ list.nickname }"/></td>
-<td><c:out value="${ list.phone }"/></td>
-<td><c:out value="${ list.reported_cnt }"/></td>
-<td><c:out value="${ list.input_date }"/></td>
-</tr>
-</c:forEach>
 </tbody>
 </table>
+</div>
+
+<button type="button" class="btn btn-default" id="listBtn">목록</button>
+<button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
 </div>
 </body>
 </html>

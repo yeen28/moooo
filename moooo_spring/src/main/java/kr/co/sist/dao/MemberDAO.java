@@ -226,14 +226,21 @@ public class MemberDAO {
 		
 		return cnt;
 	}//updateMember
-//	public int deleteMember(String id) throws DataAccessException{
-//		int cnt=0;
-//		
-//		String deleteMember="delete from users where user_id=?";
-//		cnt=jt.update(deleteMember, id);
-//		
-//		return cnt;
-//	}//deleteMember
+	
+	/**
+	 * 회원 삭제
+	 * @param id
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int deleteMember(String user_id) throws DataAccessException{
+		int cnt=0;
+		
+		String deleteMember="delete from users where user_id=?";
+		cnt=jt.update(deleteMember, user_id);
+		
+		return cnt;
+	}//deleteMember
 	
 	/**
 	 * 휴대폰번호 얻기
@@ -295,5 +302,34 @@ public class MemberDAO {
 		
 		return cnt;
 	} //selectUserCnt
+	
+	/**
+	 * 회원관리 상세페이지
+	 * @param user_id
+	 * @return MemberVO
+	 * @throws SQLException, DataAccessException
+	 */
+	public MemberVO selectUserDetail(String user_id) throws SQLException, DataAccessException {
+		MemberVO mVO=null;
+		
+		String select="select * from users where user_id=?";
+		mVO=jt.queryForObject(select, new Object[] { user_id }, new RowMapper<MemberVO>() {
+			@Override
+			public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				MemberVO mVO=new MemberVO();
+				mVO.setUser_id(rs.getString("user_id"));
+				mVO.setPass(rs.getString("pass"));
+				mVO.setNickname(rs.getString("nickname"));
+				mVO.setPhone(rs.getString("phone"));
+				mVO.setReported_cnt(rs.getInt("reported_cnt"));
+				mVO.setInput_date(rs.getString("input_date"));
+				mVO.setImg(rs.getString("img"));
+				mVO.setLeave_flag(rs.getString("leave_flag"));
+				return mVO;
+			}
+		});
+		
+		return mVO;
+	} //selectUserDetail
 	
 }//class

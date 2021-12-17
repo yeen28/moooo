@@ -32,7 +32,6 @@ public class MgrController {
 	@Autowired
 	private NoticeService ns;
 	
-	
 	/**
 	 * 관리자 메인화면 폼
 	 */
@@ -63,12 +62,39 @@ public class MgrController {
 		
 		return jspPage;
 	} //memberForm
+	
+	/**
+	 * 회원 상세페이지
+	 */
+	@RequestMapping(value="mgr_user_detail.do",method=GET)
+	public String memberDetail(String user_id, Model model) throws SQLException {
+		String jspPage="admin/mgr_user_detail";
+		
+		if( ms.searchMemberDetail(user_id) == null ) {
+			return "error/error";
+		} //end if
+		
+		model.addAttribute("member", ms.searchMemberDetail(user_id));
+		// 신고이유 얻기
+		
+		return jspPage;
+	} //memberDetail
 
-//	@RequestMapping(value="mgr/member_proc.do",method=GET)
-//	public String memberProc(MemberVO mVO, Model model) {
-//		String jspPage="";
-//		return jspPage;
-//	} //memberProc
+	/**
+	 * 회원삭제 처리
+	 */
+	@RequestMapping(value="delete_member.do",method=GET)
+	public String leaveProc(String user_id, HttpSession session, Model model) {
+		String page="redirect:admin/mgr_user.do";
+		
+		if( ms.deleteMember(user_id) ) { //성공
+			model.addAttribute("flag", true);
+		} else { //실패
+			model.addAttribute("flag", false);
+		} //end else
+		
+		return page;
+	} //leaveProc
 	
 	/**
 	 * 이용방법 폼

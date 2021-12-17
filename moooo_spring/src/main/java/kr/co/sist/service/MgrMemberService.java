@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.dao.MemberDAO;
 import kr.co.sist.dao.ReportDAO;
+import kr.co.sist.vo.DeleteMemberVO;
 import kr.co.sist.vo.MemberVO;
 
 @Component
@@ -44,5 +45,38 @@ public class MgrMemberService {
 		
 		return listMember;
 	} //searchMember
+	
+	/**
+	 * 雀盔包府 惑技其捞瘤
+	 * @param user_id
+	 * @return MemberVO
+	 * @throws SQLException
+	 */
+	public MemberVO searchMemberDetail(String user_id) throws SQLException {
+		MemberVO mVO=null;
+		
+		try {
+			mVO=mDAO.selectUserDetail(user_id);
+		} catch(DataAccessException dae) {}
+		
+		return mVO;
+	} //searchMemberDetail
+	
+	/**
+	 * 雀盔昏力 贸府 诀公肺流
+	 */
+	public boolean deleteMember(String user_id) {
+		boolean result=false;
+		
+		try {
+			if( mDAO.deleteMember(user_id) != 0 ) { //昏力 己傍
+				result=true;
+			} //end if
+		} catch(DataAccessException dae) { 
+			result=false;
+		} //end catch
+		
+		return result;
+	} //deleteMember
 	
 } //class
