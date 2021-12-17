@@ -147,18 +147,7 @@ function readURL(input) {
 	<select id="category_id" name="category_id" class="form-control">
 	<option value="none"><c:out value="-------- 선택 --------"/></option>
 	<c:forEach var="list" items="${ requestScope.categoryList }">
-			<% String selected=""; %>
-		<c:if test="${ not empty sell.sell_id }"><!-- 수정하는 경우 -->
-			<c:choose>
-			<c:when test="${ list.category_id eq sell.category_id }">
-			<% selected="selected='selected'"; %>
-			</c:when>
-			<c:otherwise>
-			<% selected=""; %>
-			</c:otherwise>
-			</c:choose>
-		</c:if>
-			<option value="${ list.category_id }" <%= selected %>><c:out value="${ list.name }"/></option>
+		<option value="${ list.category_id }"${ list.category_id eq sell.category_id ? ' selected="selected"':"" }><c:out value="${ list.name }"/>
 	</c:forEach>
 	</select>
 	</td>
