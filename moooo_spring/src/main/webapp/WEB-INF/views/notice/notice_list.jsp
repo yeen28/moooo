@@ -73,7 +73,8 @@
 					<tbody>
 						<c:forEach var="notice" items="${ selectedNotice }"> 
 							<tr>
-								<td style="font-size: 16px; text-align: center; color: #333;">${ notice.notice_id }</td>
+							<c:set var="i" value="${ i+1 }"/>
+								<td style="font-size: 16px; text-align: center; color: #333;">${ i }</td>
 								<td style="font-size: 16px; text-align: center; color: #333;">
 								  <a href="<%= commonUrl %>/notice/notice_detail.do?notice_id=${ notice.notice_id }">${ notice.title }</a>
 								</td>

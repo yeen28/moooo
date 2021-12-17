@@ -27,9 +27,8 @@
 <style type="text/css">
 body{height:100%;}
 
-.right { text-align: center; width: 250px; margin: 0 auto; margin-top: 100px}
+.form { text-align: center; width: 250px; margin: 250px auto; }
 .margin1{width: 300px; text-align: center; margin: 15px;}
-.title2{  margin-bottom: 20px; margin-top: 50px; font-weight: bold; font-size: 25px;}
 .btn{background-color: #333; color: #fff; font-size: 15px; font-weight: bold; width:300px;}
 .btn:hover{color:#333;}
 
@@ -75,47 +74,26 @@ $(function () {
 <body style="background-color: #DFDFDF;">
 <jsp:include page="layout/header.jsp"/>
 
-<!-- 왼쪽 메뉴바 -->
-<div class="left-nav">
-<ul class="nav nav-pills nav-stacked">
-  <li role="presentation"><a href="<%= commonUrl %>/admin/main.do"><span class="glyphicon glyphicon-home">&nbsp;홈</span></a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_user.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_how_to.do"><span class="glyphicon glyphicon-pencil">&nbsp;이용방법수정</span></a></li>
-  <li role="presentation"><a href="<%= commonUrl %>/admin/mgr_notice.do"><span class="glyphicon glyphicon-th-list">&nbsp;공지사항관리</span></a></li>
-  <li role="presentation" class="active"><a href="<%= commonUrl %>/admin/change_pass.do"><span class="glyphicon glyphicon-cog">&nbsp;비밀번호변경</span></a></li>
-<li></li>
-</ul>
-</div>
-<!-- /왼쪽 메뉴바 -->
-
-<div class="right">
-<%-- <c:if test="${ not empty sessionScope.sess_id and empty param.pass_ad or param.hid eq 'fail' }"> --%>
-      <form action="change_pass_proc.do" method="post" id="frm_ad_pass">
-      <div>
-         <div style="margin: 200px auto; width: 600px;text-align: left;">
-         </div>
-         <div class="wrap">
-            <input type="hidden" name="admin_id" value="${ sessionScope.admin_id }"><%-- 변조 못하게 백엔드에서도 세션값을 받음 --%>
-            <div class="margin1">
-               <label>기존 비밀번호</label>
-               <input type="password" class="form-control" id="beforepass_ad" name="before_pass" placeholder="기존 비밀번호를 입력하세요">
-            </div>
-            <div class="margin1">
-               <label>새로운 비밀번호</label>
-               <input type="password" class="form-control" id="new_pass" name="new_pass" placeholder="새로운 비밀번호를 입력하세요">
-            </div>
-            <div class="margin1">
-               <label>새로운 비밀번호 확인</label>
-               <input type="password" class="form-control" id="check_newpass_ad" name="check_newpass_ad" placeholder="새로운 비밀번호를 확인합니다">
+  <form action="change_pass_proc.do" method="post" id="frm_ad_pass">
+      <div class="form">
+		<input type="hidden" name="admin_id" value="${ sessionScope.admin_id }"><%-- 변조하지 못하게 백엔드에서도 세션값을 받음 --%>
+		<div class="margin1">
+		<label>기존 비밀번호</label>
+		<input type="password" class="form-control" id="beforepass_ad" name="before_pass" placeholder="기존 비밀번호를 입력하세요">
+		</div>
+		<div class="margin1">
+		<label>새로운 비밀번호</label>
+		<input type="password" class="form-control" id="new_pass" name="new_pass" placeholder="새로운 비밀번호를 입력하세요">
+		</div>
+		<div class="margin1">
+		<label>새로운 비밀번호 확인</label>
+		<input type="password" class="form-control" id="check_newpass_ad" name="check_newpass_ad" placeholder="새로운 비밀번호를 확인합니다">
             </div>
             <div class="margin1">
                <input type="button" class="btn" value="비밀번호 변경" id="cha_pass_ad">
             </div>
          </div>
-      </div>
    </form>
-<%-- </c:if> --%>
-</div>
 
 <c:if test="${ not empty msg }">
 <script type="text/javascript">

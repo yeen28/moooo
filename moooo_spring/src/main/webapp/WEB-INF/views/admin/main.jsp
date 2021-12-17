@@ -54,6 +54,7 @@ a{color: #333;}
 
 <div class="right">
 <div>
+<h1>대시보드</h1>
 <h3 class="sub-header">신고된 회원</h3>
           <div class="table-responsive">
             <table class="table table-striped" style="width: 80%">

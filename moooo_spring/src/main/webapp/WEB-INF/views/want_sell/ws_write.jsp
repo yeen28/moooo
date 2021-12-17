@@ -184,7 +184,7 @@ function readURL(input) {
 <c:if test="${ not empty param.title }">
 <script type="text/javascript">
 alert("${ msg }");
-location.href="${ url }";
+location.href="${ commonUrl }/${ url }";
 </script>
 </c:if>
 

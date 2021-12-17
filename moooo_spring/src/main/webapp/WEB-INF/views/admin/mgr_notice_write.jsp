@@ -154,7 +154,7 @@ $(function () {
 }); //ready
 </script>
 </head>
-<body style="background-color: #DFDFDF;">
+<body>
 <jsp:include page="layout/header.jsp"/>
 
 <!-- 왼쪽 메뉴바 -->
@@ -178,12 +178,19 @@ $(function () {
 <form name="frm" id="frm" method="post" action="notice_edit_proc.do?control=${ param.control }">
 <div>
 <table class="table" style="width: 1000px;">
+<thead>
+<tr>
+	<td colspan="2"><input type="button" class="btn btn-info" value="작성 완료" id="add" style="float: right;"></td>
+</tr>
+</thead>
+<tbody>
 <tr>
 	<td>제목 : </td>
 	<td>
 		<input type="text" class="form-control" placeholder="50자 이내로 작성해주세요." name="title" id="add_title" value="${ notice.title }">
 	</td>
 </tr>
+</tbody>
 </table>
 </div>
 <div class="note">
@@ -193,9 +200,6 @@ $(function () {
 <input type="hidden" value="${ param.notice_id }" name="notice_id"/>
 </c:if>
 </form>
-	<div style="text-align: center">
-		<input type="button" class="btn" value="작성 완료" id="add">
-	</div>
 </div><!-- /<div id="right"> -->
 </c:if>
 

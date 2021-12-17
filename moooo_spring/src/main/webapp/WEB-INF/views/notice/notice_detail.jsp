@@ -77,7 +77,7 @@ function notice(){
 						</tbody>
 					</table>
 				</div>
-				<input type="button" value="목록" onclick="notice()" class="noticeBtn"/>
+				<input type="button" value="목록" onclick="notice()" class="btn btn-default"/>
 			</div>
 		</div>
 	</div>

@@ -66,7 +66,7 @@ a{color: #333;}
 <div class="right" style="width: 1000px;">
 
 <h2>이용방법</h2>
-<a href="<%= commonUrl %>/admin/mgr_how_to_edit.do">수정하기</a>
+<a href="<%= commonUrl %>/admin/mgr_how_to_edit.do" class="btn btn-info">수정하기</a>
 <br/>
 <div>
 <div class="editWrap">

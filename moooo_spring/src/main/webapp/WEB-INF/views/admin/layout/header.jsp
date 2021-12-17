@@ -9,6 +9,8 @@
 .logo{float:left; width: 100px; margin-left: 10px;}
 .logo>h3>a{color:#fff;}
 .logo>h3>a:hover{text-decoration: none;}
+
+.right{ width: 80% }
 </style>
 
 <div class="top-nav">

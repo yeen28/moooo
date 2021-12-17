@@ -139,7 +139,7 @@ public class WantController {
 	/**
 	 * '팔아요' 글 목록
 	 */
-	@RequestMapping(value="want_sell/want_sell.do",method=GET)
+	@RequestMapping(value="want_sell/want_sell.do",method= GET)
 	public String wantSell(String category,String page,Model model) {
 		String jspPage="want_sell/want_sell";
 		
@@ -218,13 +218,13 @@ public class WantController {
 		
 		if(wVO.getSell_id() != 0) { // 수정하는 경우
 			if( ws.updateSell(wVO, sVO) ) { // 글 수정 성공
-				model.addAttribute("url", "want_sell.do?sell_id="+wVO.getSell_id());
+				model.addAttribute("url", "want_sell/want_sell.do?sell_id="+wVO.getSell_id());
 			} else { //글 수정 실패
 				System.out.println("글 수정 실패");
 			}//end else
 		} else { // 추가하는 경우
 			ws.addSell(wVO); // 예외가 발생하지 않으면 밑으로 흘러감.
-			model.addAttribute("url", "want_sell.do");
+			model.addAttribute("url", "want_sell/want_sell.do");
 		}
 		model.addAttribute("msg", "팔아요 글이 등록됐습니다.");
 		

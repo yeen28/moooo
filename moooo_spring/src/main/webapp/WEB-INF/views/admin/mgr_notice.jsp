@@ -40,7 +40,7 @@ a{color: #333;}
 
 </script>
 </head>
-<body style="background-color: #DFDFDF;">
+<body>
 <jsp:include page="layout/header.jsp"/>
 
 <!-- 왼쪽 메뉴바 -->
@@ -67,10 +67,10 @@ a{color: #333;}
   </div>
   <button type="submit" class="btn btn-default" style="height: 28px;font-size:13px;"><span class="glyphicon glyphicon-search"></span></button>
 </form>
+<a href="notice_edit_form.do?control=add" class="btn btn-info">추가</a>
 </div>
 <br/>
-<a href="notice_edit_form.do?control=add">+추가</a>
-<table class="table table-hover">
+<table class="table table-hover" style="width: 80%;">
 <thead>
 <tr>
 <th>번호</th>

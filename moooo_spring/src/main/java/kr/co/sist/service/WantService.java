@@ -341,7 +341,7 @@ public class WantService {
 	public boolean updateSell(WantSellVO wVO, SellImgVO sVO) throws DataAccessException {
 		int cnt=sDAO.updateSell(wVO);
 		int cntImg=sDAO.updateSellImg(sVO);
-		if(cnt == 0 || cntImg == 0) {
+		if(cnt == 0 ) { // || cntImg == 0) {
 			return false;
 		} else {
 			return true;

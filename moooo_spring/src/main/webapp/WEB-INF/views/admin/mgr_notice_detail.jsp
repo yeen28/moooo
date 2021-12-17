@@ -37,16 +37,6 @@ a{color: #333;}
 	font-size: 14px;
 	margin-left: 160px 10px 40px 10px;
 }
-.noticeBtn {
-	font-size: 17px; 
-	background-color: #494949; 
-	color: #FFFFFF;
-	border: 1px solid #494949; 
-	border-radius: 3px; 
-	width: 90px;
-	margin-top: 40px;
-	padding: 8px;
-}
 </style>
 
 <script type="text/javascript">
@@ -77,7 +67,7 @@ function chk() {
 </script>
 </head>
 
-<body style="background-color: #DFDFDF;">
+<body>
 <jsp:include page="layout/header.jsp"/>
 
 <!-- 왼쪽 메뉴바 -->
@@ -98,7 +88,7 @@ function chk() {
 <br/>
 	<div class="notice_wrap">
 			<div class="notice_content">
-				<table class="table table-bordered">
+				<table class="table table-bordered" style="width: 80%">
 				<tbody>
 				<tr>
 					<td style="font-weight: bold; font-size: 16px; color: #333;">제목</td>
@@ -118,9 +108,9 @@ function chk() {
 				</tbody>
 				</table>
 			</div>
-				<a href="<%= commonUrl %>/admin/mgr_notice.do" class="noticeBtn">목록</a>
-				<a href="<%= commonUrl %>/admin/notice_edit_form.do?notice_id=${ notice.getNotice_id() }&control=edit&writer=${ notice.getAdmin_id() }" class="noticeBtn" onclick="chkWriter('${ sessionScope.admin_id }','${ notice.getAdmin_id() }','edit')">수정</a>
-				<a href="#void" class="noticeBtn" onclick="chk()">삭제</a>
+				<a href="<%= commonUrl %>/admin/mgr_notice.do" class="btn btn-default">목록</a>
+				<a href="<%= commonUrl %>/admin/notice_edit_form.do?notice_id=${ notice.getNotice_id() }&control=edit&writer=${ notice.getAdmin_id() }" class="btn btn-primary" onclick="chkWriter('${ sessionScope.admin_id }','${ notice.getAdmin_id() }','edit')">수정</a>
+				<a href="#void" class="btn btn-danger" onclick="chk()">삭제</a>
 			</div>
 		</div>
 
