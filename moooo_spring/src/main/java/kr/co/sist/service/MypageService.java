@@ -2,6 +2,8 @@ package kr.co.sist.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import kr.co.sist.dao.MypageDAO;
 import kr.co.sist.dao.WantBuyDAO;
 import kr.co.sist.dao.WantSellDAO;
+import kr.co.sist.util.cipher.DataDecrypt;
 import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.WantBuyVO;
 import kr.co.sist.vo.WantSellVO;
@@ -39,6 +42,8 @@ public class MypageService {
 	 */
 	public MemberVO getMypageInfo(String user_id) throws SQLException {
 		MemberVO mVO=mDAO.selectMypage(user_id);
+		mVO.setPhone( decryptPhone(mVO.getPhone(), "AbcdeFgHijklmnOpq") );
+		
 		return mVO;
 	} //getMypageInfo
 	
@@ -159,5 +164,28 @@ public class MypageService {
 		
 		return result;
 	} //cancelInterestList
+	
+	/**
+	 * key로 복호화진행
+	 * @param encryption
+	 * @return
+	 */
+	public String decryptPhone(String encryptPhone, String key) {
+		String decryption="";
+		
+		DataDecrypt dd;
+		try {
+			//복호화
+			dd=new DataDecrypt(key);
+			decryption=dd.decryption(encryptPhone);
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (GeneralSecurityException gse) {
+			gse.printStackTrace();
+		}
+		
+		return decryption;
+	} //decryptPhone
 
 } //class
