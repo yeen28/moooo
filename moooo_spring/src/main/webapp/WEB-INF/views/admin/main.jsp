@@ -76,7 +76,7 @@ a{color: #333;}
                   <td><a href="${ commonUrl }/admin/mgr_user_detail.do?user_id=${ list.user_id }"><c:out value="${ list.user_id }"/></a></td>
                   <td><a href="${ commonUrl }/admin/mgr_user_detail.do?user_id=${ list.user_id }"><c:out value="${ list.nickname }"/></a></td>
                   <td><c:out value="${ list.phone }"/></td>
-                  <td><c:out value="${ list.reported_cnt }"/></td>
+                  <td><a href="${ commonUrl }/admin/mgr_user_detail.do?user_id=${ list.user_id }"><c:out value="${ list.reported_cnt }"/></a></td>
                   <td><c:out value="${ list.input_date }"/></td>
                 </tr>
               </c:forEach>

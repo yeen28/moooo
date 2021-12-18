@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -79,6 +80,16 @@ public class MgrController {
 		
 		return jspPage;
 	} //memberDetail
+	
+	/**
+	 * 신고 이유 보여주기
+	 */
+	@RequestMapping(value="report_detail.do", method=GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String memberReportDetail(String reported_user_id, Model model) throws SQLException {
+		String jsonObj=ms.searchReportReason(reported_user_id);
+		return jsonObj;
+	} //memberReportDetail
 
 	/**
 	 * 회원삭제 처리

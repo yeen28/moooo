@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.sist.service.MypageService;
@@ -88,20 +87,6 @@ public class MypageController {
 		
 		return jspPage;
 	} //writeListForm
-
-//	@RequestMapping(value="해당글로 이동.do",method=POST)
-//	public String move() {
-//		String jspPage="";
-//		
-//		return jspPage;
-//	}
-
-	@RequestMapping(value="delete_write_list.do",method=GET)
-	public String deleteWirteList(List<Integer> listWrite,Model model) {
-		String jspPage="";
-		
-		return jspPage;
-	}
 
 	/**
 	 * 관심글 List

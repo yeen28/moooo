@@ -332,4 +332,30 @@ public class MemberDAO {
 		return mVO;
 	} //selectUserDetail
 	
+	/**
+	 * 신고된 이유 얻기
+	 * @param reported_user_id
+	 * @return 신고된 이유 List
+	 */
+	public List<String> selectReportReason(String reported_user_id) throws SQLException {
+		List<String> list=null;
+		
+		StringBuilder select=new StringBuilder();
+		select
+		.append("	select reason	")
+		.append("	from report_reason	")
+		.append("	where reason_id in (	")
+		.append("	select reason_id	")
+		.append("	from report	")
+		.append("	where reported_user_id=? )	");
+		list=jt.query(select.toString(), new Object[] { reported_user_id }, new RowMapper<String>() {
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getString("reason");
+			} //mapRow
+		});
+		
+		return list;
+	} //selectReportReason
+	
 }//class

@@ -36,6 +36,7 @@ a{color: #333;}
 .menu{border:1px solid #CFCFCF;}
 
 th{ background-color: #dfdfdf; width: 200px; font-size: 15px; text-align: center; }
+#detailView{ margin-top: 50px; }
 </style>
 
 <script type="text/javascript">
@@ -49,7 +50,29 @@ $(function() {
 	$("#listBtn").click(function() {
 		location.href="${ commonUrl }/admin/mgr_user.do";
 	}); //click
-})
+}); //ready
+
+function detail( user_id ) {
+	$.ajax({
+		url: "report_detail.do",
+		type: "get",
+		data: { reported_user_id : user_id },
+		dataType: "json",
+		error: function( xhr ) {
+			console.log(xhr.status+" / "+xhr.statusText);
+		},
+		success: function( jsonObj ) {
+			let jsonArr=jsonObj.data;
+			let result="<table class='table table-striped' style='width: 80%;'><thead><tr><td>신고 이유</td>";
+			result+="</tr></thead><tbody><tr><td>";
+			for(var i=0; i<jsonArr.length; i++){
+				result += jsonArr[i].reason+"<br/>";
+			}
+			result+="</td></tr>	</tbody></table>";
+			$("#detailView").html( result );
+		}
+	}); //ajax
+} //detail
 </script>
 </head>
 <body>
@@ -102,7 +125,8 @@ $(function() {
 </tr>
 <tr>
 	<th>신고누적수</th>
-	<td><c:out value="${ member.reported_cnt }"/></td>
+	<td><c:out value="${ member.reported_cnt }"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button class="btn btn-default" onclick="detail('${ requestScope.member.user_id }')">자세히 보기</button>
 </tr>
 <tr>
 	<th>최초가입일</th>
@@ -116,6 +140,9 @@ $(function() {
 
 <button type="button" class="btn btn-default" id="listBtn">목록</button>
 <button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
+
+<div id="detailView"></div>
 </div>
+
 </body>
 </html>
