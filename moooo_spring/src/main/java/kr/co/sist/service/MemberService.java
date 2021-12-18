@@ -10,7 +10,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.dao.MemberDAO;
-import kr.co.sist.util.cipher.DataDecrypt;
 import kr.co.sist.util.cipher.DataEncrypt;
 import kr.co.sist.vo.DeleteMemberVO;
 import kr.co.sist.vo.MemberVO;
@@ -234,28 +233,5 @@ public class MemberService {
 		
 		return encryption;
 	} //encryptPhone
-	
-	/**
-	 * key로 복호화진행
-	 * @param encryption
-	 * @return
-	 */
-	public String decryptPhone(String encryptPhone, String key) {
-		String decryption="";
-		
-		DataDecrypt dd;
-		try {
-			//복호화
-			dd=new DataDecrypt(key);
-			decryption=dd.decryption(encryptPhone);
-			
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (GeneralSecurityException gse) {
-			gse.printStackTrace();
-		}
-		
-		return decryption;
-	} //decryptPhone
 	
 } //class
