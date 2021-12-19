@@ -7,7 +7,7 @@
 <%@ include file="/common/jsp/common_code.jsp" %>
 
 <c:if test="${ empty sessionScope.admin_id }">
-<c:redirect url="/admin/login_form.do"/>
+<c:redirect url="/admin/login.do"/>
 </c:if>
 
 <!DOCTYPE html>

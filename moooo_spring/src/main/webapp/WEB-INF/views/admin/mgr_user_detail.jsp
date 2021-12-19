@@ -7,7 +7,7 @@
 <%@ include file="/common/jsp/common_code.jsp" %>
 
 <c:if test="${ empty sessionScope.admin_id }">
-<c:redirect url="/admin/login_form.do"/>
+<c:redirect url="/admin/login.do"/>
 </c:if>
 
 <!DOCTYPE html>
@@ -65,9 +65,14 @@ function detail( user_id ) {
 			let jsonArr=jsonObj.data;
 			let result="<table class='table table-striped' style='width: 80%;'><thead><tr><td>신고 이유</td>";
 			result+="</tr></thead><tbody><tr><td>";
-			for(var i=0; i<jsonArr.length; i++){
-				result += jsonArr[i].reason+"<br/>";
-			}
+			
+			if(jsonArr.length == 0){
+				result += "신고 이력이 없습니다.";
+			} else {
+				for(var i=0; i<jsonArr.length; i++){
+					result += jsonArr[i].reason+"<br/>";
+				} //end for
+			} //end else
 			result+="</td></tr>	</tbody></table>";
 			$("#detailView").html( result );
 		}
