@@ -85,10 +85,6 @@ $(function() {
 });//ready
 
 $(function() {
-	/* $("#chk_nickname_dup").click(function() {
-		window.open("dup_nickname.jsp", "dup", "width=500,height=400");
-	});	//click */
-	
 	$("#addSave").click(function() {
 		
 		if( confirm("회원정보를 변경하시겠습니까?") ){
@@ -201,18 +197,15 @@ function rmInterest() {
 		<th id="td">프로필 사진</th>
 		<td id="td">
 			<div id="myImg">
-				<%-- <% if( uv.getImg() == null ) { %> --%>
 				<c:choose>
-				<c:when test="${ empty mVO.getImg() }">
+				<c:when test="${ empty mVO.img }">
 				<img id="viewImg" src="<%= commonUrl %>/common/images/defaultImg.png" alt="image"><br/>
 				</c:when>
-				<%-- <% } else { %> --%>
 				<c:otherwise>
-				<img id="viewImg" src="<%= commonUrl %>/upload/${ mVO.getImg() }" alt="image"><br/>
+				<img id="viewImg" src="<%= commonUrl %>/upload/${ mVO.img }" alt="image"><br/>
 				<!-- 사진변경 버튼 / 클릭시 팝업? -->
 				</c:otherwise>
 				</c:choose>
-				<%-- <% } %> --%>
 				<!-- <img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="100" height="100"> -->
 				<!-- <br/><br/><br/><br/><br/><br/>
 				 <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진등록</b></label> -->

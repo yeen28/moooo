@@ -20,6 +20,7 @@ import kr.co.sist.dao.MypageDAO;
 import kr.co.sist.dao.WantBuyDAO;
 import kr.co.sist.dao.WantSellDAO;
 import kr.co.sist.util.cipher.DataDecrypt;
+import kr.co.sist.util.cipher.DataEncrypt;
 import kr.co.sist.vo.MemberVO;
 import kr.co.sist.vo.WantBuyVO;
 import kr.co.sist.vo.WantSellVO;
@@ -60,7 +61,7 @@ public class MypageService {
 		
 		//1. 파일업로드 컴포넌트 생성. ( 파일이 업로드 된다. )
 		File uploadPath=new File("C:/Users/user/git/moooo/moooo_spring/src/main/webapp/upload");
-		//File uploadPath=new File("E:/moooo/upload"); //서버에서 경로
+//		File uploadPath=new File("E:/moooo/upload"); //서버에서 경로
 		if( !uploadPath.exists() ){ //업로드 폴더가 존재하지 않으면
 			uploadPath.mkdirs();
 		}//end if
@@ -78,13 +79,13 @@ public class MypageService {
 
 		mVO.setUser_id(user_id);
 		mVO.setNickname(nickname);
-		mVO.setPhone(phone);
+		mVO.setPhone( encryptPhone(phone, "AbcdeFgHijklmnOpq") );
 		mVO.setImg(fileSystemName);
 		
 		//이전 파일은 삭제하기
 		String beforeFileName=mDAO.selectMypage(user_id).getImg();
 		File deleteImg=new File("C:/Users/user/git/moooo/moooo_spring/src/main/webapp/upload/"+beforeFileName);
-		//File deleteImg=new File("E:/moooo/upload/"+beforeFileName);
+//		File deleteImg=new File("E:/moooo/upload/"+beforeFileName);
 		if(deleteImg.exists() && deleteImg.isFile()){ //이전 이미지가 존재한다면
 			if(deleteImg.delete()){ //사진 삭제
 				//System.out.println("삭제 : "+beforeFileName);
@@ -164,6 +165,29 @@ public class MypageService {
 		
 		return result;
 	} //cancelInterestList
+	
+	/**
+	 * 복호화할 수 있는 AES 방식의 암호화
+	 * @param phone
+	 * @return
+	 */
+	public String encryptPhone(String phone, String key) {
+		String encryption="";
+		
+		DataEncrypt de;
+		try {
+			//암호화
+			de = new DataEncrypt(key);
+			encryption=de.encryption(phone);
+
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (GeneralSecurityException gse) {
+			gse.printStackTrace();
+		}
+		
+		return encryption;
+	} //encryptPhone
 	
 	/**
 	 * key로 복호화진행
