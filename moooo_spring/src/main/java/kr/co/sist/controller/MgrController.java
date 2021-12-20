@@ -156,6 +156,7 @@ public class MgrController {
 		String jspPage="admin/mgr_notice";
 		
 		model.addAttribute("noticeList", ns.searchNoticeList(page));
+		model.addAttribute("noticeListSize", ns.searchAllCnt());
 		model.addAttribute("pagination", ns.getPagination(page));
 		
 		return jspPage;

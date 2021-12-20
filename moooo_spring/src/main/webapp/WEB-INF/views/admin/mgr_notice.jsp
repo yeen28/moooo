@@ -85,9 +85,11 @@ a{color: #333;}
 <td>조회된 결과가 없습니다.</td>
 </tr>
 </c:if>
+<c:set var="size" value="${ noticeListSize }"/>
 <c:forEach var="list" items="${ noticeList }">
+<c:set var="i" value="${ i+1 }"/>
 <tr>
-<td><c:out value="${ list.notice_id }"/></td>
+<td><c:out value="${ size-i+1 }"/></td>
 <td><a href="${ commonUrl }/admin/mgr_notice_detail.do?notice_id=${ list.notice_id }"><c:out value="${ list.title }"/></a></td>
 <td><c:out value="${ list.admin_id }"/></td>
 <td><c:out value="${ list.view_cnt }"/></td>
