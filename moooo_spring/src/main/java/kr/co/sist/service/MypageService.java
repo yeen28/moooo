@@ -84,8 +84,8 @@ public class MypageService {
 		
 		//이전 파일은 삭제하기
 		String beforeFileName=mDAO.selectMypage(user_id).getImg();
-		File deleteImg=new File("C:/Users/user/git/moooo/moooo_spring/src/main/webapp/upload/"+beforeFileName);
-//		File deleteImg=new File("E:/moooo/upload/"+beforeFileName);
+		File deleteImg=new File("D:/dev/git/moooo/moooo_spring/src/main/webapp/upload/"+beforeFileName);
+//		File deleteImg=new File("D:/dev/moooo/upload/"+beforeFileName);
 		if(deleteImg.exists() && deleteImg.isFile()){ //이전 이미지가 존재한다면
 			if(deleteImg.delete()){ //사진 삭제
 				//System.out.println("삭제 : "+beforeFileName);
