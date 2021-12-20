@@ -98,6 +98,31 @@ a{color: #333;}
 </c:forEach>
 </tbody>
 </table>
+
+<div class="text-center">
+		<nav id="pagination">
+			<ul class="pagination">
+	<li>
+		<c:if test="${ pagination.nowPage lt 1 and param.page ne null }">
+			<a href="<%=  commonUrl %>/admin/mgr_user.do?page=${ pagination.nowPage-1 }" aria-label="Previous">
+			<span aria-hidden="true">&laquo;</span>
+			</a>
+		</c:if>
+	</li>
+	<c:forEach var="i" begin="${ pagination.start }" end="${ pagination.end }">
+		<li><a href="<%=  commonUrl %>/admin/mgr_user.do?page=${ i }"><c:out value="${ i }"/></a></li>
+	</c:forEach>
+	<li>
+	<c:if test="${ pagination.lastPage ne 0 and pagination.nowPage ne pagination.lastPage }">
+		<a href="<%=  commonUrl %>/admin/mgr_user.do?page=${ pagination.nowPage+1 }" aria-label="Next">
+			<span aria-hidden="true">&raquo;</span>
+		</a>
+	</c:if>
+	</li>
+</ul>
+</nav>
+</div>
+
 </div>
 </body>
 </html>

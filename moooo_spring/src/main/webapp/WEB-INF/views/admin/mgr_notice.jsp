@@ -81,9 +81,7 @@ a{color: #333;}
 </tr>
 </thead>
 <c:if test="${ empty noticeList }">
-<tr>
-<td>조회된 결과가 없습니다.</td>
-</tr>
+<tr><td>조회된 결과가 없습니다.</td></tr>
 </c:if>
 <c:set var="size" value="${ noticeListSize }"/>
 <c:forEach var="list" items="${ noticeList }">
@@ -97,6 +95,31 @@ a{color: #333;}
 </tr>
 </c:forEach>
 </table>
+
+<div class="text-center">
+		<nav id="pagination">
+			<ul class="pagination">
+	<li>
+		<c:if test="${ param.page ne 1 and param.page ne null }">
+			<a href="<%=  commonUrl %>/admin/mgr_notice.do?page=${ pagination.nowPage-1 }" aria-label="Previous">
+			<span aria-hidden="true">&laquo;</span>
+			</a>
+		</c:if>
+	</li>
+	<c:forEach var="i" begin="${ pagination.start }" end="${ pagination.end }">
+		<li><a href="<%=  commonUrl %>/admin/mgr_notice.do?page=${ i }"><c:out value="${ i }"/></a></li>
+	</c:forEach>
+	<li>
+	<c:if test="${ pagination.lastPage ne 0 and pagination.nowPage ne pagination.lastPage }">
+		<a href="<%=  commonUrl %>/admin/mgr_notice.do?page=${ pagination.nowPage+1 }" aria-label="Next">
+			<span aria-hidden="true">&raquo;</span>
+		</a>
+	</c:if>
+	</li>
+</ul>
+</nav>
+</div>
+
 </div>
 
 <c:if test="${ not empty requestScope.msg }">

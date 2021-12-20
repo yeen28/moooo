@@ -54,12 +54,13 @@ public class MgrController {
 	 * È¸¿ø°ü¸® Æû
 	 */
 	@RequestMapping(value="mgr_user.do",method=GET)
-	public String memberForm(Model model) {
+	public String memberForm(String page, Model model) throws SQLException {
 		String jspPage="admin/mgr_user";
 		
 		try {
 			model.addAttribute("memberList", ms.searchMember());
 		} catch(DataAccessException dae) {  }
+		model.addAttribute("pagination", ms.getPagination(page));
 		
 		return jspPage;
 	} //memberForm
