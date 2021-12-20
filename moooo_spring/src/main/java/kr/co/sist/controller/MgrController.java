@@ -200,8 +200,8 @@ public class MgrController {
 	@RequestMapping(value="uploadSummernoteImgFile.do",method=POST)
 	public String uploadSummernoteImgFile(HttpServletRequest request, HttpServletResponse response, Model model) {
 		// 이미지 업로드할 경로
-		String uploadPath = "C:/Users/user/git/moooo/moooo_spring/src/main/webapp/upload";  //저장될 외부파일 경로
-		//String uploadPath = "D:/dev/upload"; //서버에서 경로
+		String uploadPath = "저장될 외부파일 경로";//D:/dev/git/moooo/moooo_spring/src/main/webapp/upload";
+		//String uploadPath = "D:/dev/moooo/upload"; //서버에서 경로
 	    int size = 10 * 1024 * 1024;  // 업로드 사이즈 제한 10M 이하
 		
 		String fileName = ""; // 파일명

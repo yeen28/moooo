@@ -8,8 +8,8 @@
 <!-- DBCP설정 -->
 <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
  <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
- <property name="url" value="jdbc:oracle:thin:@211.63.89.151:1521:orcl"/>
- <property name="username" value="proj_moooo"/>
+ <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+ <property name="username" value="moooo"/>
  <property name="password" value="moooo28"/>
  </bean>
  
