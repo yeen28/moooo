@@ -1,5 +1,6 @@
 package kr.co.sist.controller;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -10,11 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.sql.SQLException;
+import java.util.Enumeration;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.sist.service.MgrHowToService;
@@ -186,6 +193,42 @@ public class MgrController {
 		
 		return jspPage;
 	} //noticeEditForm
+	
+	/**
+	 * 이미지 서버로 업로드
+	 */
+	@RequestMapping(value="uploadSummernoteImgFile.do",method=POST)
+	public String uploadSummernoteImgFile(HttpServletRequest request, HttpServletResponse response, Model model) {
+		// 이미지 업로드할 경로
+		String uploadPath = "C:/Users/user/git/moooo/moooo_spring/src/main/webapp/upload";  //저장될 외부파일 경로
+		//String uploadPath = "D:/dev/upload"; //서버에서 경로
+	    int size = 10 * 1024 * 1024;  // 업로드 사이즈 제한 10M 이하
+		
+		String fileName = ""; // 파일명
+		
+		try{
+	        // 파일업로드 및 업로드 후 파일명 가져옴
+			MultipartRequest multi = new MultipartRequest(request, uploadPath, size, "utf-8", new DefaultFileRenamePolicy());
+			Enumeration files = multi.getFileNames();
+			String file = (String)files.nextElement(); 
+			fileName = multi.getFilesystemName(file); 
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	    // 업로드된 경로와 파일명을 통해 이미지의 경로를 생성
+		uploadPath = "/upload/" + fileName;
+		
+	    // 생성된 경로를 JSON 형식으로 보내주기 위한 설정
+		JSONObject jobj = new JSONObject();
+		jobj.put("url", uploadPath);
+		
+		response.setContentType("application/json"); // 데이터 타입을 json으로 설정하기 위한 세팅
+		model.addAttribute("out", jobj.toJSONString());
+		
+		return "admin/mgr_notice_write";
+	}
 	
 	/**
 	 * 공지사항 추가 또는 수정 처리

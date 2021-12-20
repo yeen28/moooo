@@ -6,8 +6,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/common/jsp/common_code.jsp" %>
 
-<!-- 서머노트에서 콜백함수 사용해서 이미지 등록하기 -->
-
 <c:if test="${ empty sessionScope.admin_id }">
 <c:redirect url="${ commonUrl }/admin/login.do"/>
 </c:if>
@@ -82,7 +80,7 @@ function sendFile( file, editor ) {
 	$.ajax({ //ajax를 통해 파일 업로드 처리
 		data: data,
 		type: "POST",
-		url: "proc/uploadSummernoteImageFile.jsp",
+		url: "uploadSummernoteImgFile.do",
 		enctype: 'multipart/form-data',
 		cache: false,
 		contentType: false,
@@ -91,12 +89,12 @@ function sendFile( file, editor ) {
 			//에디터에 이미지 출력
 			//$(editor).summernote('editor.insertImage', data.url, filename);
 			//console.log("filename : "+'filename');
-			//data.url = "http://localhost/moooo/common/images"+data.url;
+			//data.url = "http://localhost/moooo_spring"+data.url;
 			console.log("data : "+data.url);
-			$(editor).summernote('editor.insertImage', data.url, 'filename'); //server에 올리면 될거라고 생각하는데 과연...?
-			//$(editor).summernote('editor.insertImage', 'http://localhost/moooo/common/images'+data.url, 'filename');
-			//$("#summernote").summernote('editor', '<img src=http://localhost/moooo/common/images"'+data.url+'"/>');
-			//$(editor).summernote('editor.insertImage', "http://localhost/moooo/common/images/upload/img1.png");
+			$(editor).summernote('editor.insertImage', data.url, 'filename');
+			//$(editor).summernote('editor.insertImage', 'http://localhost/moooo_spring/common/images'+data.url, 'filename');
+			//$("#summernote").summernote('editor', '<img src=http://localhost/moooo_spring/common/images"'+data.url+'"/>');
+			//$(editor).summernote('editor.insertImage', "http://localhost/moooo_spring/upload/img1.png");
 		},
 		error: function( xhr ) {
 			alert("error");
