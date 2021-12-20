@@ -59,8 +59,11 @@
 	</div>
 <div class="panel-body">
 	<ul id="ul-list">
+		<c:if test="${ empty listBuyTitle }">
+		<li style="list-style: disc;">아직 작성된 글이 없습니다.</li>
+		</c:if>
 		<c:forEach var="buy" items="${ listBuyTitle }">
-			<li><a href="<%= commonUrl %>/want_buy/want_buy_detail.do?buy_id=${ buy.buy_id }"><c:out value="${ buy.title }"/></a></li>
+			<li style="list-style: disc;"><a href="<%= commonUrl %>/want_buy/want_buy_detail.do?buy_id=${ buy.buy_id }"><c:out value="${ buy.title }"/></a></li>
 		</c:forEach>
 	</ul>
 </div>
@@ -78,8 +81,11 @@
 	</div>
 <div class="panel-body">
 	<ul id="ul-list">
+		<c:if test="${ empty listSellTitle }">
+		<li style="list-style: disc;">아직 작성된 글이 없습니다.</li>
+		</c:if>
 		<c:forEach var="sell" items="${ listSellTitle }">
-			<li><a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ sell.sell_id }"><c:out value="${ sell.title }"/></a></li>
+			<li style="list-style: disc;"><a href="<%= commonUrl %>/want_sell/want_sell_detail.do?sell_id=${ sell.sell_id }"><c:out value="${ sell.title }"/></a></li>
 		</c:forEach>
 	</ul>
 </div>
