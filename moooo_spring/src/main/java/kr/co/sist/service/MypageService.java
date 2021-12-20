@@ -60,8 +60,8 @@ public class MypageService {
 		boolean result=false;
 		
 		//1. 파일업로드 컴포넌트 생성. ( 파일이 업로드 된다. )
-		File uploadPath=new File("C:/Users/user/git/moooo/moooo_spring/src/main/webapp/upload");
-//		File uploadPath=new File("E:/moooo/upload"); //서버에서 경로
+		File uploadPath=new File("D:/dev/git/moooo/moooo_spring/src/main/webapp/upload");
+//		File uploadPath=new File("D:/dev/moooo/upload"); //서버에서 경로
 		if( !uploadPath.exists() ){ //업로드 폴더가 존재하지 않으면
 			uploadPath.mkdirs();
 		}//end if
