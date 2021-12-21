@@ -37,7 +37,7 @@ public class WantController {
 	 * '사고싶어요' 글 목록
 	 */
 	@RequestMapping(value="want_buy/want_buy.do",method=GET)
-	public String wantBuy(String category,String page,Model model) {
+	public String wantBuy(String category,String page,Model model) throws SQLException {
 		String jspPage="want_buy/want_buy";
 		
 		int categoryNum=0;
@@ -49,7 +49,7 @@ public class WantController {
 		
 		ws.searchBuyList(categoryNum, page);
 		model.addAttribute("list",ws.searchBuyList(categoryNum, page));
-		model.addAttribute("pagination", ws.getPagination(category, page));
+		model.addAttribute("pagination", ws.getPagination(category, page, "buy"));
 		
 		return jspPage;
 	} //wantBuy
@@ -140,7 +140,7 @@ public class WantController {
 	 * '팔아요' 글 목록
 	 */
 	@RequestMapping(value="want_sell/want_sell.do",method= GET)
-	public String wantSell(String category,String page,Model model) {
+	public String wantSell(String category,String page,Model model) throws SQLException {
 		String jspPage="want_sell/want_sell";
 		
 		int categoryNum=0;
@@ -152,7 +152,7 @@ public class WantController {
 		
 		ws.searchSellList(categoryNum, page);
 		model.addAttribute("list",ws.searchSellList(categoryNum, page));
-		model.addAttribute("pagination", ws.getPagination(category, page));
+		model.addAttribute("pagination", ws.getPagination(category, page, "sell"));
 		
 		return jspPage;
 	} //wantSell

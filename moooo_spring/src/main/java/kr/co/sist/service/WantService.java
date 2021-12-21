@@ -33,11 +33,12 @@ public class WantService {
 	 * @param category
 	 * @param page
 	 * @return
+	 * @throws SQLException 
 	 */
-	public List<WantBuyVO> searchBuyList(int category, String page){
+	public List<WantBuyVO> searchBuyList(int category, String page) throws SQLException{
 		List<WantBuyVO> list=null;
 		
-		PaginationVO pVO=getPagination(String.valueOf(category), page);
+		PaginationVO pVO=getPagination(String.valueOf(category), page, "buy");
 		
 		DecimalFormat df=new DecimalFormat("#,###,###");
 		
@@ -59,8 +60,9 @@ public class WantService {
 	 * @param category
 	 * @param page
 	 * @return
+	 * @throws SQLException 
 	 */
-	public PaginationVO getPagination(String paramCategory, String page) {
+	public PaginationVO getPagination(String paramCategory, String page, String control) throws SQLException {
 		
 		
 		PaginationVO pVO=new PaginationVO();
@@ -73,7 +75,14 @@ public class WantService {
 		}//end catch
 		
 		int numPerPage=numPerPage(); //한 페이지 당 보여줄 게시물의 수
-		int totData=searchAllCnt(category); //전체 게시물 수
+		int totData=0; //전체 게시물 수
+		if( "sell".equals(control) ) {
+			totData=searchAllCntSell(category);
+		} //end if
+		if( "buy".equals(control) ) {
+			totData=searchAllCntBuy(category);
+		} //end if
+
 		int lastPage=totalPage(totData,numPerPage); //마지막 페이지번호
 //		int lastPage=totData/numPerPage; //마지막 페이지번호
 //		if(totData % numPerPage > 0){
@@ -86,32 +95,27 @@ public class WantService {
 		} catch (NumberFormatException nfe){
 			nowPage=1;
 		}
-		int start=((nowPage-1)/blockPage)*10+1;
-		int end=start+blockPage-1;
-//		int end=endNum(start, blockPage);
+		int start=((nowPage-1)/blockPage)*10+1; //하단의 시작블럭(예: 1, 11, 21, 31, ,,,)
+		int end=start+blockPage-1; //하단의 끝 블럭(예: 10, 20, 30, ,,,)
 		if( end > lastPage ){
 			end=lastPage;
 		} //end if
 
-		int rowBegin=(nowPage-1)*numPerPage+1;
-//		int rowBegin=startNum(nowPage,blockPage);
-		int rowEnd=nowPage*numPerPage;
-		
 		pVO.setNowPage(nowPage);
 		pVO.setStart(start);
 		pVO.setEnd(end);
-		pVO.setRowBegin(rowBegin);
-		pVO.setRowEnd(rowEnd);
+		pVO.setRowBegin( rowBegin(nowPage,numPerPage) ); //현재 페이지에 따른 게시글의 시작 번호(예: 6개의 게시글만 보여준다고 가정. 1, 7, 13, ,,,)
+		pVO.setRowEnd( rowEnd(nowPage, numPerPage) ); //현재 페이지에 따른 게시글의 끝 번호(예: 6개의 게시글만 보여준다고 가정. 6, 12, 18, ,,,)
 		pVO.setLastPage(lastPage);
 		
 		return pVO;
 	} //getPagination
 	
 	/**
-	 * 전체 게시물의 수
+	 * '사고싶어요' 전체 게시물의 수
 	 * @return
 	 */
-	public int searchAllCnt(int category) {
+	public int searchAllCntBuy(int category) {
 		int cnt=0;
 		
 		try {
@@ -119,14 +123,32 @@ public class WantService {
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			cnt=0;
-		}
+		} //end catch
 		
 		return cnt;
-	}//searchAllCnt
+	}//searchAllCntBuy
+	
+	/**
+	 * '팔아요' 전체 게시물의 수
+	 * @return
+	 * @throws SQLException 
+	 */
+	public int searchAllCntSell(int category) throws SQLException {
+		int cnt=0;
+		
+		try {
+			cnt = sDAO.selectSellCnt(category);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			cnt=0;
+		} //end catch
+		
+		return cnt;
+	}//searchAllCntSell
 	
 	/**
 	 * 한 화면에 보여줄 게시물의 수
-	 * @return
+	 * @return 10
 	 */
 	public int numPerPage() {
 		return 10;
@@ -134,7 +156,7 @@ public class WantService {
 	
 	/**
 	 * 하단에 보여줄 페이지네이션 블럭의 수
-	 * @return
+	 * @return 10
 	 */
 	public int blockPage() {
 		return 10;
@@ -160,25 +182,26 @@ public class WantService {
 	 * @param blockPage 하단에 보여줄 페이지네이션 블럭의 수
 	 * @return
 	 */
-	public int startNum(int nowPage, int blockPage) {
+	public int rowBegin(int nowPage, int numPerPage) {
 		int startNum=0;
 		
 		//startNum=(nowPage-1)*numPerPage+1;
-		startNum=nowPage*blockPage-blockPage+1;
+		startNum=nowPage*numPerPage-numPerPage+1;
 		
 		return startNum;
-	} //startNum
+	} //rowBegin
 	
 	/**
-	 * 끝 숫자(end)
-	 * @param start 시작번호
+	 * 끝 숫자(rowEnd)
+	 * @param rowBegin 시작번호
 	 * @param blockPage 하단에 보여줄 페이지 개수
 	 * @return
 	 */
-	public int endNum(int start, int blockPage) {
-		int end=start+blockPage-1;
+	public int rowEnd(int nowPage, int numPerPage) {
+		int end=nowPage*numPerPage;
+//		int end=rowBegin+numPerPage-1;
 		return end;
-	} //endNum
+	} //rowEnd
 	
 	/**
 	 * 사고싶어요 상세페이지 내용 얻기
@@ -207,13 +230,6 @@ public class WantService {
 	public void addBuy(WantBuyVO wv) throws DataAccessException {
 		bDAO.insertBuy(wv);
 	} //addBuy
-//	public boolean addBuy(String ipAddr, String sessionId, WantBuyVO wv) throws DataAccessException {
-//		boolean result=false;
-//		
-//		bDAO.insertBuy(wv);
-//		
-//		return result;
-//	} //addBuy
 	
 	/**
 	 * 글 수정 처리
@@ -266,11 +282,12 @@ public class WantService {
 	 * @param category
 	 * @param page
 	 * @return
+	 * @throws SQLException 
 	 */
-	public List<WantSellVO> searchSellList(int category, String page) {
+	public List<WantSellVO> searchSellList(int category, String page) throws SQLException {
 		List<WantSellVO> list=null;
 		
-		PaginationVO pVO=getPagination(String.valueOf(category), page);
+		PaginationVO pVO=getPagination(String.valueOf(category), page, "sell");
 		
 		DecimalFormat df=new DecimalFormat("#,###,###");
 		
@@ -458,9 +475,5 @@ public class WantService {
 		} //end for
 		return list;
 	} //searchWordBuyList
-	
-//	public String getSelected() {
-//		return "selected='selected'";
-//	} //getSelected
 	
 } //class

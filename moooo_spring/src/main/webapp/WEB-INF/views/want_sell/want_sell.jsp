@@ -93,7 +93,7 @@
 		<nav id="pagination">
 			<ul class="pagination">
 	<li>
-		<c:if test="${ nowPage ne 1 and param.page ne null }">
+		<c:if test="${ param.page lt 1 and param.page ne null }">
 			<a href="<%=  commonUrl %>/want_sell/want_sell.do?page=${ pagination.nowPage-1 }" aria-label="Previous">
 			<span aria-hidden="true">&laquo;</span>
 			</a>
