@@ -37,6 +37,20 @@ a:hover{ text-decoration: none; }
 .sell_content{ background-color: rgba( 255, 255, 255, 0.7 ); }
 </style>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=key!!!"></script>
+<script>
+$(function() {
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };
+	
+	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+});
+</script>
+
 <script type="text/javascript">
 $(function() {
 	<c:if test="${ not empty param.msg }">
@@ -181,6 +195,9 @@ function readURL(input) {
 					</c:if>
 					</div>
 				</div>
+				
+				<div id="map" style="width:100%;height:350px;"></div>
+				
 				<div class="btnArea">
 				<button type="button" class="btn btn-default" id="listBtn">목록</button>
 				<button type="button" class="btn btn-primary" onclick="chkUserEdit('${sessionScope.user_id}','${ sell.user_id }')">수정</button>
